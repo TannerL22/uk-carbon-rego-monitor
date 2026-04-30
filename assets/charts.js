@@ -31,8 +31,27 @@ function renderLineChart(containerId, series, fields, options = {}) {
       const y = yFor(Number.isFinite(value) ? value : min).toFixed(1);
       return `${index === 0 ? "M" : "L"} ${x} ${y}`;
     }).join(" ");
-    return `<path d="${d}" fill="none" stroke="${field.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
+    return `<path d="${d}" fill="none" stroke="${field.color}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>`;
   }).join("");
+
+  // Latest-value annotation on the primary (first) field.
+  const lastIndex = series.length - 1;
+  const primary = fields[0];
+  const lastRaw = lastIndex >= 0 ? Number(series[lastIndex][primary.key]) : NaN;
+  let annotation = "";
+  if (Number.isFinite(lastRaw)) {
+    const lx = xFor(lastIndex);
+    const ly = yFor(lastRaw);
+    const label = formatAxis(lastRaw, options.unit);
+    const textW = Math.max(26, String(label).length * 6.6 + 10);
+    const boxX = Math.min(width - pad.right - textW, lx + 6);
+    const boxY = Math.max(pad.top, ly - 8);
+    annotation = `
+      <circle cx="${lx.toFixed(1)}" cy="${ly.toFixed(1)}" r="2.8" fill="${primary.color}" stroke="#fff" stroke-width="1.2"/>
+      <rect class="chart-annot-box" x="${boxX.toFixed(1)}" y="${boxY.toFixed(1)}" width="${textW.toFixed(1)}" height="16" rx="2"/>
+      <text class="chart-annot" x="${(boxX + textW / 2).toFixed(1)}" y="${(boxY + 11).toFixed(1)}" text-anchor="middle">${escapeHtml(label)}</text>
+    `;
+  }
 
   const legend = fields.map((field) => `
     <span class="legend-item"><i style="background:${field.color}"></i>${escapeHtml(field.label)}</span>
@@ -48,6 +67,7 @@ function renderLineChart(containerId, series, fields, options = {}) {
         </g>
       `).join("")}
       ${paths}
+      ${annotation}
       <text x="${pad.left}" y="${height - 9}" class="axis-label">${escapeHtml(series[0].date || "")}</text>
       <text x="${width - pad.right}" y="${height - 9}" text-anchor="end" class="axis-label">${escapeHtml(series[series.length - 1].date || "")}</text>
     </svg>

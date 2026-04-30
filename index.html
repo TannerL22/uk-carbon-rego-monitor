@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UK Carbon & REGO Operations Monitor</title>
+    <title>UK Carbon &amp; REGO Operations Monitor</title>
     <link rel="stylesheet" href="assets/styles.css">
   </head>
   <body>
@@ -19,9 +19,9 @@
         <div class="header-copy">
           <p class="eyebrow">Market operations briefing</p>
           <h1>UK Carbon &amp; REGO Operations Monitor</h1>
-          <p class="lede">Carbon market signals, GB power fundamentals, and renewable certificate controls.</p>
+          <p class="lede">Carbon market signals, GB power fundamentals, and renewable certificate controls &mdash; generated from a reproducible Python pipeline against public and representative demo data.</p>
           <div class="header-meta">
-            <p id="data-status" class="data-status" role="status">Loading dashboard data...</p>
+            <p id="data-status" class="data-status" role="status">Loading dashboard data&hellip;</p>
             <section class="data-basis" aria-labelledby="data-basis-heading">
               <h2 id="data-basis-heading">Data basis</h2>
               <dl id="data-basis-list"></dl>
@@ -38,11 +38,11 @@
             <p class="eyebrow">Executive briefing</p>
             <h2>Priority operating signals</h2>
           </div>
-          <p>Contract coverage, certificate controls, source quality, and market context generated from Python outputs.</p>
+          <p>Contract coverage, certificate controls, source quality, and market context &mdash; generated from Python outputs and reconciled against the source register.</p>
         </div>
         <div class="hero-grid">
           <div class="attention-panel">
-            <h2 id="attention-heading">What Requires Attention</h2>
+            <h2 id="attention-heading">What requires attention</h2>
             <ol id="analyst-attention" class="attention-list"></ol>
           </div>
           <dl id="summary-cards" class="summary-grid"></dl>
@@ -64,6 +64,7 @@
           <h2 id="exceptions-heading">Exception Register</h2>
           <p>The control evidence: duplicate IDs, lifecycle errors, contract mismatches, vintage breaches, and source-quality issues.</p>
         </div>
+        <dl id="register-summary" class="register-summary" aria-label="Exception counts"></dl>
         <div id="exception-summary" class="split-panel"></div>
         <div class="filters" aria-label="Exception filters">
           <label>Severity <select id="severity-filter"><option value="">All</option></select></label>
@@ -81,12 +82,12 @@
         <dl id="power-metrics" class="fact-row"></dl>
         <div class="visual-grid">
           <div>
-            <h3>Carbon intensity</h3>
+            <h3>Carbon intensity <span class="muted">gCO2/kWh</span></h3>
             <div id="power-line" class="svg-chart"></div>
             <p id="power-line-caption" class="chart-caption"></p>
           </div>
           <div>
-            <h3>Latest generation mix</h3>
+            <h3>Latest generation mix <span class="muted">share %</span></h3>
             <div id="generation-bars" class="bars-panel"></div>
             <p id="generation-bars-caption" class="chart-caption"></p>
           </div>
@@ -98,18 +99,20 @@
           <h2 id="carbon-heading">Carbon Market Signals</h2>
           <p>Curated public-sample UKA/EUA auction data. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
         </div>
-        <p id="carbon-sample-period" class="sample-period"></p>
-        <p id="carbon-fx-note" class="method-note"></p>
-        <p id="carbon-feed-note" class="method-note">Public/curated auction intelligence only; not a licensed live trading feed.</p>
+        <div class="section-meta" role="note">
+          <p id="carbon-sample-period" class="sample-period"></p>
+          <p id="carbon-fx-note" class="method-note"></p>
+          <p id="carbon-feed-note" class="method-note">Public / curated auction intelligence only; not a licensed live trading feed.</p>
+        </div>
         <dl id="carbon-metrics" class="fact-row"></dl>
         <div class="visual-grid">
           <div>
-            <h3>UKA and EUA auction prices in GBP</h3>
+            <h3>UKA and EUA auction prices <span class="muted">GBP</span></h3>
             <div id="carbon-price-line" class="svg-chart"></div>
             <p id="carbon-price-caption" class="chart-caption"></p>
           </div>
           <div>
-            <h3>UKA-EUA spread in GBP</h3>
+            <h3>UKA&ndash;EUA spread <span class="muted">GBP</span></h3>
             <div id="carbon-spread-line" class="svg-chart"></div>
             <p id="carbon-spread-caption" class="chart-caption"></p>
           </div>
@@ -128,6 +131,7 @@
       <section class="section" aria-labelledby="note-heading">
         <div class="section-heading">
           <h2 id="note-heading">Analyst Note</h2>
+          <p>Narrative summary generated from the same Python outputs that populate this briefing.</p>
         </div>
         <div id="analyst-note" class="note"></div>
       </section>

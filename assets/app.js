@@ -119,14 +119,14 @@ function formatMoney(value) {
 }
 
 function cardImplication(card) {
+  // Prefer the rich, number-bearing subline from the Python pipeline.
+  const subline = String(card.subline || "").trim();
+  if (subline) return subline;
+
   const label = String(card.label || "").toLowerCase();
   const headline = String(card.headline || card.value || "").toLowerCase();
-  if (label.includes("carbon")) {
-    return "UKA below EUA-equivalent level; monitor UK-specific divergence.";
-  }
-  if (label.includes("auction")) {
-    return "Cover ratio close to recent average.";
-  }
+  if (label.includes("carbon"))  return "UKA below EUA-equivalent level; monitor UK-specific divergence.";
+  if (label.includes("auction")) return "Cover ratio close to recent average.";
   if (label.includes("power")) {
     return headline.includes("below")
       ? "Lower near-term emissions-pressure signal."
@@ -134,16 +134,10 @@ function cardImplication(card) {
         ? "Higher emissions-pressure context for market review."
         : "Near recent physical emissions backdrop.";
   }
-  if (label.includes("rego")) {
-    return "Review high-severity exceptions before disclosure close.";
-  }
-  if (label.includes("exposure")) {
-    return "Shortfall creates assumed replacement-cost exposure.";
-  }
-  if (label.includes("quality")) {
-    return "Resolve source-register warnings before publishing outputs.";
-  }
-  return card.subline || "";
+  if (label.includes("rego"))     return "Review high-severity exceptions before disclosure close.";
+  if (label.includes("exposure")) return "Shortfall creates assumed replacement-cost exposure.";
+  if (label.includes("quality"))  return "Resolve source-register warnings before publishing outputs.";
+  return "";
 }
 
 function renderSummaryCards(cards) {
@@ -360,6 +354,27 @@ function renderCoverageBars(containerId, contracts) {
   }).join("");
 }
 
+function renderRegisterSummary(exceptions) {
+  const target = document.querySelector("#register-summary");
+  if (!target) return;
+  const rows = exceptions || [];
+  const high   = rows.filter((r) => r.severity === "High").length;
+  const medium = rows.filter((r) => r.severity === "Medium").length;
+  const low    = rows.filter((r) => r.severity === "Low").length;
+
+  target.innerHTML = [
+    { label: "Exceptions logged", value: formatNumber(rows.length), cls: "" },
+    { label: "High severity",     value: formatNumber(high),        cls: "register-high" },
+    { label: "Medium severity",   value: formatNumber(medium),      cls: "register-medium" },
+    { label: "Low severity",      value: formatNumber(low),         cls: "register-low" }
+  ].map((item) => `
+    <div>
+      <dt>${escapeHtml(item.label)}</dt>
+      <dd class="${item.cls}">${escapeHtml(item.value)}</dd>
+    </div>
+  `).join("");
+}
+
 function renderExceptionSummary(exceptions) {
   const bySeverity = countBy(exceptions, "severity");
   const byControl = Object.entries(countBy(exceptions, "control_type"))
@@ -493,6 +508,7 @@ async function initDashboard() {
   renderAttention(dashboard.analyst_attention);
   renderExecutiveStrip(dashboard);
   renderContractSummary(dashboard.rego_contract_summary);
+  renderRegisterSummary(dashboard.rego_exceptions);
   renderExceptionSummary(dashboard.rego_exceptions);
   populateFilters(dashboard.rego_exceptions);
   renderExceptionTable();
