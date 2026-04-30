@@ -1,0 +1,34 @@
+{
+  "sources_registered": 6,
+  "warning_count": 2,
+  "stale_source_count": 0,
+  "manual_sources_requiring_notes": 1,
+  "severity_counts": {
+    "High": 0,
+    "Medium": 2,
+    "Low": 0
+  },
+  "issues": [
+    {
+      "issue_id": "SRC-EX-001",
+      "source_id": "SRC-003",
+      "dataset_name": "UKA auction results sample",
+      "control_id": "SC-002",
+      "severity": "Medium",
+      "field": "downloaded_at",
+      "issue": "Missing download timestamp.",
+      "suggested_action": "Populate downloaded_at for source lineage."
+    },
+    {
+      "issue_id": "SRC-EX-002",
+      "source_id": "SRC-004",
+      "dataset_name": "EUA auction results sample",
+      "control_id": "SC-005",
+      "severity": "Medium",
+      "field": "known_limitations",
+      "issue": "Manual input lacks limitations note.",
+      "suggested_action": "Add limitations or review note for the manual source."
+    }
+  ],
+  "summary_signal": "2 source-register warnings"
+}

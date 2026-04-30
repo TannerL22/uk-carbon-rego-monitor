@@ -1,0 +1,2 @@
+currency_pair,rate,rate_basis,valid_from,valid_to,source,notes
+EURGBP,0.86,Illustrative static FX assumption for converting EUA EUR auction prices into GBP,2024-10-01,2025-05-31,Project assumption,Used for public demo only; not a live FX feed

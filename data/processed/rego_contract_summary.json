@@ -1,0 +1,47 @@
+[
+  {
+    "contract_id": "C-001",
+    "counterparty": "Corporate Buyer A",
+    "product_type": "Wind-backed renewable supply",
+    "required_mwh": 12000.0,
+    "eligible_matched_mwh": 11850.0,
+    "ineligible_allocated_mwh": 350.0,
+    "shortfall_mwh": 150.0,
+    "surplus_mwh": 0.0,
+    "coverage_ratio": 0.9875,
+    "assumed_rego_replacement_price_gbp_per_mwh": 6.5,
+    "estimated_replacement_exposure_gbp": 975.0,
+    "coverage_status": "Shortfall",
+    "fmd_period": "2024-25"
+  },
+  {
+    "contract_id": "C-002",
+    "counterparty": "Corporate Buyer B",
+    "product_type": "Solar-backed renewable supply",
+    "required_mwh": 8000.0,
+    "eligible_matched_mwh": 7250.0,
+    "ineligible_allocated_mwh": 300.0,
+    "shortfall_mwh": 750.0,
+    "surplus_mwh": 0.0,
+    "coverage_ratio": 0.9062,
+    "assumed_rego_replacement_price_gbp_per_mwh": 7.25,
+    "estimated_replacement_exposure_gbp": 5437.5,
+    "coverage_status": "Shortfall",
+    "fmd_period": "2024-25"
+  },
+  {
+    "contract_id": "C-003",
+    "counterparty": "FMD Pool",
+    "product_type": "Standard renewable supply",
+    "required_mwh": 20000.0,
+    "eligible_matched_mwh": 20900.0,
+    "ineligible_allocated_mwh": 0.0,
+    "shortfall_mwh": 0.0,
+    "surplus_mwh": 900.0,
+    "coverage_ratio": 1.045,
+    "assumed_rego_replacement_price_gbp_per_mwh": 5.75,
+    "estimated_replacement_exposure_gbp": 0.0,
+    "coverage_status": "Surplus",
+    "fmd_period": "2024-25"
+  }
+]

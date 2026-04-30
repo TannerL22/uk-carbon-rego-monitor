@@ -1,0 +1,59 @@
+{
+  "latest_auction_date": "2025-05-22",
+  "latest_uka_volume": 2615000,
+  "latest_uka_cover_ratio": 1.22,
+  "trailing_uka_cover_ratio": 1.27,
+  "demand_signal": "Latest auction demand: neutral",
+  "volume_signal": "Auction supply above recent average",
+  "next_auction_date": "2025-06-12",
+  "series": [
+    {
+      "date": "2024-10-03",
+      "auction_volume": 5650000
+    },
+    {
+      "date": "2024-10-24",
+      "auction_volume": 5687000
+    },
+    {
+      "date": "2024-11-14",
+      "auction_volume": 5724000
+    },
+    {
+      "date": "2024-12-05",
+      "auction_volume": 5761000
+    },
+    {
+      "date": "2024-12-26",
+      "auction_volume": 5798000
+    },
+    {
+      "date": "2025-01-16",
+      "auction_volume": 5835000
+    },
+    {
+      "date": "2025-02-06",
+      "auction_volume": 5872000
+    },
+    {
+      "date": "2025-02-27",
+      "auction_volume": 5909000
+    },
+    {
+      "date": "2025-03-20",
+      "auction_volume": 5946000
+    },
+    {
+      "date": "2025-04-10",
+      "auction_volume": 5983000
+    },
+    {
+      "date": "2025-05-01",
+      "auction_volume": 6020000
+    },
+    {
+      "date": "2025-05-22",
+      "auction_volume": 6057000
+    }
+  ]
+}

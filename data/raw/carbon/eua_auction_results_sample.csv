@@ -1,0 +1,13 @@
+market,auction_date,auction_volume,clearing_price,currency,cover_ratio,reference_price,source,source_url,notes
+EUA,2024-10-03,3200000,66.1,EUR,1.78,65.9,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2024-10-24,3222000,66.8,EUR,1.79,66.6,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2024-11-14,3244000,65.4,EUR,1.8,65.2,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2024-12-05,3266000,64.9,EUR,1.81,64.7,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2024-12-26,3288000,65.7,EUR,1.82,65.5,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-01-16,3310000,66.5,EUR,1.83,66.3,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-02-06,3332000,67.1,EUR,1.84,66.9,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-02-27,3354000,68.2,EUR,1.85,68.0,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-03-20,3376000,68.9,EUR,1.86,68.7,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-04-10,3398000,69.5,EUR,1.87,69.3,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-05-01,3420000,70.1,EUR,1.88,69.9,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration
+EUA,2025-05-22,3442000,70.7,EUR,1.89,70.5,Curated public auction sample,https://climate.ec.europa.eu/eu-action/eu-emissions-trading-system-eu-ets_en,Sample values for public portfolio demonstration

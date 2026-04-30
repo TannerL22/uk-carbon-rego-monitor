@@ -1,0 +1,4 @@
+contract_id,counterparty,product_type,contract_start,contract_end,delivery_period_start,delivery_period_end,required_mwh,eligible_technology,eligible_country,fmd_period,contract_status,assumed_rego_replacement_price_gbp_per_mwh
+C-001,Corporate Buyer A,Wind-backed renewable supply,2024-04-01,2025-03-31,2024-04-01,2025-03-31,12000,Wind,GB,2024-25,Signed,6.5
+C-002,Corporate Buyer B,Solar-backed renewable supply,2024-04-01,2025-03-31,2024-04-01,2025-03-31,8000,Solar,GB,2024-25,Signed,7.25
+C-003,FMD Pool,Standard renewable supply,2024-04-01,2025-03-31,2024-04-01,2025-03-31,20000,Any Renewable,GB,2024-25,Open,5.75

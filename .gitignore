@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+.env
+.env.*
+
+# Local outputs and OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Keep generated project outputs visible by default, but ignore ad hoc exports.
+outputs/tmp/
+data/tmp/
