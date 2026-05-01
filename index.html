@@ -50,7 +50,7 @@
         <div id="executive-strip" class="executive-strip" aria-label="REGO exposure summary"></div>
       </section>
 
-      <section id="rego" class="section" aria-labelledby="rego-heading">
+      <section id="rego" class="section section--ops" aria-labelledby="rego-heading">
         <div class="section-heading">
           <h2 id="rego-heading">REGO Contract Reconciliation</h2>
           <p>Representative demo supplier-style REGO ledger reconciled against contract eligibility, delivery periods, and assumed replacement prices.</p>
@@ -59,7 +59,7 @@
         <div id="rego-summary" class="table-wrap"></div>
       </section>
 
-      <section class="section" aria-labelledby="exceptions-heading">
+      <section class="section section--ops section--register" aria-labelledby="exceptions-heading">
         <div class="section-heading">
           <h2 id="exceptions-heading">Exception Register</h2>
           <p>The control evidence: duplicate IDs, lifecycle errors, contract mismatches, vintage breaches, and source-quality issues.</p>
@@ -74,7 +74,7 @@
         <div id="exception-table" class="table-wrap"></div>
       </section>
 
-      <section id="power" class="section" aria-labelledby="power-heading">
+      <section id="power" class="section section--context" aria-labelledby="power-heading">
         <div class="section-heading">
           <h2 id="power-heading">GB Power Fundamentals</h2>
           <p>Live NESO Carbon Intensity API data fetched during the Python build. Physical emissions context is separate from contractual renewable supply.</p>
@@ -94,7 +94,7 @@
         </div>
       </section>
 
-      <section id="carbon" class="section" aria-labelledby="carbon-heading">
+      <section id="carbon" class="section section--context" aria-labelledby="carbon-heading">
         <div class="section-heading">
           <h2 id="carbon-heading">Carbon Market Signals</h2>
           <p>Curated public-sample UKA/EUA auction data. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
@@ -119,7 +119,7 @@
         </div>
       </section>
 
-      <section id="sources" class="section" aria-labelledby="source-heading">
+      <section id="sources" class="section section--evidence" aria-labelledby="source-heading">
         <div class="section-heading">
           <h2 id="source-heading">Source Register &amp; Data Quality</h2>
           <p>Lineage, freshness, manual-input warnings, and known limitations are visible alongside the analysis.</p>
@@ -128,7 +128,7 @@
         <div id="source-issues" class="table-wrap"></div>
       </section>
 
-      <section class="section" aria-labelledby="note-heading">
+      <section class="section section--evidence" aria-labelledby="note-heading">
         <div class="section-heading">
           <h2 id="note-heading">Analyst Note</h2>
           <p>Narrative summary generated from the same Python outputs that populate this briefing.</p>
