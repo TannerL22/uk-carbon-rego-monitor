@@ -198,8 +198,8 @@ function renderFactRow(selector, facts) {
 function renderCarbonMetrics(summary) {
   const carbon = summary.carbon || {};
   const auction = summary.auction || {};
-  document.querySelector("#carbon-sample-period").textContent = carbon.sample_period_label || "";
-  document.querySelector("#carbon-fx-note").textContent = carbon.currency_note || "";
+  document.querySelector("#carbon-sample-period").textContent = formatCarbonSampleWindow(carbon.sample_period_label);
+  document.querySelector("#carbon-fx-note").textContent = formatCarbonFxNote(carbon.currency_note);
   renderFactRow("#carbon-metrics", [
     { label: "Latest UKA", value: carbon.latest_uka_price_gbp ? `GBP ${carbon.latest_uka_price_gbp}` : "n/a" },
     { label: "Latest EUA", value: carbon.latest_eua_price_eur ? `EUR ${carbon.latest_eua_price_eur}` : "n/a" },
@@ -208,6 +208,15 @@ function renderCarbonMetrics(summary) {
     { label: "Regime", value: carbon.spread_regime ?? "n/a" },
     { label: "Auction demand", value: auction.demand_signal ?? "n/a" }
   ]);
+}
+
+function formatCarbonSampleWindow(label) {
+  return String(label || "").replace(/^Carbon market sample period:\s*/i, "");
+}
+
+function formatCarbonFxNote(note) {
+  const match = String(note || "").match(/EUR\/GBP assumption of ([0-9.]+)/i);
+  return match ? `static EUR/GBP ${match[1]}` : String(note || "");
 }
 
 function renderPowerMetrics(summary) {
@@ -327,6 +336,7 @@ function renderCoverageBars(containerId, contracts) {
     const surplus = Math.max(Number(row.surplus_mwh) || 0, 0);
     const coveredWidth = required ? Math.min(eligible, required) / required * 100 : 0;
     const shortfallWidth = required ? shortfall / required * 100 : 0;
+    const rowStatusClass = statusClass(row.coverage_status).replace("status-", "coverage-row--");
     const label = `${escapeHtml(row.contract_id)} ${escapeHtml(row.counterparty)}`;
     const delta = shortfall > 0
       ? `${formatNumber(shortfall)} MWh shortfall · ${formatMoney(row.estimated_replacement_exposure_gbp)} cover cost`
@@ -335,7 +345,7 @@ function renderCoverageBars(containerId, contracts) {
         : "Covered exactly";
 
     return `
-      <div class="coverage-row">
+      <div class="coverage-row ${rowStatusClass}">
         <div class="coverage-row__head">
           <span>${label}</span>
           <strong>${escapeHtml(row.coverage_status)}</strong>
@@ -395,12 +405,12 @@ function renderExceptionSummary(exceptions) {
   }));
 
   document.querySelector("#exception-summary").innerHTML = `
-    <div>
-      <h3>By severity</h3>
+    <div class="register-panel register-panel--severity">
+      <h3>Severity profile</h3>
       <div id="severity-bars" class="bars-panel"></div>
     </div>
-    <div>
-      <h3>Top controls</h3>
+    <div class="register-panel register-panel--controls">
+      <h3>Most frequent controls</h3>
       <div id="control-bars" class="bars-panel"></div>
     </div>
   `;
