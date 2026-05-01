@@ -47,6 +47,12 @@ CONTROL_GROUPS = {
 
 
 def read_inputs() -> tuple[pd.DataFrame, pd.DataFrame]:
+    for path in [CONTRACTS_PATH, LEDGER_PATH]:
+        if not path.exists():
+            raise FileNotFoundError(
+                f"Missing REGO demo input {path}. "
+                "Run python src/seed_demo_data.py to intentionally reset representative demo inputs."
+            )
     contracts = pd.read_csv(CONTRACTS_PATH, dtype=str).fillna("")
     ledger = pd.read_csv(LEDGER_PATH, dtype=str).fillna("")
 

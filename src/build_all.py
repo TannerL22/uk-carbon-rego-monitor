@@ -9,7 +9,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 STEPS = [
-    "generate_synthetic_data.py",
     "rego_controls.py",
     "carbon_signals.py",
     "auction_signals.py",

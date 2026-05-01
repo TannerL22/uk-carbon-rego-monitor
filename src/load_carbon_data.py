@@ -1,4 +1,8 @@
-"""Load and standardise carbon auction sample data."""
+"""Load and standardise carbon auction input data.
+
+Normal builds treat carbon auction CSVs as raw inputs. They are not generated
+or overwritten by ``build_all.py``.
+"""
 
 from __future__ import annotations
 
@@ -9,13 +13,41 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
+AUCTION_FILES = ["uka_auction_results_sample.csv", "eua_auction_results_sample.csv"]
+REQUIRED_COLUMNS = {
+    "market",
+    "auction_date",
+    "auction_volume",
+    "clearing_price",
+    "currency",
+    "cover_ratio",
+    "reference_price",
+    "source",
+    "source_url",
+    "notes",
+}
+
+
+def read_auction_csv(path: Path) -> pd.DataFrame:
+    if not path.exists():
+        raise FileNotFoundError(
+            f"Missing carbon auction input {path}. "
+            "Run python src/seed_demo_data.py to create demo inputs, or add a curated official CSV."
+        )
+    frame = pd.read_csv(path)
+    if frame.empty:
+        raise ValueError(f"Carbon auction input {path} is empty.")
+    missing = REQUIRED_COLUMNS.difference(frame.columns)
+    if missing:
+        raise ValueError(f"Carbon auction input {path} is missing required columns: {', '.join(sorted(missing))}")
+    return frame
 
 
 def load_auction_data() -> pd.DataFrame:
     frames = []
-    for filename in ["uka_auction_results_sample.csv", "eua_auction_results_sample.csv"]:
+    for filename in AUCTION_FILES:
         path = CARBON_RAW / filename
-        frame = pd.read_csv(path)
+        frame = read_auction_csv(path)
         frames.append(frame)
 
     auctions = pd.concat(frames, ignore_index=True)

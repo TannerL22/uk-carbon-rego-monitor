@@ -49,6 +49,16 @@ outputs/
 
 The browser reads processed JSON files from `data/processed/`. Business logic lives in Python, not JavaScript.
 
+Normal dashboard builds read the raw input files already present under `data/raw/`. They do not regenerate representative demo data or overwrite curated carbon auction CSVs.
+
+To intentionally reset the representative demo inputs, run:
+
+```bash
+python src/seed_demo_data.py
+```
+
+That seed command recreates the representative REGO ledger, representative contracts, initial carbon sample CSVs, FX assumption file, and source-register seed rows. It is separate from the scheduled refresh path.
+
 ## Static Hosting And Data Refresh
 
 GitHub Pages serves this project as static HTML, CSS, JavaScript, CSV, and JSON files. Python does not run in the visitor's browser.

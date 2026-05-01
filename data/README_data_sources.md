@@ -2,6 +2,11 @@
 
 This project separates raw/sample inputs from processed dashboard outputs.
 
+Normal dashboard builds read the files in `data/raw/` as inputs. They do not
+regenerate representative demo data or overwrite curated carbon auction files.
+Use `python src/seed_demo_data.py` only when intentionally resetting the demo
+inputs.
+
 ## Raw Inputs
 
 - `data/raw/carbon/uka_auction_results_sample.csv`: curated public-sample UKA auction results.

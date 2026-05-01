@@ -5,6 +5,7 @@
 - No licensed live carbon market price feed is used.
 - UKA and EUA values are curated public-sample auction data.
 - The dashboard displays the carbon market sample period.
+- Normal scheduled builds read carbon CSVs as raw inputs and do not regenerate or overwrite them.
 - UKA prices are GBP and EUA prices are EUR.
 - EUA prices are converted to GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before spread is calculated.
 - The UKA-EUA spread is a simplified GBP-normalised sample indicator, not a live tradable spread.

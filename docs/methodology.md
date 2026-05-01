@@ -16,6 +16,8 @@ The carbon module uses curated public-sample UKA and EUA auction data. UKA price
 
 The dashboard deliberately avoids live trading language. Auction data are used as a transparent market-context proxy, not as a substitute for licensed price feeds, internal trading marks, or live FX-adjusted market data. The dashboard displays the carbon market sample period.
 
+Normal dashboard builds treat the carbon auction CSVs in `data/raw/carbon/` as source inputs. They are not regenerated during `python src/build_all.py`. The separate `python src/seed_demo_data.py` command is only for intentionally resetting representative demo inputs.
+
 ## GB Power Fundamentals
 
 The power module fetches recent live data from the NESO Carbon Intensity API during the Python build. It calculates latest carbon intensity, recent average carbon intensity, gas share, wind and solar share, low-carbon share, and a simple driver label.

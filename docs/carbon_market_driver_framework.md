@@ -9,6 +9,8 @@ The carbon module is a market-intelligence context layer. It is not a trading te
 
 Fields include market, auction date, auction volume, clearing price, currency, cover ratio, reference price, source, URL, and notes.
 
+The normal dashboard build reads these CSVs as raw inputs. It does not generate or overwrite them. Use `python src/seed_demo_data.py` only when intentionally resetting the demo/sample input files.
+
 ## Metrics
 
 - Latest UKA auction price.
