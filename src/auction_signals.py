@@ -26,17 +26,20 @@ def demand_signal(latest_cover: float | None, trailing_cover: float | None) -> s
 
 def main() -> None:
     auctions = load_auction_data()
-    latest_date = auctions["auction_date"].max()
-    next_auction_date = latest_date + pd.Timedelta(days=21)
-    latest_rows = auctions[auctions["auction_date"] == latest_date]
-    latest_uka = latest_rows[latest_rows["market"] == "UKA"].iloc[0]
+    uka_auctions = auctions[auctions["market"] == "UKA"].sort_values("auction_date")
+    if uka_auctions.empty:
+        raise ValueError("Auction demand signal requires at least one UKA auction row.")
 
-    cover_series = auctions[auctions["market"] == "UKA"].sort_values("auction_date")["cover_ratio"]
+    latest_date = uka_auctions["auction_date"].max()
+    next_auction_date = latest_date + pd.Timedelta(days=21)
+    latest_uka = uka_auctions[uka_auctions["auction_date"] == latest_date].iloc[0]
+
+    cover_series = uka_auctions["cover_ratio"]
     latest_cover = float(cover_series.iloc[-1]) if len(cover_series) else None
     trailing_cover = float(cover_series.tail(6).mean()) if len(cover_series.dropna()) >= 3 else None
     signal = demand_signal(latest_cover, trailing_cover)
 
-    volume_series = auctions.groupby("auction_date")["auction_volume"].sum().reset_index()
+    volume_series = uka_auctions.groupby("auction_date")["auction_volume"].sum().reset_index()
     latest_volume = float(volume_series["auction_volume"].iloc[-1])
     trailing_volume = float(volume_series["auction_volume"].tail(6).mean())
     volume_signal = "Auction supply above recent average" if latest_volume > trailing_volume else "Auction supply near recent average"

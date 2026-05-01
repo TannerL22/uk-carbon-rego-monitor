@@ -13,7 +13,10 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
-AUCTION_FILES = ["uka_auction_results_sample.csv", "eua_auction_results_sample.csv"]
+AUCTION_INPUTS = {
+    "UKA": ["uka_auction_results.csv", "uka_auction_results_sample.csv"],
+    "EUA": ["eua_auction_results.csv", "eua_auction_results_sample.csv"],
+}
 REQUIRED_COLUMNS = {
     "market",
     "auction_date",
@@ -45,9 +48,14 @@ def read_auction_csv(path: Path) -> pd.DataFrame:
 
 def load_auction_data() -> pd.DataFrame:
     frames = []
-    for filename in AUCTION_FILES:
-        path = CARBON_RAW / filename
+    for market, candidates in AUCTION_INPUTS.items():
+        path = next((CARBON_RAW / filename for filename in candidates if (CARBON_RAW / filename).exists()), None)
+        if path is None:
+            raise FileNotFoundError(
+                f"Missing {market} carbon auction input. Expected one of: {', '.join(candidates)}."
+            )
         frame = read_auction_csv(path)
+        frame["input_file"] = path.name
         frames.append(frame)
 
     auctions = pd.concat(frames, ignore_index=True)

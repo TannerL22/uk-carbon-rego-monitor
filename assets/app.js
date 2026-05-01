@@ -16,7 +16,7 @@ const emptyDashboard = {
   rego_exceptions: [],
   source_quality: { issues: [], sources_registered: 0, warning_count: 0, stale_source_count: 0, manual_sources_requiring_notes: 0 },
   data_basis: [
-    { label: "Carbon market", value: "Public/curated auction data" },
+    { label: "Carbon market", value: "Official/curated auction data" },
     { label: "Power", value: "NESO Carbon Intensity API" },
     { label: "REGO controls", value: "Representative demo supplier-style ledger" },
     { label: "Contracts", value: "Representative demo contracts" }
@@ -211,7 +211,7 @@ function renderCarbonMetrics(summary) {
 }
 
 function formatCarbonSampleWindow(label) {
-  return String(label || "").replace(/^Carbon market sample period:\s*/i, "");
+  return String(label || "").replace(/^Carbon market (sample|comparison) period:\s*/i, "");
 }
 
 function formatCarbonFxNote(note) {

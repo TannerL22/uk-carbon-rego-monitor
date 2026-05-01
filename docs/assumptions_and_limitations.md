@@ -3,13 +3,15 @@
 ## Carbon Market Data
 
 - No licensed live carbon market price feed is used.
-- UKA and EUA values are curated public-sample auction data.
-- The dashboard displays the carbon market sample period.
-- Normal scheduled builds read carbon CSVs as raw inputs and do not regenerate or overwrite them.
+- EUA values are fetched from official EEX public primary-auction workbooks.
+- UKA values remain curated/manual auction inputs until the official ICE CSV is added.
+- The dashboard displays the carbon market comparison period.
+- Normal scheduled builds fetch EEX EUA data and read UKA CSVs as raw inputs; they do not regenerate representative demo data.
 - UKA prices are GBP and EUA prices are EUR.
 - EUA prices are converted to GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before spread is calculated.
-- The UKA-EUA spread is a simplified GBP-normalised sample indicator, not a live tradable spread.
-- Auction cover ratio is used only where sample data are available.
+- UKA auction dates are aligned to the nearest EUA auction date within 14 days because official auction calendars differ.
+- The UKA-EUA spread is a simplified GBP-normalised auction-context indicator, not a live tradable spread.
+- Auction cover ratio is used only where data are available.
 - The dashboard is not a trading tool.
 
 ## Power Data

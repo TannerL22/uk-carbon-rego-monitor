@@ -1,11 +1,11 @@
 {
   "sources_registered": 6,
-  "warning_count": 2,
+  "warning_count": 1,
   "stale_source_count": 0,
-  "manual_sources_requiring_notes": 1,
+  "manual_sources_requiring_notes": 0,
   "severity_counts": {
     "High": 0,
-    "Medium": 2,
+    "Medium": 1,
     "Low": 0
   },
   "issues": [
@@ -18,17 +18,7 @@
       "field": "downloaded_at",
       "issue": "Missing download timestamp.",
       "suggested_action": "Populate downloaded_at for source lineage."
-    },
-    {
-      "issue_id": "SRC-EX-002",
-      "source_id": "SRC-004",
-      "dataset_name": "EUA auction results sample",
-      "control_id": "SC-005",
-      "severity": "Medium",
-      "field": "known_limitations",
-      "issue": "Manual input lacks limitations note.",
-      "suggested_action": "Add limitations or review note for the manual source."
     }
   ],
-  "summary_signal": "2 source-register warnings"
+  "summary_signal": "1 source-register warnings"
 }

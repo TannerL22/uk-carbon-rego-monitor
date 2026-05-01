@@ -9,51 +9,51 @@
   "series": [
     {
       "date": "2024-10-03",
-      "auction_volume": 5650000
+      "auction_volume": 2450000
     },
     {
       "date": "2024-10-24",
-      "auction_volume": 5687000
+      "auction_volume": 2465000
     },
     {
       "date": "2024-11-14",
-      "auction_volume": 5724000
+      "auction_volume": 2480000
     },
     {
       "date": "2024-12-05",
-      "auction_volume": 5761000
+      "auction_volume": 2495000
     },
     {
       "date": "2024-12-26",
-      "auction_volume": 5798000
+      "auction_volume": 2510000
     },
     {
       "date": "2025-01-16",
-      "auction_volume": 5835000
+      "auction_volume": 2525000
     },
     {
       "date": "2025-02-06",
-      "auction_volume": 5872000
+      "auction_volume": 2540000
     },
     {
       "date": "2025-02-27",
-      "auction_volume": 5909000
+      "auction_volume": 2555000
     },
     {
       "date": "2025-03-20",
-      "auction_volume": 5946000
+      "auction_volume": 2570000
     },
     {
       "date": "2025-04-10",
-      "auction_volume": 5983000
+      "auction_volume": 2585000
     },
     {
       "date": "2025-05-01",
-      "auction_volume": 6020000
+      "auction_volume": 2600000
     },
     {
       "date": "2025-05-22",
-      "auction_volume": 6057000
+      "auction_volume": 2615000
     }
   ]
 }

@@ -5,11 +5,12 @@ The carbon module is a market-intelligence context layer. It is not a trading te
 ## Inputs
 
 - `data/raw/carbon/uka_auction_results_sample.csv`
-- `data/raw/carbon/eua_auction_results_sample.csv`
+- `data/raw/carbon/eua_auction_results.csv`
+- `data/raw/carbon/eua_auction_results_sample.csv` as a fallback demo-seed input only
 
 Fields include market, auction date, auction volume, clearing price, currency, cover ratio, reference price, source, URL, and notes.
 
-The normal dashboard build reads these CSVs as raw inputs. It does not generate or overwrite them. Use `python src/seed_demo_data.py` only when intentionally resetting the demo/sample input files.
+The normal dashboard build fetches official EEX EUA public auction workbooks into `data/raw/carbon/eua_auction_results.csv` and reads UKA auction inputs from the curated/manual CSV. It does not regenerate representative demo records. Use `python src/seed_demo_data.py` only when intentionally resetting the demo/sample input files.
 
 ## Metrics
 
@@ -31,9 +32,9 @@ spread_gbp_z_score < -1.0 -> UKA discount wider than recent average
 otherwise                 -> broadly stable
 ```
 
-UKA prices are denominated in GBP. EUA prices are denominated in EUR. The pipeline converts EUA prices into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating spread. The spread is a simplified public-sample indicator and should not be interpreted as a live tradable spread.
+UKA prices are denominated in GBP. EUA prices are denominated in EUR. The pipeline converts EUA prices into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating spread. Because official EEX and UKA auction calendars differ, UKA dates are aligned to the nearest EUA auction date within 14 days. The spread is a simplified auction-context indicator and should not be interpreted as a live tradable spread.
 
-The dashboard displays the carbon market sample period so older curated auction samples are not presented as live market data.
+The dashboard displays the carbon market comparison period so curated/manual UKA inputs are not presented as live market data.
 
 ## Auction Demand Signal
 

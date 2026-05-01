@@ -42,15 +42,49 @@ def load_fx_assumption() -> dict[str, object]:
     }
 
 
+def align_uka_eua_auctions(auctions: pd.DataFrame) -> pd.DataFrame:
+    """Align UKA auctions with the nearest EUA auction within a 14-day window."""
+
+    uka = (
+        auctions[auctions["market"] == "UKA"]
+        .sort_values("auction_date")
+        .rename(columns={"auction_date": "uka_auction_date", "clearing_price": "UKA"})
+    )
+    eua = (
+        auctions[auctions["market"] == "EUA"]
+        .sort_values("auction_date")
+        .rename(columns={"auction_date": "eua_auction_date", "clearing_price": "EUA"})
+    )
+    if uka.empty or eua.empty:
+        raise ValueError("Carbon signal requires both UKA and EUA auction rows.")
+
+    aligned = pd.merge_asof(
+        uka,
+        eua,
+        left_on="uka_auction_date",
+        right_on="eua_auction_date",
+        direction="nearest",
+        tolerance=pd.Timedelta(days=14),
+        suffixes=("_uka", "_eua"),
+    ).dropna(subset=["UKA", "EUA", "eua_auction_date"])
+
+    if aligned.empty:
+        raise ValueError("No UKA auctions could be aligned to EUA auctions within 14 days.")
+
+    aligned["auction_date"] = aligned["uka_auction_date"]
+    aligned = aligned.set_index("auction_date")
+    return aligned
+
+
 def main() -> None:
     auctions = load_auction_data()
     fx = load_fx_assumption()
-    pivot = auctions.pivot_table(index="auction_date", columns="market", values="clearing_price", aggfunc="last").dropna()
-    pivot["EUA_GBP"] = pivot["EUA"] * float(fx["rate"])
-    pivot["spread_gbp"] = pivot["UKA"] - pivot["EUA_GBP"]
-    pivot["trailing_average_spread_gbp"] = pivot["spread_gbp"].rolling(window=6, min_periods=3).mean()
-    pivot["trailing_std_spread_gbp"] = pivot["spread_gbp"].rolling(window=6, min_periods=3).std()
-    latest = pivot.iloc[-1]
+    aligned = align_uka_eua_auctions(auctions)
+    aligned["EUA_GBP"] = aligned["EUA"] * float(fx["rate"])
+    aligned["spread_gbp"] = aligned["UKA"] - aligned["EUA_GBP"]
+    aligned["trailing_average_spread_gbp"] = aligned["spread_gbp"].rolling(window=6, min_periods=3).mean()
+    aligned["trailing_std_spread_gbp"] = aligned["spread_gbp"].rolling(window=6, min_periods=3).std()
+    latest = aligned.iloc[-1]
     trailing_average = float(latest["trailing_average_spread_gbp"])
     trailing_std = float(latest["trailing_std_spread_gbp"]) if pd.notna(latest["trailing_std_spread_gbp"]) and latest["trailing_std_spread_gbp"] else 0.0
     z_score = (float(latest["spread_gbp"]) - trailing_average) / trailing_std if trailing_std else 0.0
@@ -63,20 +97,21 @@ def main() -> None:
             "eua_price_eur": round(float(row["EUA"]), 2),
             "eua_price_gbp": round(float(row["EUA_GBP"]), 2),
             "spread_gbp": round(float(row["spread_gbp"]), 2),
+            "eua_auction_date": row["eua_auction_date"].date().isoformat(),
             "trailing_average_spread_gbp": None
             if pd.isna(row["trailing_average_spread_gbp"])
             else round(float(row["trailing_average_spread_gbp"]), 2),
         }
-        for idx, row in pivot.iterrows()
+        for idx, row in aligned.iterrows()
     ]
-    sample_period_start = pivot.index.min().date().isoformat()
-    sample_period_end = pivot.index.max().date().isoformat()
+    sample_period_start = aligned.index.min().date().isoformat()
+    sample_period_end = aligned.index.max().date().isoformat()
 
     output = {
-        "latest_auction_date": pivot.index[-1].date().isoformat(),
+        "latest_auction_date": aligned.index[-1].date().isoformat(),
         "sample_period_start": sample_period_start,
         "sample_period_end": sample_period_end,
-        "sample_period_label": f"Carbon market sample period: {sample_period_start} to {sample_period_end}",
+        "sample_period_label": f"Carbon market comparison period: {sample_period_start} to {sample_period_end}",
         "latest_uka_price_gbp": round(float(latest["UKA"]), 2),
         "latest_eua_price_eur": round(float(latest["EUA"]), 2),
         "latest_eua_price_gbp": round(float(latest["EUA_GBP"]), 2),
@@ -87,9 +122,10 @@ def main() -> None:
         "fx_assumption": fx,
         "currency_note": (
             f"EUA EUR auction prices are converted to GBP using a static EUR/GBP assumption of {float(fx['rate']):.2f}. "
-            "The resulting UKA-EUA spread is shown in GBP and is a transparent sample-data indicator, not a live traded spread."
+            "The resulting UKA-EUA spread is shown in GBP and is a transparent auction-context indicator, not a live traded spread."
         ),
-        "limitation": "Carbon market data uses public or curated auction samples rather than licensed live UKA/EUA price feeds.",
+        "alignment_note": "UKA auction dates are compared with the nearest official EUA auction date within 14 days because UKA and EUA auction calendars differ.",
+        "limitation": "Carbon market data uses official/public or curated auction inputs rather than licensed live UKA/EUA price feeds.",
         "series": series,
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)

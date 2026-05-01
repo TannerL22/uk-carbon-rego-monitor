@@ -12,11 +12,11 @@ The third question is the core of the project. Carbon and power signals provide 
 
 ## Carbon Market Signals
 
-The carbon module uses curated public-sample UKA and EUA auction data. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated EUR/GBP assumption before calculating the UKA-EUA spread. It calculates latest auction prices, GBP-normalised spread, trailing average spread, spread z-score, auction volume, and a basic auction demand signal using cover ratio where available.
+The carbon module uses official EEX EUA primary-auction data and curated/manual UKA auction inputs. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated EUR/GBP assumption before calculating the UKA-EUA spread. Because official EEX and UKA auction calendars differ, UKA auction dates are aligned to the nearest EUA auction date within 14 days. It calculates latest auction prices, GBP-normalised spread, trailing average spread, spread z-score, auction volume, and a basic auction demand signal using cover ratio where available.
 
-The dashboard deliberately avoids live trading language. Auction data are used as a transparent market-context proxy, not as a substitute for licensed price feeds, internal trading marks, or live FX-adjusted market data. The dashboard displays the carbon market sample period.
+The dashboard deliberately avoids live trading language. Auction data are used as a transparent market-context proxy, not as a substitute for licensed price feeds, internal trading marks, or live FX-adjusted market data. The dashboard displays the carbon market comparison period.
 
-Normal dashboard builds treat the carbon auction CSVs in `data/raw/carbon/` as source inputs. They are not regenerated during `python src/build_all.py`. The separate `python src/seed_demo_data.py` command is only for intentionally resetting representative demo inputs.
+Normal dashboard builds fetch official EEX EUA public auction data, then read the UKA auction CSV in `data/raw/carbon/` as a curated/manual source input. The separate `python src/seed_demo_data.py` command is only for intentionally resetting representative demo inputs.
 
 ## GB Power Fundamentals
 
@@ -45,4 +45,4 @@ The control engine creates an exception register and a contract summary. The con
 
 ## What The Project Does Not Claim
 
-The project does not provide trading advice, legal advice, compliance sign-off, live carbon prices, or real REGO inventory. It demonstrates an analyst workflow and control framework using transparent sample data.
+The project does not provide trading advice, legal advice, compliance sign-off, live carbon prices, or real REGO inventory. It demonstrates an analyst workflow and control framework using transparent public, curated, and representative demo data.
