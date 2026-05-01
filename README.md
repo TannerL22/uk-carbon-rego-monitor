@@ -49,6 +49,12 @@ outputs/
 
 The browser reads processed JSON files from `data/processed/`. Business logic lives in Python, not JavaScript.
 
+## Static Hosting And Data Refresh
+
+GitHub Pages serves this project as static HTML, CSS, JavaScript, CSV, and JSON files. Python does not run in the visitor's browser.
+
+Generated dashboard data is refreshed by GitHub Actions. The scheduled workflow runs `python src/build_all.py`, regenerates the processed JSON/CSV outputs, and commits changed generated files back to the repository so GitHub Pages can serve the latest static data.
+
 ## Data Sources And Limitations
 
 Carbon market data in this project uses public or curated auction data rather than licensed live market feeds. The dashboard shows the carbon market sample period and does not imply the auction samples are live.

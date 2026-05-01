@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UK Carbon &amp; REGO Operations Monitor | Project Brief</title>
+    <style>
+      :root {
+        --ink: #17211d;
+        --muted: #56635e;
+        --line: #dce4df;
+        --soft: #f5f8f6;
+        --accent: #0f6b5a;
+        --accent-soft: #e4f0eb;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        background: #eef2ef;
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.42;
+      }
+
+      body {
+        margin: 0;
+        padding: 24px;
+      }
+
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        padding: 18mm;
+        background: #fff;
+        border: 1px solid var(--line);
+      }
+
+      header {
+        padding-bottom: 14px;
+        border-bottom: 3px solid var(--accent);
+      }
+
+      .eyebrow {
+        margin: 0 0 6px;
+        color: var(--accent);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        color: #0d1713;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 30px;
+        line-height: 1.08;
+        letter-spacing: -0.015em;
+      }
+
+      .subtitle {
+        max-width: 680px;
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      main {
+        display: grid;
+        gap: 14px;
+        margin-top: 16px;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 16px;
+        align-items: start;
+      }
+
+      section {
+        break-inside: avoid;
+      }
+
+      h2 {
+        margin: 0 0 7px;
+        color: #0f1b17;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.045em;
+        text-transform: uppercase;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 17px;
+      }
+
+      li {
+        margin: 0 0 5px;
+      }
+
+      li:last-child {
+        margin-bottom: 0;
+      }
+
+      .panel {
+        padding: 12px;
+        border: 1px solid var(--line);
+        background: var(--soft);
+      }
+
+      .panel--plain {
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+
+      .screenshot {
+        min-height: 176px;
+        display: grid;
+        place-items: center;
+        padding: 6px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .screenshot img {
+        display: block;
+        width: 100%;
+        height: 176px;
+        object-fit: cover;
+        object-position: top left;
+      }
+
+      .built-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px 14px;
+        padding: 0;
+        list-style: none;
+      }
+
+      .built-list li {
+        position: relative;
+        margin: 0;
+        padding-left: 13px;
+      }
+
+      .built-list li::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 0;
+        width: 5px;
+        height: 5px;
+        background: var(--accent);
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .link-card {
+        padding: 10px 11px;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .link-card span {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.045em;
+        text-transform: uppercase;
+      }
+
+      a {
+        color: var(--accent);
+        font-weight: 700;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 15px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .note {
+        color: var(--muted);
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+
+      @media print {
+        html,
+        body {
+          width: 210mm;
+          min-height: 297mm;
+          margin: 0;
+          padding: 0;
+          background: #fff;
+        }
+
+        .page {
+          width: 210mm;
+          min-height: 297mm;
+          margin: 0;
+          padding: 16mm;
+          border: 0;
+        }
+
+        a {
+          color: var(--accent);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <article class="page">
+      <header>
+        <p class="eyebrow">Project brief</p>
+        <h1>UK Carbon &amp; REGO Operations Monitor</h1>
+        <p class="subtitle">A public analyst workflow linking carbon market signals, GB power emissions context, and renewable certificate reconciliation controls.</p>
+      </header>
+
+      <main>
+        <div class="summary-grid">
+          <section class="panel--plain">
+            <h2>What It Does</h2>
+            <p>Built a public dashboard and analyst workflow that connects UK/EU carbon auction signals, GB power-system emissions data, and REGO-style certificate reconciliation controls. The project shows how fragmented market, power, certificate, contract, and source data can be turned into a decision-useful operating view for carbon and renewables analysis.</p>
+          </section>
+
+          <section class="screenshot" aria-label="Dashboard screenshot">
+            <img src="dashboard-screenshot.png" alt="UK Carbon and REGO Operations Monitor dashboard executive briefing screenshot">
+          </section>
+        </div>
+
+        <section class="panel">
+          <h2>Why It Matters</h2>
+          <ul>
+            <li>Carbon analysis is not just allowance prices; it also depends on power fundamentals, policy context, and certificate evidence.</li>
+            <li>Renewable supply claims require clean ownership, eligibility, delivery-period, retirement, and source documentation.</li>
+            <li>Certificate inventory errors can create reporting, contractual, and replacement-exposure risk.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>What I Built</h2>
+          <ul class="built-list">
+            <li>Python pipeline for data cleaning, signal generation, and reconciliation checks.</li>
+            <li>Static dashboard rendering processed JSON outputs.</li>
+            <li>REGO exception register covering certificate eligibility, contract coverage, source quality, and severity.</li>
+            <li>Analyst note summarising carbon, power, certificate, and data-quality signals.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Links</h2>
+          <div class="links">
+            <div class="link-card">
+              <span>Live dashboard</span>
+              <a href="https://tannerl22.github.io/uk-carbon-rego-monitor/">tannerl22.github.io/uk-carbon-rego-monitor</a>
+            </div>
+            <div class="link-card">
+              <span>GitHub</span>
+              <a href="https://github.com/TannerL22/uk-carbon-rego-monitor">github.com/TannerL22/uk-carbon-rego-monitor</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <strong>Built by Tanner Looney</strong>
+        <span class="note">Public portfolio project; not trading, legal, or compliance advice.</span>
+      </footer>
+    </article>
+  </body>
+</html>
