@@ -4,7 +4,7 @@ The source register is maintained in `data/source_register.csv` and validated by
 
 ## Source Lineage
 
-Each dataset is registered with a source ID, dataset name, owner, source type, source URL, manual/API flag, download date, publication date, data period, use case, and known limitations. The NESO source row is updated during the live API fetch.
+Each dataset is registered with a source ID, dataset name, owner, source type, source URL, manual/API flag, download date, publication date, data period, use case, and known limitations. The EEX, GOV.UK CCM, and NESO source rows are updated during the Python build when those public sources are fetched.
 
 ## Controls
 

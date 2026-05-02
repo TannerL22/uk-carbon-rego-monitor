@@ -13,6 +13,7 @@ from load_carbon_data import load_auction_data
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "data" / "processed" / "carbon_signals.json"
 FX_PATH = ROOT / "data" / "raw" / "carbon" / "fx_assumptions.csv"
+CCM_PATH = ROOT / "data" / "raw" / "carbon" / "uk_ets_ccm_monthly_prices.csv"
 
 
 def classify_spread(z_score: float, latest_spread: float) -> str:
@@ -76,9 +77,68 @@ def align_uka_eua_auctions(auctions: pd.DataFrame) -> pd.DataFrame:
     return aligned
 
 
+def load_ccm_context() -> dict[str, object]:
+    if not CCM_PATH.exists():
+        return {
+            "available": False,
+            "note": "GOV.UK UK ETS CCM monthly price table has not been fetched.",
+        }
+
+    ccm = pd.read_csv(CCM_PATH)
+    if ccm.empty:
+        return {
+            "available": False,
+            "note": "GOV.UK UK ETS CCM monthly price table is empty.",
+        }
+
+    ccm["monthly_average_price"] = pd.to_numeric(ccm["monthly_average_price"], errors="coerce")
+    ccm["trigger_price"] = pd.to_numeric(ccm["trigger_price"], errors="coerce")
+    completed = ccm.dropna(subset=["monthly_average_price"]).sort_values("month")
+    if completed.empty:
+        latest = ccm.sort_values("month").iloc[-1]
+        return {
+            "available": True,
+            "latest_month": str(latest["month"]),
+            "latest_monthly_average_price_gbp": None,
+            "latest_trigger_price_gbp": None if pd.isna(latest["trigger_price"]) else round(float(latest["trigger_price"]), 2),
+            "latest_ccm_triggered": str(latest["ccm_triggered"]),
+            "monitoring_window_months": int(latest["monitoring_window_months"]),
+            "source_url": str(latest["source_url"]),
+            "downloaded_at": str(latest["downloaded_at"]),
+            "published_at": str(latest["published_at"]),
+            "note": "GOV.UK CCM rows are available, but latest monthly average values are marked TBD.",
+        }
+
+    latest = completed.iloc[-1]
+    series = [
+        {
+            "month": str(row["month"]),
+            "monthly_average_price_gbp": round(float(row["monthly_average_price"]), 2),
+            "trigger_price_gbp": None if pd.isna(row["trigger_price"]) else round(float(row["trigger_price"]), 2),
+            "ccm_triggered": str(row["ccm_triggered"]),
+            "monitoring_window_months": int(row["monitoring_window_months"]),
+        }
+        for _, row in completed.tail(18).iterrows()
+    ]
+    return {
+        "available": True,
+        "latest_month": str(latest["month"]),
+        "latest_monthly_average_price_gbp": round(float(latest["monthly_average_price"]), 2),
+        "latest_trigger_price_gbp": None if pd.isna(latest["trigger_price"]) else round(float(latest["trigger_price"]), 2),
+        "latest_ccm_triggered": str(latest["ccm_triggered"]),
+        "monitoring_window_months": int(latest["monitoring_window_months"]),
+        "source_url": str(latest["source_url"]),
+        "downloaded_at": str(latest["downloaded_at"]),
+        "published_at": str(latest["published_at"]),
+        "note": "Official GOV.UK UK ETS CCM monthly average futures price context; not auction clearing price and not a live trading feed.",
+        "series": series,
+    }
+
+
 def main() -> None:
     auctions = load_auction_data()
     fx = load_fx_assumption()
+    ccm_context = load_ccm_context()
     aligned = align_uka_eua_auctions(auctions)
     aligned["EUA_GBP"] = aligned["EUA"] * float(fx["rate"])
     aligned["spread_gbp"] = aligned["UKA"] - aligned["EUA_GBP"]
@@ -125,6 +185,7 @@ def main() -> None:
             "The resulting UKA-EUA spread is shown in GBP and is a transparent auction-context indicator, not a live traded spread."
         ),
         "alignment_note": "UKA auction dates are compared with the nearest official EUA auction date within 14 days because UKA and EUA auction calendars differ.",
+        "uka_ccm_context": ccm_context,
         "limitation": "Carbon market data uses official/public or curated auction inputs rather than licensed live UKA/EUA price feeds.",
         "series": series,
     }

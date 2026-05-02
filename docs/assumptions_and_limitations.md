@@ -4,13 +4,15 @@
 
 - No licensed live carbon market price feed is used.
 - EUA values are fetched from official EEX public primary-auction workbooks.
+- UK ETS CCM monthly average futures-price context is fetched from the official GOV.UK CCM table.
 - UKA values remain curated/manual auction inputs until the official ICE CSV is added.
 - The dashboard displays the carbon market comparison period.
-- Normal scheduled builds fetch EEX EUA data and read UKA CSVs as raw inputs; they do not regenerate representative demo data.
+- Normal scheduled builds fetch EEX EUA data and GOV.UK CCM data, then read UKA CSVs as raw inputs; they do not regenerate representative demo data.
 - UKA prices are GBP and EUA prices are EUR.
 - EUA prices are converted to GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before spread is calculated.
 - UKA auction dates are aligned to the nearest EUA auction date within 14 days because official auction calendars differ.
 - The UKA-EUA spread is a simplified GBP-normalised auction-context indicator, not a live tradable spread.
+- GOV.UK CCM monthly average futures prices are not auction clearing prices and should not be mixed with the UKA/EUA auction spread.
 - Auction cover ratio is used only where data are available.
 - The dashboard is not a trading tool.
 

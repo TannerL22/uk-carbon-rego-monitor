@@ -6,6 +6,7 @@ I built a small UK Carbon & REGO Market Operations Monitor to connect those piec
 
 The workflow includes:
 - UKA/EUA auction-based carbon market signals
+- GOV.UK UK ETS CCM monthly price and trigger context
 - GB carbon intensity and generation mix analysis
 - A representative demo supplier-style REGO certificate ledger
 - Contract-matching and certificate reconciliation controls

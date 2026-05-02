@@ -10,7 +10,7 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 
 ## What The Monitor Does
 
-- Uses official EEX EUA auction results and curated UKA auction inputs to build carbon-market context.
+- Uses official EEX EUA auction results, curated UKA auction inputs, and GOV.UK UK ETS CCM monthly price context to build carbon-market context.
 - Tracks UKA/EUA auction prices, a GBP-normalised spread using a stated EUR/GBP FX assumption, auction volume, and demand signals.
 - Pulls live NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
 - Uses a representative demo supplier-style REGO ledger and representative demo customer contracts.
@@ -49,7 +49,7 @@ outputs/
 
 The browser reads processed JSON files from `data/processed/`. Business logic lives in Python, not JavaScript.
 
-Normal dashboard builds read the raw input files already present under `data/raw/`. They do not regenerate representative demo data or overwrite curated carbon auction CSVs.
+Normal dashboard builds fetch public EEX, GOV.UK, and NESO inputs where automated sources are available, then read the remaining raw input files already present under `data/raw/`. They do not regenerate representative demo data or overwrite curated UKA auction CSVs.
 
 To intentionally reset the representative demo inputs, run:
 
@@ -67,9 +67,9 @@ Generated dashboard data is refreshed by GitHub Actions. The scheduled workflow 
 
 ## Data Sources And Limitations
 
-Carbon market data in this project uses official/public or curated auction inputs rather than licensed live market feeds. EUA auction results are fetched from official EEX public primary-auction workbooks during the build. UKA auction inputs remain curated/manual in this phase. The dashboard shows the carbon market comparison period and does not imply the auction inputs are a live trading feed.
+Carbon market data in this project uses official/public or curated inputs rather than licensed live market feeds. EUA auction results are fetched from official EEX public primary-auction workbooks during the build. GOV.UK UK ETS Cost Containment Mechanism tables provide official monthly average futures-price and trigger-price context. UKA auction inputs remain curated/manual in this phase. The dashboard shows the carbon market comparison period and does not imply the auction inputs are a live trading feed.
 
-UKA auction prices are denominated in GBP. EUA auction prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating the UKA-EUA spread. Because official EEX and UKA auction calendars differ, UKA dates are aligned to the nearest EUA auction date within 14 days. The spread is therefore labelled as a GBP spread and should be treated as a transparent auction-context indicator, not a live traded spread.
+UKA auction prices are denominated in GBP. EUA auction prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating the UKA-EUA spread. Because official EEX and UKA auction calendars differ, UKA dates are aligned to the nearest EUA auction date within 14 days. GOV.UK CCM monthly prices are shown separately from auction clearing prices. The spread is therefore labelled as a GBP spread and should be treated as a transparent auction-context indicator, not a live traded spread.
 
 GB power data is fetched live from the official NESO Carbon Intensity API during `python src/build_all.py`. No API key is required. If the API or network is unavailable, the build fails clearly instead of silently substituting fake power data.
 
@@ -85,7 +85,7 @@ See `docs/control_framework.md` for the full control register.
 
 ## Carbon Market Signal Methodology
 
-The carbon module calculates latest UKA/EUA auction prices, converts EUA prices into GBP using the stated FX assumption, aligns UKA auction dates to nearby EUA auction dates where calendars differ, calculates the GBP-normalised UKA-EUA spread, trailing spread average, spread z-score, and a simple spread regime. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
+The carbon module calculates latest UKA/EUA auction prices, converts EUA prices into GBP using the stated FX assumption, aligns UKA auction dates to nearby EUA auction dates where calendars differ, calculates the GBP-normalised UKA-EUA spread, trailing spread average, spread z-score, and a simple spread regime. It also surfaces the latest GOV.UK CCM monthly average futures price, trigger price, and triggered status as official UKA policy context. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
 
 See `docs/carbon_market_driver_framework.md`.
 
@@ -107,7 +107,7 @@ Run the full pipeline:
 python src/build_all.py
 ```
 
-This command requires internet access for the EEX EUA auction fetch and the NESO power module.
+This command requires internet access for the EEX EUA auction fetch, GOV.UK CCM table fetch, and NESO power module.
 
 Verify the REGO reconciliation business logic:
 
@@ -141,7 +141,7 @@ This project was built using AI-assisted coding tools for scaffolding, debugging
 ## Future Extensions
 
 - Manually curated official ICE UKA auction CSV to replace the seeded UKA sample.
-- GOV.UK UK ETS Cost Containment Mechanism monthly price parser.
+- Optional charting of GOV.UK CCM monthly average price versus trigger price.
 - Exportable exception report and control-owner fields.
 - Dashboard screenshots in the README.
 - Separate future projects for grid constraints, supplier screening, or firm-level ETS analysis.
