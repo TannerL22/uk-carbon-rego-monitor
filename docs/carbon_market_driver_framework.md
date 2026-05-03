@@ -60,6 +60,18 @@ The dashboard separates carbon data into three concepts:
 
 1. Official auction signal: EEX EUA auction results and manually curated ICE UKA auction inputs.
 2. Official UKA monthly context: GOV.UK UK ETS CCM monthly average futures price, trigger price, and triggered status.
-3. Optional market reference: reserved for a future third-party source such as ICAP or Trading Economics, not implemented in the MVP.
+3. Optional market reference: a Trading Economics EU Carbon Permits reference can be fetched during the Python/GitHub Actions build when an API secret is configured. It remains separate from official auction and policy inputs.
 
 This keeps auction clearing prices, policy trigger context, and any future market reference data visibly distinct.
+
+## Optional Trading Economics Reference
+
+`src/fetch_tradingeconomics_reference.py` writes `data/processed/carbon_market_reference.json` on every build. If `TRADING_ECONOMICS_API_KEY` is not configured, the output explicitly marks the reference as unavailable and the dashboard shows that no third-party source is loaded.
+
+When the secret is configured, the script fetches the EU Carbon Permits market symbol `EECXM:IND` from Trading Economics' market historical endpoint, writes a raw CSV under `data/raw/carbon/trading_economics_eu_carbon_reference.csv`, and adds a source-register row. This data is labelled as a third-party market reference, not an official exchange feed and not a substitute for EEX, ICE, or GOV.UK sources.
+
+## ICAP Allowance Price Explorer Assessment
+
+The ICAP Allowance Price Explorer was assessed as a possible future cross-ETS market-reference source. It is not integrated into the MVP because the visible data route appears to be an internal application endpoint rather than a documented ingestion API, and the official terms require care around reproduction, redistribution, and original-source restrictions.
+
+See `docs/icap_allowance_price_explorer_assessment.md` for the Phase 7 assessment.

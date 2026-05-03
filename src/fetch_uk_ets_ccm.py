@@ -189,7 +189,7 @@ def parse_tables(html: str, downloaded_at: str, published_at: str) -> list[dict[
 def write_csv_atomically(path: Path, rows: list[dict[str, object]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with NamedTemporaryFile("w", newline="", encoding="utf-8", delete=False, dir=path.parent, suffix=".tmp") as handle:
-        writer = csv.DictWriter(handle, fieldnames=OUTPUT_COLUMNS)
+        writer = csv.DictWriter(handle, fieldnames=OUTPUT_COLUMNS, lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
         temp_path = Path(handle.name)
@@ -233,7 +233,7 @@ def update_source_register(rows: list[dict[str, object]], downloaded_at: str, pu
         register_rows.append(source_row)
 
     with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
         writer.writeheader()
         writer.writerows(register_rows)
 

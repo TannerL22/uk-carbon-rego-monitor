@@ -16,7 +16,7 @@ The carbon module uses official EEX EUA primary-auction data, manually curated I
 
 The GOV.UK CCM parser adds official monthly average UKA futures-price context, trigger price, and triggered status. This is shown separately from auction clearing prices because it is a policy/market-context table, not an auction result.
 
-The dashboard presents carbon data in three distinct layers: official auction signal, official UKA CCM monthly context, and an optional market-reference placeholder. The optional market-reference layer is deliberately not populated in the MVP so the project does not imply a live third-party market feed where none exists.
+The dashboard presents carbon data in three distinct layers: official auction signal, official UKA CCM monthly context, and an optional third-party market reference. The optional Trading Economics reference is populated only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately so the project does not imply that official auction data, policy-context tables, and third-party market references are equivalent.
 
 The dashboard deliberately avoids live trading language. Auction and CCM data are used as transparent market-context proxies, not as substitutes for licensed price feeds, internal trading marks, or live FX-adjusted market data. The dashboard displays the carbon market comparison period.
 

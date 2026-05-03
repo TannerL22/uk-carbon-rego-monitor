@@ -198,12 +198,22 @@ function renderFactRow(selector, facts) {
 function renderCarbonConcepts(summary) {
   const carbon = summary.carbon || {};
   const ccm = carbon.uka_ccm_context || {};
+  const marketReference = carbon.market_reference || {};
   const auctionPeriod = carbon.sample_period_start && carbon.sample_period_end
     ? `${carbon.sample_period_start} to ${carbon.sample_period_end}`
     : "n/a";
   const ccmLine = ccm.available
     ? `${ccm.latest_month || "n/a"} monthly average ${ccm.latest_monthly_average_price_gbp !== null && ccm.latest_monthly_average_price_gbp !== undefined ? `GBP ${ccm.latest_monthly_average_price_gbp}` : "n/a"}; trigger ${ccm.latest_trigger_price_gbp !== null && ccm.latest_trigger_price_gbp !== undefined ? `GBP ${ccm.latest_trigger_price_gbp}` : "n/a"}`
     : "GOV.UK CCM data not loaded.";
+  const marketTitle = marketReference.enabled && marketReference.available
+    ? "Trading Economics EU Carbon"
+    : "Not configured";
+  const marketStatus = marketReference.enabled && marketReference.available
+    ? "Third-party reference only"
+    : "No API-key source loaded";
+  const marketDetail = marketReference.enabled && marketReference.available
+    ? `Latest ${marketReference.latest_price_eur !== undefined ? `EUR ${marketReference.latest_price_eur}` : "n/a"} on ${marketReference.latest_date || "n/a"}; not an official exchange feed.`
+    : "Trading Economics integration is optional and runs only in the Python/GitHub Actions build when a secret is configured.";
 
   const concepts = [
     {
@@ -220,9 +230,9 @@ function renderCarbonConcepts(summary) {
     },
     {
       label: "Optional market reference",
-      title: "Not implemented",
-      detail: "No third-party near-live market reference is used in this MVP.",
-      status: "Avoids unsupported live-trading claims",
+      title: marketTitle,
+      detail: marketDetail,
+      status: marketStatus,
     },
   ];
 
@@ -250,9 +260,12 @@ function renderCarbonMetrics(summary) {
   document.querySelector("#carbon-fx-note").textContent = formatCarbonFxNote(carbon.currency_note);
   const feedNote = document.querySelector("#carbon-feed-note");
   if (feedNote) {
+    const marketPhrase = carbon.market_reference && carbon.market_reference.enabled && carbon.market_reference.available
+      ? `Optional third-party reference: Trading Economics ${carbon.market_reference.latest_date || "latest date n/a"} at EUR ${carbon.market_reference.latest_price_eur ?? "n/a"}; not an official exchange feed.`
+      : "Optional third-party market reference not configured.";
     feedNote.textContent = ccm.available
-      ? `Auction signal: official EEX EUA + manually curated ICE UKA. UKA context: GOV.UK CCM monthly table. Optional third-party market reference: not implemented. Latest CCM month: ${ccm.latest_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
-      : "Auction signal: official/manual inputs. UKA CCM context not loaded. Optional third-party market reference not implemented.";
+      ? `Auction signal: official EEX EUA + manually curated ICE UKA. UKA context: GOV.UK CCM monthly table. ${marketPhrase} Latest CCM month: ${ccm.latest_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
+      : `Auction signal: official/manual inputs. UKA CCM context not loaded. ${marketPhrase}`;
   }
   renderFactRow("#carbon-metrics", [
     { label: "Latest UKA", value: carbon.latest_uka_price_gbp ? `GBP ${carbon.latest_uka_price_gbp}` : "n/a" },

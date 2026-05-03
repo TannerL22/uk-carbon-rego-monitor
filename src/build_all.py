@@ -14,6 +14,7 @@ STEPS = [
     "fetch_eex_eua_auctions.py",
     "fetch_uk_ets_ccm.py",
     "carbon_signals.py",
+    "fetch_tradingeconomics_reference.py",
     "auction_signals.py",
     "fetch_neso.py",
     "power_signals.py",

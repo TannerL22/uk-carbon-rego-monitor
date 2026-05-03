@@ -6,6 +6,17 @@ The source register is maintained in `data/source_register.csv` and validated by
 
 Each dataset is registered with a source ID, dataset name, owner, source type, source URL, manual/API flag, download date, publication date, data period, use case, and known limitations. The EEX, GOV.UK CCM, and NESO source rows are updated during the Python build when those public sources are fetched.
 
+## Static-Site Refresh Boundary
+
+GitHub Pages serves static files. The browser does not run Python and does not
+call EEX, GOV.UK, NESO, ICE, or any paid market API. The scheduled GitHub
+Action runs the normal Python build, commits generated JSON and public-source
+extracts, and leaves manual/demo operating inputs unchanged.
+
+This boundary is part of the control design: public-source refreshes are
+automated where stable sources exist, while manual operating/demo inputs remain
+explicitly documented and validated.
+
 ## Controls
 
 | Control ID | Control | Severity | Logic |

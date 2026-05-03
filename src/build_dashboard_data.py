@@ -17,6 +17,14 @@ def read_json(filename: str) -> object:
         return json.load(handle)
 
 
+def read_optional_json(filename: str, default: object) -> object:
+    path = PROCESSED / filename
+    if not path.exists():
+        return default
+    with path.open(encoding="utf-8") as handle:
+        return json.load(handle)
+
+
 def money(value: float) -> str:
     return f"GBP {value:,.0f}"
 
@@ -75,6 +83,17 @@ def build_attention(
 
 def main() -> None:
     carbon = read_json("carbon_signals.json")
+    market_reference = read_optional_json(
+        "carbon_market_reference.json",
+        {
+            "available": False,
+            "enabled": False,
+            "provider": "Trading Economics",
+            "label": "Third-party market reference",
+            "note": "Optional third-party market reference not loaded.",
+            "series": [],
+        },
+    )
     auction = read_json("auction_signals.json")
     power = read_json("power_signals.json")
     contracts = read_json("rego_contract_summary.json")
@@ -86,6 +105,8 @@ def main() -> None:
     total_shortfall = sum(float(contract["shortfall_mwh"]) for contract in contracts)
     total_exposure = sum(float(contract["estimated_replacement_exposure_gbp"]) for contract in contracts)
     high_count = sum(1 for exception in exceptions if exception["severity"] == "High")
+
+    carbon["market_reference"] = market_reference
 
     summary = {
         "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
