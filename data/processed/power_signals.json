@@ -11,7 +11,7 @@
   "main_driver": "higher gas share",
   "source": {
     "name": "NESO Carbon Intensity API",
-    "fetched_at": "2026-05-03T11:26Z",
+    "fetched_at": "2026-05-03T11:39Z",
     "data_period_start": "2026-04-26T10:30Z",
     "data_period_end": "2026-05-03T10:30Z",
     "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-04-26T11:00Z/2026-05-03T11:00Z",
