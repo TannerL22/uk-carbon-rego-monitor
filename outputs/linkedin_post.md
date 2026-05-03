@@ -17,4 +17,4 @@ The goal was not to build a trading terminal. It was to build a practical analys
 
 I used AI-assisted coding tools to accelerate the build, but manually reviewed the business logic, control framework, and outputs.
 
-GitHub: [link]
+GitHub: https://github.com/TannerL22/uk-carbon-rego-monitor
