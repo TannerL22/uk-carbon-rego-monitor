@@ -19,6 +19,10 @@ The REGO controls are designed to answer whether renewable certificate inventory
 | RC-013 | Retired without retirement date | High | status, retired_date | Status is Retired and retirement date is blank | Lifecycle data issue | Update retirement evidence |
 | RC-014 | Available after allocation date inconsistency | Medium | status, allocated_date | Status is Available but allocation date exists | System-entry quality issue | Correct status/date fields |
 | RC-015 | Contract shortfall | High | required_mwh, eligible_matched_mwh | Eligible MWh below required MWh | Procurement / delivery exposure | Source replacement REGOs or update allocation |
+| RC-016 | Missing generation date | High | generation_start, generation_end | Allocated certificate lacks a populated and parseable generation period | Cannot prove delivery-period eligibility | Obtain generation-period evidence before contract coverage |
+| RC-017 | Missing issue date | High | issue_date | Allocated certificate lacks a populated and parseable issue date | Weak ownership/lifecycle evidence | Obtain issue evidence before disclosure or allocation |
+| RC-018 | Missing quantity MWh | High | quantity_mwh | Allocated certificate lacks MWh quantity | Coverage cannot be calculated reliably | Populate certificate MWh quantity before coverage calculation |
+| RC-019 | Invalid quantity MWh | High | quantity_mwh | Allocated certificate has non-numeric or non-positive MWh quantity | Coverage cannot be calculated reliably | Correct certificate MWh quantity before coverage calculation |
 
 ## Contract Coverage
 

@@ -41,7 +41,7 @@ This section distinguishes physical emissions from contractual renewable supply.
 
 ## REGO Reconciliation
 
-Representative demo contracts and certificate records are generated to mimic messy supplier-style operating data. The ledger includes intentional errors such as missing IDs, duplicate IDs, lifecycle conflicts, invalid contracts, technology mismatches, vintage breaches, stale available inventory, and missing source lineage.
+Representative demo contracts and certificate records are generated to mimic messy supplier-style operating data. The ledger includes intentional errors such as missing IDs, duplicate IDs, lifecycle conflicts, invalid contracts, missing generation/issue/quantity fields, invalid quantity values, technology mismatches, vintage breaches, stale available inventory, and missing source lineage.
 
 The carbon and power sections use public data or curated public extracts. The REGO reconciliation module uses a representative demo ledger because certificate-level supplier allocations and customer contract mappings are internal operating data, not a public dataset.
 

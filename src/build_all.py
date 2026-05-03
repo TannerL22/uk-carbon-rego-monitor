@@ -20,6 +20,7 @@ STEPS = [
     "power_signals.py",
     "source_controls.py",
     "build_dashboard_data.py",
+    "build_analyst_note.py",
 ]
 
 

@@ -35,7 +35,7 @@
     "product_type": "Standard renewable supply",
     "required_mwh": 20000.0,
     "eligible_matched_mwh": 20900.0,
-    "ineligible_allocated_mwh": 0.0,
+    "ineligible_allocated_mwh": 2.0,
     "shortfall_mwh": 0.0,
     "surplus_mwh": 900.0,
     "coverage_ratio": 1.045,

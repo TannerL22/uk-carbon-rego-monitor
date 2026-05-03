@@ -78,7 +78,7 @@
     "suggested_action": "Remove from contract coverage or obtain eligible vintage certificates."
   },
   {
-    "exception_id": "EX-0012",
+    "exception_id": "EX-0016",
     "control_id": "RC-015",
     "control_type": "Contract shortfall",
     "severity": "High",
@@ -91,7 +91,7 @@
     "suggested_action": "Source eligible replacement REGOs or update allocation before disclosure close."
   },
   {
-    "exception_id": "EX-0013",
+    "exception_id": "EX-0017",
     "control_id": "RC-015",
     "control_type": "Contract shortfall",
     "severity": "High",
@@ -102,6 +102,58 @@
     "expected_value": "8000.0",
     "exception_message": "Contract C-002 has an eligible REGO shortfall of 750 MWh.",
     "suggested_action": "Source eligible replacement REGOs or update allocation before disclosure close."
+  },
+  {
+    "exception_id": "EX-0012",
+    "control_id": "RC-016",
+    "control_type": "Missing generation date",
+    "severity": "High",
+    "certificate_id": "REG-BAD-0009",
+    "contract_id": "C-003",
+    "field": "generation_start/generation_end",
+    "observed_value": " to 2024-10-27",
+    "expected_value": "Generation start and end dates populated and parseable",
+    "exception_message": "Allocated certificate is missing a usable generation period.",
+    "suggested_action": "Obtain generation-period evidence before using the certificate for contract coverage."
+  },
+  {
+    "exception_id": "EX-0013",
+    "control_id": "RC-017",
+    "control_type": "Missing issue date",
+    "severity": "High",
+    "certificate_id": "REG-BAD-0010",
+    "contract_id": "C-003",
+    "field": "issue_date",
+    "observed_value": "",
+    "expected_value": "Issue date populated and parseable",
+    "exception_message": "Allocated certificate is missing a usable issue date.",
+    "suggested_action": "Obtain issue evidence before using the certificate for contract coverage or disclosure."
+  },
+  {
+    "exception_id": "EX-0014",
+    "control_id": "RC-018",
+    "control_type": "Missing quantity MWh",
+    "severity": "High",
+    "certificate_id": "REG-BAD-0011",
+    "contract_id": "C-003",
+    "field": "quantity_mwh",
+    "observed_value": "",
+    "expected_value": "Quantity MWh populated",
+    "exception_message": "Allocated certificate is missing quantity MWh.",
+    "suggested_action": "Populate certificate MWh quantity before using the record for coverage calculations."
+  },
+  {
+    "exception_id": "EX-0015",
+    "control_id": "RC-019",
+    "control_type": "Invalid quantity MWh",
+    "severity": "High",
+    "certificate_id": "REG-BAD-0012",
+    "contract_id": "C-003",
+    "field": "quantity_mwh",
+    "observed_value": "not_available",
+    "expected_value": "Positive numeric MWh quantity",
+    "exception_message": "Allocated certificate has an invalid quantity MWh value.",
+    "suggested_action": "Correct the certificate MWh quantity before using the record for coverage calculations."
   },
   {
     "exception_id": "EX-0005",

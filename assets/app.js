@@ -320,7 +320,7 @@ function renderChartCaptions(summary) {
   setChartCaption("#power-line-caption", intensityContext);
   setChartCaption(
     "#generation-bars-caption",
-    topMix ? `${topMix[0]} is the largest current contributor in the latest mix; gas share remains an important emissions driver.` : "Latest mix data are loaded from the power signal output."
+    topMix ? `${topMix[0]} is the largest contributor in the fetched generation mix; gas share remains an important emissions driver.` : "Generation mix data are loaded from the build-time power signal output."
   );
   setChartCaption("#carbon-price-caption", "Official EEX EUA auction data are compared with manually curated ICE UKA auction inputs over the displayed period.");
   setChartCaption("#carbon-spread-caption", "Spread is FX-adjusted using the stated EUR/GBP assumption; GOV.UK CCM context is separate from auction clearing prices.");

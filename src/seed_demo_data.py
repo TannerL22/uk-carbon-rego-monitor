@@ -96,7 +96,7 @@ def certificate_row(
     technology: str,
     contract_id: str,
     counterparty: str,
-    quantity_mwh: float,
+    quantity_mwh: float | str,
     status: str = "Retired",
     country: str = "GB",
     generation_start: str | None = None,
@@ -109,10 +109,10 @@ def certificate_row(
     source_file: str = "synthetic_rego_ledger.csv",
 ) -> dict[str, object]:
     month_start = date(2024, 4, 1) + timedelta(days=(index % 12) * 30)
-    gen_start = generation_start or month_start.isoformat()
-    gen_end = generation_end or (month_start + timedelta(days=29)).isoformat()
-    issue = issue_date or (month_start + timedelta(days=45)).isoformat()
-    received = received_date or (month_start + timedelta(days=50)).isoformat()
+    gen_start = generation_start if generation_start is not None else month_start.isoformat()
+    gen_end = generation_end if generation_end is not None else (month_start + timedelta(days=29)).isoformat()
+    issue = issue_date if issue_date is not None else (month_start + timedelta(days=45)).isoformat()
+    received = received_date if received_date is not None else (month_start + timedelta(days=50)).isoformat()
     allocated = allocated_date if allocated_date is not None else "2025-03-20"
     retired = retired_date if retired_date is not None else "2025-06-15"
     updated = last_updated or "2025-03-30"
@@ -166,6 +166,10 @@ def generate_rego_ledger() -> list[dict[str, object]]:
         certificate_row("REG-BAD-0006", 208, "Wind", "C-001", "Corporate Buyer A", 100, country="IE"),
         certificate_row("REG-BAD-0007", 209, "Solar", "C-002", "Corporate Buyer B", 100, status="Available", allocated_date="", retired_date="", source_file=""),
         certificate_row("REG-BAD-0008", 210, "Wind", "", "", 100, status="Available", allocated_date="", retired_date="", last_updated="2024-09-01"),
+        certificate_row("REG-BAD-0009", 211, "Wind", "C-003", "FMD Pool", 1, generation_start="", generation_end="2024-10-27"),
+        certificate_row("REG-BAD-0010", 212, "Solar", "C-003", "FMD Pool", 1, issue_date=""),
+        certificate_row("REG-BAD-0011", 213, "Hydro", "C-003", "FMD Pool", ""),
+        certificate_row("REG-BAD-0012", 214, "Biomass", "C-003", "FMD Pool", "not_available"),
     ]
     rows.extend(bad_rows)
     return rows

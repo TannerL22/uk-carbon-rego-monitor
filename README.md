@@ -4,6 +4,22 @@ This project is a public-facing analyst workflow connecting UK carbon market sig
 
 The aim is not to build a trading terminal. The aim is to show how a carbon / renewables analyst can turn fragmented market, power, certificate, and source data into decision-useful signals, contract coverage checks, exception reports, and documented assumptions.
 
+## Reviewer Quickstart
+
+```bash
+git clone https://github.com/TannerL22/uk-carbon-rego-monitor.git
+cd uk-carbon-rego-monitor
+python -m venv .venv
+pip install -r requirements.txt
+python src/build_all.py
+python -m unittest tests.test_rego_controls
+python -m http.server 8000
+```
+
+On Windows PowerShell, activate the virtual environment with `.\.venv\Scripts\Activate.ps1`. On macOS/Linux, use `source .venv/bin/activate`.
+
+Then open `http://localhost:8000`. The full build requires internet access for public EEX, GOV.UK, and NESO data fetches. GitHub Pages serves static outputs; Python runs locally or in GitHub Actions, not in the browser.
+
 ## Why I Built This
 
 Carbon analysis for a renewables supplier is not limited to allowance prices. It also depends on physical power-system conditions, renewable certificate evidence, contract delivery periods, source lineage, disclosure controls, and replacement-price assumptions.
@@ -14,8 +30,8 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 - Tracks UKA/EUA auction prices, a GBP-normalised spread using a stated EUR/GBP FX assumption, auction volume, and demand signals.
 - Fetches recent NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
 - Uses a representative demo supplier-style REGO ledger and representative demo customer contracts.
-- Reconciles certificate inventory against contract eligibility, delivery periods, counterparty records, lifecycle fields, and source evidence.
-- Flags duplicate certificate IDs, missing IDs, invalid contract allocations, lifecycle errors, technology/country mismatches, vintage breaches, stale inventory, and source-quality issues.
+- Reconciles certificate inventory against contract eligibility, delivery periods, counterparty records, lifecycle fields, quantity fields, and source evidence.
+- Flags duplicate certificate IDs, missing IDs, invalid contract allocations, lifecycle errors, missing generation/issue/quantity fields, invalid quantity values, technology/country mismatches, vintage breaches, stale inventory, and source-quality issues.
 - Calculates eligible matched MWh, shortfall/surplus, and estimated replacement exposure using assumed REGO prices in the contract file.
 
 ## Dashboard Screenshots
@@ -27,7 +43,7 @@ The first dashboard screen is designed to answer "what requires attention?" befo
 ## Workflow Structure
 
 ```text
-Raw / sample data
+Raw public, curated, and representative demo data
 -> Python cleaning and validation
 -> Python signal and reconciliation engine
 -> Processed JSON / CSV outputs
@@ -94,7 +110,7 @@ Replacement REGO prices are assumptions stored in the contract file and are used
 
 ## REGO Reconciliation Controls
 
-The REGO control engine is the operational core. It validates certificate IDs, lifecycle dates, allocation status, contract references, technology/country eligibility, delivery-period vintage, source evidence, stale available inventory, missing counterparty records, and contract-level shortfalls.
+The REGO control engine is the operational core. It validates certificate IDs, lifecycle dates, generation dates, issue dates, missing or invalid quantity fields, allocation status, contract references, technology/country eligibility, delivery-period vintage, source evidence, stale available inventory, missing counterparty records, and contract-level shortfalls.
 
 See `docs/control_framework.md` for the full control register.
 
@@ -126,6 +142,22 @@ python src/build_all.py
 
 This command requires internet access for the EEX EUA auction fetch, GOV.UK CCM table fetch, and NESO power module.
 
+Expected generated outputs include:
+
+```text
+data/processed/dashboard_summary.json
+data/processed/carbon_signals.json
+data/processed/auction_signals.json
+data/processed/power_signals.json
+data/processed/rego_contract_summary.json
+data/processed/rego_exceptions.json
+data/processed/source_quality_summary.json
+data/processed/carbon_market_reference.json
+outputs/analyst_note.md
+```
+
+The analyst note is generated from the current processed dashboard outputs so metric-sensitive text stays aligned with the refreshed static data.
+
 Validate the manually curated ICE UKA auction input:
 
 ```bash
@@ -141,6 +173,14 @@ python -m unittest tests.test_rego_controls
 ```
 
 The tests regenerate the representative demo REGO inputs, run the control engine, and assert the expected exception register, contract coverage, shortfall, surplus, and exposure values.
+
+Run the full end-to-end pipeline smoke test:
+
+```bash
+python -m unittest tests.test_pipeline_smoke
+```
+
+This smoke test runs `python src/build_all.py`, so it requires internet access for the public EEX, GOV.UK, and NESO fetches. It verifies that the processed dashboard JSON files parse and expose the expected dashboard contract. Because it runs the normal build, it may refresh generated CSV/JSON outputs in the working tree.
 
 Serve the static dashboard locally:
 

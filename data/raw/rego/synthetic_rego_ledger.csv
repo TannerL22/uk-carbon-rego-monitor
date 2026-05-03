@@ -171,3 +171,7 @@ REG-BAD-0005,BATCH-WIN-020,Wind Asset 1,Wind,GB,2025-04-01,2025-04-30,2024-08-14
 REG-BAD-0006,BATCH-WIN-020,Wind Asset 2,Wind,IE,2024-07-30,2024-08-28,2024-09-13,2024-09-18,2025-03-20,2025-06-15,Retired,100,Corporate Buyer A,C-001,REGO Operating Account,2025-03-30,synthetic_rego_ledger.csv
 REG-BAD-0007,BATCH-SOL-020,Solar Asset 3,Solar,GB,2024-08-29,2024-09-27,2024-10-13,2024-10-18,,,Available,100,Corporate Buyer B,C-002,REGO Operating Account,2025-03-30,
 REG-BAD-0008,BATCH-WIN-021,Wind Asset 4,Wind,GB,2024-09-28,2024-10-27,2024-11-12,2024-11-17,,,Available,100,,,REGO Operating Account,2024-09-01,synthetic_rego_ledger.csv
+REG-BAD-0009,BATCH-WIN-021,Wind Asset 5,Wind,GB,,2024-10-27,2024-12-12,2024-12-17,2025-03-20,2025-06-15,Retired,1,FMD Pool,C-003,REGO Operating Account,2025-03-30,synthetic_rego_ledger.csv
+REG-BAD-0010,BATCH-SOL-021,Solar Asset 6,Solar,GB,2024-11-27,2024-12-26,,2025-01-16,2025-03-20,2025-06-15,Retired,1,FMD Pool,C-003,REGO Operating Account,2025-03-30,synthetic_rego_ledger.csv
+REG-BAD-0011,BATCH-HYD-021,Hydro Asset 7,Hydro,GB,2024-12-27,2025-01-25,2025-02-10,2025-02-15,2025-03-20,2025-06-15,Retired,,FMD Pool,C-003,REGO Operating Account,2025-03-30,synthetic_rego_ledger.csv
+REG-BAD-0012,BATCH-BIO-021,Biomass Asset 8,Biomass,GB,2025-01-26,2025-02-24,2025-03-12,2025-03-17,2025-03-20,2025-06-15,Retired,not_available,FMD Pool,C-003,REGO Operating Account,2025-03-30,synthetic_rego_ledger.csv

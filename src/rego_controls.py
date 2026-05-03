@@ -43,7 +43,15 @@ CONTROL_GROUPS = {
     "RC-013": "Retired without retirement date",
     "RC-014": "Status/date inconsistency",
     "RC-015": "Contract shortfall",
+    "RC-016": "Missing generation date",
+    "RC-017": "Missing issue date",
+    "RC-018": "Missing quantity MWh",
+    "RC-019": "Invalid quantity MWh",
 }
+
+
+def normalize_id(series: pd.Series) -> pd.Series:
+    return series.astype(str).str.strip()
 
 
 def read_inputs() -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -56,11 +64,16 @@ def read_inputs() -> tuple[pd.DataFrame, pd.DataFrame]:
     contracts = pd.read_csv(CONTRACTS_PATH, dtype=str).fillna("")
     ledger = pd.read_csv(LEDGER_PATH, dtype=str).fillna("")
 
+    contracts["contract_id_norm"] = normalize_id(contracts["contract_id"])
+    ledger["certificate_id_norm"] = normalize_id(ledger["certificate_id"])
+    ledger["contract_id_norm"] = normalize_id(ledger["contract_id"])
     contracts["required_mwh"] = pd.to_numeric(contracts["required_mwh"], errors="coerce").fillna(0.0)
     contracts["assumed_rego_replacement_price_gbp_per_mwh"] = pd.to_numeric(
         contracts["assumed_rego_replacement_price_gbp_per_mwh"], errors="coerce"
     ).fillna(0.0)
-    ledger["quantity_mwh"] = pd.to_numeric(ledger["quantity_mwh"], errors="coerce").fillna(0.0)
+    ledger["quantity_mwh_raw"] = ledger["quantity_mwh"].astype(str).str.strip()
+    ledger["quantity_mwh_parsed"] = pd.to_numeric(ledger["quantity_mwh"], errors="coerce")
+    ledger["quantity_mwh"] = ledger["quantity_mwh_parsed"].fillna(0.0)
 
     for field in ["contract_start", "contract_end", "delivery_period_start", "delivery_period_end"]:
         contracts[f"{field}_dt"] = pd.to_datetime(contracts[field], errors="coerce")
@@ -113,17 +126,17 @@ def technology_matches(certificate_technology: str, eligible_technology: str) ->
 def run_certificate_controls(contracts: pd.DataFrame, ledger: pd.DataFrame) -> tuple[list[dict[str, object]], set[int]]:
     exceptions: list[dict[str, object]] = []
     invalid_indexes: set[int] = set()
-    contract_ids = set(contracts["contract_id"])
-    contract_lookup = contracts.set_index("contract_id").to_dict("index")
+    contract_ids = set(contracts["contract_id_norm"])
+    contract_lookup = contracts.set_index("contract_id_norm").to_dict("index")
 
-    cert_ids = ledger["certificate_id"].astype(str).str.strip()
+    cert_ids = ledger["certificate_id_norm"]
     duplicate_ids = set(cert_ids[(cert_ids != "") & cert_ids.duplicated(keep=False)])
     analysis_date = ledger["last_updated_dt"].max()
     stale_cutoff = analysis_date - pd.Timedelta(days=90) if pd.notna(analysis_date) else pd.Timestamp("2025-03-31")
 
     for idx, row in ledger.iterrows():
-        certificate_id = str(row.get("certificate_id", "")).strip()
-        contract_id = str(row.get("contract_id", "")).strip()
+        certificate_id = str(row.get("certificate_id_norm", "")).strip()
+        contract_id = str(row.get("contract_id_norm", "")).strip()
         status = str(row.get("status", "")).strip()
         allocated = is_allocated(row)
         high_or_eligibility_failure = False
@@ -185,6 +198,72 @@ def run_certificate_controls(contracts: pd.DataFrame, ledger: pd.DataFrame) -> t
                 "Correct date fields before relying on the certificate for evidence.",
             )
             high_or_eligibility_failure = True
+
+        if allocated:
+            gen_start_raw = str(row.get("generation_start", "")).strip()
+            gen_end_raw = str(row.get("generation_end", "")).strip()
+            missing_generation_date = (
+                not gen_start_raw
+                or not gen_end_raw
+                or pd.isna(row.get("generation_start_dt"))
+                or pd.isna(row.get("generation_end_dt"))
+            )
+            if missing_generation_date:
+                add_exception(
+                    exceptions,
+                    "RC-016",
+                    "High",
+                    row,
+                    "generation_start/generation_end",
+                    f"{gen_start_raw} to {gen_end_raw}",
+                    "Generation start and end dates populated and parseable",
+                    "Allocated certificate is missing a usable generation period.",
+                    "Obtain generation-period evidence before using the certificate for contract coverage.",
+                )
+                high_or_eligibility_failure = True
+
+            issue_raw = str(row.get("issue_date", "")).strip()
+            if not issue_raw or pd.isna(row.get("issue_date_dt")):
+                add_exception(
+                    exceptions,
+                    "RC-017",
+                    "High",
+                    row,
+                    "issue_date",
+                    issue_raw,
+                    "Issue date populated and parseable",
+                    "Allocated certificate is missing a usable issue date.",
+                    "Obtain issue evidence before using the certificate for contract coverage or disclosure.",
+                )
+                high_or_eligibility_failure = True
+
+            quantity_raw = str(row.get("quantity_mwh_raw", "")).strip()
+            if not quantity_raw:
+                add_exception(
+                    exceptions,
+                    "RC-018",
+                    "High",
+                    row,
+                    "quantity_mwh",
+                    quantity_raw,
+                    "Quantity MWh populated",
+                    "Allocated certificate is missing quantity MWh.",
+                    "Populate certificate MWh quantity before using the record for coverage calculations.",
+                )
+                high_or_eligibility_failure = True
+            elif pd.isna(row.get("quantity_mwh_parsed")) or float(row.get("quantity_mwh", 0.0)) <= 0:
+                add_exception(
+                    exceptions,
+                    "RC-019",
+                    "High",
+                    row,
+                    "quantity_mwh",
+                    quantity_raw,
+                    "Positive numeric MWh quantity",
+                    "Allocated certificate has an invalid quantity MWh value.",
+                    "Correct the certificate MWh quantity before using the record for coverage calculations.",
+                )
+                high_or_eligibility_failure = True
 
         if allocated and not contract_id:
             add_exception(
@@ -343,15 +422,16 @@ def build_contract_summary(
     exceptions: list[dict[str, object]],
 ) -> list[dict[str, object]]:
     summaries: list[dict[str, object]] = []
-    duplicate_ids = set(ledger["certificate_id"][ledger["certificate_id"].astype(str).str.strip().duplicated(keep=False)])
+    duplicate_ids = set(ledger["certificate_id_norm"][ledger["certificate_id_norm"].duplicated(keep=False)])
 
     for _, contract in contracts.iterrows():
-        contract_id = contract["contract_id"]
-        allocated = ledger[ledger["contract_id"] == contract_id].copy()
+        contract_id = contract["contract_id_norm"]
+        contract_id_display = str(contract["contract_id"]).strip()
+        allocated = ledger[ledger["contract_id_norm"] == contract_id].copy()
         eligible_mask = []
         for idx, row in allocated.iterrows():
             lifecycle_ok = idx not in invalid_indexes
-            cert_id = str(row.get("certificate_id", "")).strip()
+            cert_id = str(row.get("certificate_id_norm", "")).strip()
             contract_ok = bool(cert_id) and cert_id not in duplicate_ids
             tech_ok = technology_matches(str(row.get("technology", "")), str(contract["eligible_technology"]))
             country_ok = str(row.get("country", "")).strip().lower() == str(contract["eligible_country"]).strip().lower()
@@ -384,7 +464,7 @@ def build_contract_summary(
         coverage_ratio = eligible_mwh / required_mwh if required_mwh else 0.0
 
         summary = {
-            "contract_id": contract_id,
+            "contract_id": contract_id_display,
             "counterparty": contract["counterparty"],
             "product_type": contract["product_type"],
             "required_mwh": round(required_mwh, 2),
@@ -409,9 +489,9 @@ def build_contract_summary(
                 "eligible_matched_mwh",
                 round(eligible_mwh, 2),
                 required_mwh,
-                f"Contract {contract_id} has an eligible REGO shortfall of {shortfall_mwh:,.0f} MWh.",
+                f"Contract {contract_id_display} has an eligible REGO shortfall of {shortfall_mwh:,.0f} MWh.",
                 "Source eligible replacement REGOs or update allocation before disclosure close.",
-                contract_id=contract_id,
+                contract_id=contract_id_display,
             )
 
     return summaries

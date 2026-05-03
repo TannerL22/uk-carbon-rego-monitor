@@ -13,7 +13,6 @@ SUMMARY_PATH = ROOT / "data" / "processed" / "rego_contract_summary.json"
 class RegoControlTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run([sys.executable, str(ROOT / "src" / "generate_synthetic_data.py")], check=True)
         subprocess.run([sys.executable, str(ROOT / "src" / "rego_controls.py")], check=True)
         cls.exceptions = json.loads(EXCEPTIONS_PATH.read_text(encoding="utf-8"))
         cls.summary = {
@@ -22,8 +21,8 @@ class RegoControlTests(unittest.TestCase):
         }
 
     def test_expected_exception_register_shape(self) -> None:
-        self.assertEqual(13, len(self.exceptions))
-        self.assertEqual(8, sum(1 for item in self.exceptions if item["severity"] == "High"))
+        self.assertEqual(17, len(self.exceptions))
+        self.assertEqual(12, sum(1 for item in self.exceptions if item["severity"] == "High"))
         self.assertEqual(4, sum(1 for item in self.exceptions if item["severity"] == "Medium"))
         self.assertEqual(1, sum(1 for item in self.exceptions if item["severity"] == "Low"))
 
@@ -40,6 +39,10 @@ class RegoControlTests(unittest.TestCase):
             "RC-010",
             "RC-011",
             "RC-015",
+            "RC-016",
+            "RC-017",
+            "RC-018",
+            "RC-019",
         }
         observed_controls = {item["control_id"] for item in self.exceptions}
         self.assertEqual(expected_controls, observed_controls)
@@ -56,6 +59,10 @@ class RegoControlTests(unittest.TestCase):
             "REG-BAD-0006": {"RC-008"},
             "REG-BAD-0007": {"RC-010"},
             "REG-BAD-0008": {"RC-011"},
+            "REG-BAD-0009": {"RC-016"},
+            "REG-BAD-0010": {"RC-017"},
+            "REG-BAD-0011": {"RC-018"},
+            "REG-BAD-0012": {"RC-019"},
         }
         for certificate_id, controls in expected.items():
             observed = {
@@ -105,7 +112,7 @@ class RegoControlTests(unittest.TestCase):
             "C-003",
             required=20000,
             eligible=20900,
-            ineligible=0,
+            ineligible=2,
             shortfall=0,
             surplus=900,
             exposure=0,
