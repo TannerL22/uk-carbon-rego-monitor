@@ -29,8 +29,8 @@ jobs:
       - name: Check Python syntax
         run: python -m compileall src tests
 
-      - name: Run REGO control tests
-        run: python -m unittest tests.test_rego_controls
+      - name: Run REGO, claim coverage, and FMD context tests
+        run: python -m unittest tests.test_rego_controls tests.test_customer_claim_coverage tests.test_fmd_context
 
       - name: Check dashboard JavaScript syntax
         run: |

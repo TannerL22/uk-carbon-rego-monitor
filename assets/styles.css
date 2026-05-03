@@ -1092,6 +1092,47 @@ th {
   white-space: nowrap;
 }
 
+#claim-coverage-table table {
+  min-width: 1180px;
+  font-variant-numeric: tabular-nums;
+}
+
+#claim-coverage-table th:nth-child(3),
+#claim-coverage-table th:nth-child(4),
+#claim-coverage-table th:nth-child(5),
+#claim-coverage-table th:nth-child(6),
+#claim-coverage-table th:nth-child(7),
+#claim-coverage-table th:nth-child(9),
+#claim-coverage-table td:nth-child(3),
+#claim-coverage-table td:nth-child(4),
+#claim-coverage-table td:nth-child(5),
+#claim-coverage-table td:nth-child(6),
+#claim-coverage-table td:nth-child(7),
+#claim-coverage-table td:nth-child(9) {
+  text-align: right;
+  white-space: nowrap;
+}
+
+#claim-coverage-table td:nth-child(8) {
+  text-align: center;
+  white-space: nowrap;
+}
+
+#claim-coverage-table td:nth-child(10) {
+  min-width: 180px;
+  font-variant-numeric: tabular-nums;
+}
+
+.claim-context-note {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid var(--blue);
+  background: var(--blue-soft);
+  color: var(--text);
+  font-size: var(--type-small);
+  line-height: 1.45;
+}
+
 #exception-table.table-wrap {
   max-height: 620px;
   border-color: var(--border-strong);
@@ -1423,6 +1464,11 @@ select:focus-visible {
 .status-surplus   { background: var(--blue-soft);  color: var(--blue-dark); }
 .status-shortfall { background: var(--red-soft);   color: var(--red-dark); }
 .status-review    { background: var(--amber-soft); color: var(--amber-2); }
+.status-not-supportable {
+  min-width: 108px;
+  background: var(--red-soft);
+  color: var(--red-dark);
+}
 
 .muted {
   color: var(--muted);

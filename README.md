@@ -2,7 +2,7 @@
 
 This project is a public-facing analyst workflow connecting UK carbon market signals, GB power-system fundamentals, and renewable certificate reconciliation controls.
 
-The aim is not to build a trading terminal. The aim is to show how a carbon / renewables analyst can turn fragmented market, power, certificate, and source data into decision-useful signals, contract coverage checks, exception reports, and documented assumptions.
+The aim is not to build a trading terminal. The aim is to show how a carbon / renewables analyst can turn fragmented market, power, certificate, customer contract, and source data into decision-useful renewable-claim evidence checks, cover-risk signals, exception reports, and documented assumptions.
 
 ## Reviewer Quickstart
 
@@ -29,6 +29,8 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 - Uses official EEX EUA auction results, manually curated ICE UKA auction inputs, and GOV.UK UK ETS CCM monthly price context to build carbon-market context.
 - Tracks UKA/EUA auction prices, a GBP-normalised spread using a stated EUR/GBP FX assumption, auction volume, and demand signals.
 - Fetches recent NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
+- Assesses representative customer/product renewable claim coverage using eligible matched REGOs, contract-scoped exceptions, uncovered MWh, and assumed replacement prices.
+- Adds GOV.UK Fuel Mix Disclosure context for the disclosure period as reporting context, not as an official customer Scope 2 calculation.
 - Uses a representative demo supplier-style REGO ledger and representative demo customer contracts.
 - Reconciles certificate inventory against contract eligibility, delivery periods, counterparty records, lifecycle fields, quantity fields, and source evidence.
 - Flags duplicate certificate IDs, missing IDs, invalid contract allocations, lifecycle errors, missing generation/issue/quantity fields, invalid quantity values, technology/country mismatches, vintage breaches, stale inventory, and source-quality issues.
@@ -110,6 +112,10 @@ Replacement REGO prices are assumptions stored in the contract file and are used
 
 ## REGO Reconciliation Controls
 
+The customer renewable claim coverage module is the commercial layer above the certificate controls. It answers whether representative customer/product renewable electricity claims are supported by eligible REGO evidence, what volume is uncovered, what certificate evidence is invalid or excluded, and what the assumed replacement-cover exposure is. Claim status is based on REGO evidence, contract coverage, and contract-scoped controls only; GB grid intensity and carbon-market signals are context layers and do not determine claim validity.
+
+The FMD context module reads a curated GOV.UK Fuel Mix Disclosure data table for the 2024-25 disclosure period. It adds location-based and residual-mix emissions context to contracted and uncovered MWh, but it does not calculate official customer Scope 2 emissions and it does not affect claim status.
+
 The REGO control engine is the operational core. It validates certificate IDs, lifecycle dates, generation dates, issue dates, missing or invalid quantity fields, allocation status, contract references, technology/country eligibility, delivery-period vintage, source evidence, stale available inventory, missing counterparty records, and contract-level shortfalls.
 
 See `docs/control_framework.md` for the full control register.
@@ -149,6 +155,11 @@ data/processed/dashboard_summary.json
 data/processed/carbon_signals.json
 data/processed/auction_signals.json
 data/processed/power_signals.json
+data/processed/customer_claim_coverage.json
+data/processed/customer_claim_coverage.csv
+data/processed/customer_claim_summary.json
+data/processed/fmd_context.json
+data/processed/fmd_context.csv
 data/processed/rego_contract_summary.json
 data/processed/rego_exceptions.json
 data/processed/source_quality_summary.json

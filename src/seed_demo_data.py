@@ -24,6 +24,7 @@ SOURCE_REGISTER = ROOT / "data" / "source_register.csv"
 def ensure_directories() -> None:
     for path in [
         RAW / "rego",
+        RAW / "fmd",
         RAW / "carbon",
         RAW / "power",
         PROCESSED,
@@ -86,6 +87,68 @@ def generate_contracts() -> list[dict[str, object]]:
             "fmd_period": "2024-25",
             "contract_status": "Open",
             "assumed_rego_replacement_price_gbp_per_mwh": 5.75,
+        },
+    ]
+
+
+def generate_customer_contracts() -> list[dict[str, object]]:
+    return [
+        {
+            "customer_id": "CUS-001",
+            "customer_name": "Corporate Buyer A",
+            "contract_id": "C-001",
+            "product_name": "Wind-backed renewable electricity",
+            "delivery_period_start": "2024-04-01",
+            "delivery_period_end": "2025-03-31",
+            "contracted_mwh": 12000,
+            "claim_type": "Product-specific renewable supply",
+            "claim_basis": "Annual REGO-backed renewable supply claim",
+            "customer_claim_wording": "Electricity supplied under this product is backed by GB wind REGOs for the disclosure period.",
+            "technology_requirement": "Wind",
+            "country_requirement": "GB",
+            "disclosure_period": "2024-25",
+            "replacement_price_gbp_per_mwh": 6.50,
+            "materiality_threshold_mwh": 100,
+            "materiality_threshold_pct": 1.0,
+            "claim_owner": "Renewables Operations",
+        },
+        {
+            "customer_id": "CUS-002",
+            "customer_name": "Corporate Buyer B",
+            "contract_id": "C-002",
+            "product_name": "Solar-backed renewable electricity",
+            "delivery_period_start": "2024-04-01",
+            "delivery_period_end": "2025-03-31",
+            "contracted_mwh": 8000,
+            "claim_type": "Product-specific renewable supply",
+            "claim_basis": "Annual REGO-backed renewable supply claim",
+            "customer_claim_wording": "Electricity supplied under this product is backed by GB solar REGOs for the disclosure period.",
+            "technology_requirement": "Solar",
+            "country_requirement": "GB",
+            "disclosure_period": "2024-25",
+            "replacement_price_gbp_per_mwh": 7.25,
+            "materiality_threshold_mwh": 75,
+            "materiality_threshold_pct": 1.0,
+            "claim_owner": "Renewables Operations",
+        },
+        {
+            "customer_id": "CUS-003",
+            "customer_name": "FMD Pool",
+            "contract_id": "C-003",
+            "product_name": "Standard renewable allocation",
+            "delivery_period_start": "2024-04-01",
+            "delivery_period_end": "2025-03-31",
+            "contracted_mwh": 20000,
+            "claim_type": "FMD renewable allocation",
+            "claim_basis": "Annual REGO-backed FMD allocation",
+            "customer_claim_wording": "Renewable allocation supported by eligible GB renewable REGOs for FMD evidence.",
+            "technology_requirement": "Any Renewable",
+            "country_requirement": "GB",
+            "disclosure_period": "2024-25",
+            "replacement_price_gbp_per_mwh": 5.75,
+            "materiality_threshold_mwh": 250,
+            "materiality_threshold_pct": 1.0,
+            "claim_owner": "FMD Reporting",
         },
     ]
 
@@ -259,6 +322,20 @@ def generate_source_register() -> list[dict[str, object]]:
             "known_limitations": "Representative demo contracts with assumed replacement REGO prices; not real customer terms",
         },
         {
+            "source_id": "SRC-008",
+            "dataset_name": "Representative demo customer claim contracts",
+            "source_owner": "Project representative demo data",
+            "source_type": "representative demo",
+            "source_url": "",
+            "manual_or_api": "manual",
+            "downloaded_at": "2025-03-31",
+            "published_at": "2025-03-31",
+            "data_period_start": "2024-04-01",
+            "data_period_end": "2025-03-31",
+            "used_for": "Customer renewable claim coverage and cover-risk assessment",
+            "known_limitations": "Representative demo customer/product claim records; not real customer terms or billing data",
+        },
+        {
             "source_id": "SRC-003",
             "dataset_name": "UKA auction results sample",
             "source_owner": "UK ETS Authority / curated sample",
@@ -321,12 +398,14 @@ def main() -> None:
     ensure_directories()
 
     contracts = generate_contracts()
+    customer_contracts = generate_customer_contracts()
     ledger = generate_rego_ledger()
     uka_rows, eua_rows = generate_carbon_auction_samples()
     fx_rows = generate_fx_assumptions()
     source_rows = generate_source_register()
 
     write_csv(RAW / "rego" / "synthetic_contracts.csv", contracts, list(contracts[0].keys()))
+    write_csv(RAW / "rego" / "demo_customer_contracts.csv", customer_contracts, list(customer_contracts[0].keys()))
     write_csv(RAW / "rego" / "synthetic_rego_ledger.csv", ledger, list(ledger[0].keys()))
     write_csv(RAW / "carbon" / "uka_auction_results_sample.csv", uka_rows, list(uka_rows[0].keys()))
     write_csv(RAW / "carbon" / "eua_auction_results_sample.csv", eua_rows, list(eua_rows[0].keys()))

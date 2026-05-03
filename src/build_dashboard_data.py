@@ -47,6 +47,26 @@ def power_context_attention(power: dict[str, object]) -> str:
     return f"GB power context: carbon intensity is {signal}, driven by {driver}."
 
 
+def build_claim_attention(claims: list[dict[str, object]], claim_summary: dict[str, object]) -> list[str]:
+    items: list[str] = []
+    not_supportable = [claim for claim in claims if claim["claim_status"] == "Not supportable"]
+    not_supportable.sort(key=lambda item: float(item["estimated_cover_cost_gbp"]), reverse=True)
+    for claim in not_supportable[:2]:
+        items.append(
+            f"{claim['customer_name']} {claim['product_name']} is not supportable: "
+            f"{claim['primary_issue']}; {float(claim['uncovered_mwh']):,.0f} MWh uncovered."
+        )
+    review = [claim for claim in claims if claim["claim_status"] == "Review"]
+    if review:
+        items.append(f"{len(review)} customer renewable claim requires review before disclosure close.")
+    if float(claim_summary.get("uncovered_mwh", 0)) > 0:
+        items.append(
+            f"Customer claim coverage shows {float(claim_summary['uncovered_mwh']):,.0f} MWh uncovered "
+            f"and {money(float(claim_summary['estimated_cover_cost_gbp']))} estimated cover cost."
+        )
+    return items
+
+
 def build_attention(
     carbon: dict[str, object],
     auction: dict[str, object],
@@ -54,8 +74,10 @@ def build_attention(
     contracts: list[dict[str, object]],
     exceptions: list[dict[str, object]],
     source_quality: dict[str, object],
+    claims: list[dict[str, object]],
+    claim_summary: dict[str, object],
 ) -> list[str]:
-    items: list[str] = []
+    items: list[str] = build_claim_attention(claims, claim_summary)
     shortfalls = [contract for contract in contracts if float(contract["shortfall_mwh"]) > 0]
     shortfalls.sort(key=lambda item: float(item["estimated_replacement_exposure_gbp"]), reverse=True)
     for contract in shortfalls[:2]:
@@ -98,12 +120,13 @@ def main() -> None:
     power = read_json("power_signals.json")
     contracts = read_json("rego_contract_summary.json")
     exceptions = read_json("rego_exceptions.json")
+    customer_claim_coverage = read_json("customer_claim_coverage.json")
+    customer_claim_summary = read_json("customer_claim_summary.json")
+    fmd_context = read_json("fmd_context.json")
     source_quality = read_json("source_quality_summary.json")
 
     latest_ci = float(power["latest_carbon_intensity_gco2_kwh"])
     recent_ci = float(power["average_recent_carbon_intensity_gco2_kwh"])
-    total_shortfall = sum(float(contract["shortfall_mwh"]) for contract in contracts)
-    total_exposure = sum(float(contract["estimated_replacement_exposure_gbp"]) for contract in contracts)
     high_count = sum(1 for exception in exceptions if exception["severity"] == "High")
 
     carbon["market_reference"] = market_reference
@@ -117,17 +140,29 @@ def main() -> None:
             {"label": "Contracts", "value": "Representative demo contracts"},
         ],
         "cards": [
-            card("Carbon market signal", short_carbon_headline(str(carbon["spread_regime"])), f"UKA-EUA spread GBP {carbon['latest_spread_gbp']}; {carbon['sample_period_start']} to {carbon['sample_period_end']}"),
-            card("Auction demand", "Neutral", f"Latest UKA cover ratio {auction['latest_uka_cover_ratio']} vs {auction['trailing_uka_cover_ratio']} recent avg"),
-            card("GB power signal", str(power["carbon_signal"]).replace("Carbon intensity ", "").capitalize(), f"{latest_ci:.0f} g/kWh vs {recent_ci:.0f} g/kWh recent avg"),
+            card("Claim evidence", f"{customer_claim_summary['contracts_not_supportable']} not supportable", f"{customer_claim_summary['contracts_review']} review; {customer_claim_summary['contracts_covered']} covered"),
+            card("Uncovered volume", f"{float(customer_claim_summary['uncovered_mwh']):,.0f} MWh", "Customer/product claim coverage gap"),
+            card("Cover cost", money(float(customer_claim_summary["estimated_cover_cost_gbp"])), "Assumed REGO replacement-price exposure"),
             card("REGO controls", f"{len(exceptions)} exceptions", f"{high_count} high severity; review before disclosure close"),
-            card("Contract exposure", f"{total_shortfall:,.0f} MWh shortfall", f"{money(total_exposure)} estimated cover cost"),
-            card("Data quality", f"{source_quality['warning_count']} warnings", f"{source_quality['sources_registered']} sources registered"),
+            card("GB power context", str(power["carbon_signal"]).replace("Carbon intensity ", "").capitalize(), f"{latest_ci:.0f} g/kWh vs {recent_ci:.0f} g/kWh recent avg"),
+            card("Carbon context", short_carbon_headline(str(carbon["spread_regime"])), f"UKA-EUA spread GBP {carbon['latest_spread_gbp']}; not a claim input"),
         ],
-        "analyst_attention": build_attention(carbon, auction, power, contracts, exceptions, source_quality),
+        "analyst_attention": build_attention(
+            carbon,
+            auction,
+            power,
+            contracts,
+            exceptions,
+            source_quality,
+            customer_claim_coverage,
+            customer_claim_summary,
+        ),
         "carbon": carbon,
         "auction": auction,
         "power": power,
+        "customer_claim_coverage": customer_claim_coverage,
+        "customer_claim_summary": customer_claim_summary,
+        "fmd_context": fmd_context,
         "rego_contract_summary": contracts,
         "rego_exceptions": exceptions,
         "source_quality": source_quality,

@@ -22,7 +22,9 @@ inputs.
 - `data/raw/power/neso_generation_mix_live.csv`: normalized NESO Carbon Intensity API extract generated during the build.
 - `data/raw/power/neso_carbon_intensity_api_raw.json`: raw NESO intensity and generation API responses.
 - `data/raw/power/neso_fetch_metadata.json`: fetch timestamp, API URLs, data period, and record count.
+- `data/raw/fmd/fmd_2024_2025.csv`: curated GOV.UK Fuel Mix Disclosure table used for reporting-context factors only.
 - `data/raw/rego/synthetic_contracts.csv`: representative demo contracts with eligibility rules and assumed replacement REGO prices.
+- `data/raw/rego/demo_customer_contracts.csv`: representative demo customer/product claim contracts used for renewable claim coverage and cover-risk assessment.
 - `data/raw/rego/synthetic_rego_ledger.csv`: representative demo certificate-level operating ledger with intentional control failures.
 
 ## Processed Outputs
@@ -43,6 +45,7 @@ extracts:
 - `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`
 - `data/raw/carbon/trading_economics_eu_carbon_reference.csv` when the optional Trading Economics secret is configured
 - `data/source_register.csv`
+- `outputs/analyst_note.md`
 
 It does not regenerate the representative REGO/contracts data and does not
 overwrite the manually curated ICE UKA CSV.

@@ -10,6 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STEPS = [
     "rego_controls.py",
+    "customer_claim_coverage.py",
+    "fmd_context.py",
     "validate_uka_auction_input.py",
     "fetch_eex_eua_auctions.py",
     "fetch_uk_ets_ccm.py",

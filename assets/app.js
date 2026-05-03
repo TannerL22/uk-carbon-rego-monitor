@@ -12,6 +12,24 @@ const emptyDashboard = {
   carbon: { series: [], uka_ccm_context: { available: false, series: [] } },
   auction: { series: [] },
   power: { series: [], latest_generation_mix: {}, source: {} },
+  customer_claim_coverage: [],
+  customer_claim_summary: {
+    contracts_assessed: 0,
+    contracts_covered: 0,
+    contracts_review: 0,
+    contracts_shortfall: 0,
+    contracts_not_supportable: 0,
+    uncovered_mwh: 0,
+    invalid_or_excluded_mwh: 0,
+    estimated_cover_cost_gbp: 0
+  },
+  fmd_context: {
+    disclosure_period: "",
+    uk_generation_average_factor_gco2_per_kwh: 0,
+    fmd_residual_factor_gco2_per_kwh: 0,
+    contract_context: [],
+    methodology_note: ""
+  },
   rego_contract_summary: [],
   rego_exceptions: [],
   source_quality: { issues: [], sources_registered: 0, warning_count: 0, stale_source_count: 0, manual_sources_requiring_notes: 0 },
@@ -81,9 +99,12 @@ function mergeDashboard(data) {
     carbon: { ...emptyDashboard.carbon, ...(data.carbon || {}) },
     auction: { ...emptyDashboard.auction, ...(data.auction || {}) },
     power: { ...emptyDashboard.power, ...(data.power || {}) },
+    customer_claim_summary: { ...emptyDashboard.customer_claim_summary, ...(data.customer_claim_summary || {}) },
+    fmd_context: { ...emptyDashboard.fmd_context, ...(data.fmd_context || {}) },
     source_quality: { ...emptyDashboard.source_quality, ...(data.source_quality || {}) },
     cards: Array.isArray(data.cards) ? data.cards : emptyDashboard.cards,
     analyst_attention: Array.isArray(data.analyst_attention) ? data.analyst_attention : emptyDashboard.analyst_attention,
+    customer_claim_coverage: Array.isArray(data.customer_claim_coverage) ? data.customer_claim_coverage : [],
     rego_contract_summary: Array.isArray(data.rego_contract_summary) ? data.rego_contract_summary : [],
     rego_exceptions: Array.isArray(data.rego_exceptions) ? data.rego_exceptions : [],
     data_basis: Array.isArray(data.data_basis) ? data.data_basis : emptyDashboard.data_basis
@@ -125,6 +146,9 @@ function cardImplication(card) {
 
   const label = String(card.label || "").toLowerCase();
   const headline = String(card.headline || card.value || "").toLowerCase();
+  if (label.includes("claim"))   return "Evidence status is based on eligible REGO coverage and contract-scoped controls.";
+  if (label.includes("uncovered")) return "Uncovered volume requires replacement certificates or claim review.";
+  if (label.includes("cover cost")) return "Exposure uses assumed replacement prices, not a live REGO price feed.";
   if (label.includes("carbon"))  return "UKA below EUA-equivalent level; monitor UK-specific divergence.";
   if (label.includes("auction")) return "Cover ratio close to recent average.";
   if (label.includes("power")) {
@@ -166,16 +190,15 @@ function renderAttention(items) {
 function renderExecutiveStrip(summary) {
   const contracts = summary.rego_contract_summary || [];
   const exceptions = summary.rego_exceptions || [];
+  const claimSummary = summary.customer_claim_summary || {};
   const sourceQuality = summary.source_quality || {};
-  const totalShortfall = contracts.reduce((sum, row) => sum + Number(row.shortfall_mwh || 0), 0);
-  const totalExposure = contracts.reduce((sum, row) => sum + Number(row.estimated_replacement_exposure_gbp || 0), 0);
-  const affectedContracts = contracts.filter((row) => Number(row.shortfall_mwh || 0) > 0).length;
   const highExceptions = exceptions.filter((row) => row.severity === "High").length;
 
   document.querySelector("#executive-strip").innerHTML = [
-    { label: "Affected contracts", value: `${formatNumber(affectedContracts)} with shortfall` },
-    { label: "Eligible shortfall", value: `${formatNumber(totalShortfall)} MWh` },
-    { label: "Replacement exposure", value: formatMoney(totalExposure) },
+    { label: "Claims assessed", value: formatNumber(claimSummary.contracts_assessed) },
+    { label: "Not supportable", value: formatNumber(claimSummary.contracts_not_supportable) },
+    { label: "Uncovered MWh", value: `${formatNumber(claimSummary.uncovered_mwh)} MWh` },
+    { label: "Cover cost", value: formatMoney(claimSummary.estimated_cover_cost_gbp) },
     { label: "High exceptions", value: formatNumber(highExceptions) },
     { label: "Source warnings", value: formatNumber(sourceQuality.warning_count) }
   ].map((item) => `
@@ -193,6 +216,54 @@ function renderFactRow(selector, facts) {
       <dd>${escapeHtml(fact.value)}</dd>
     </div>
   `).join("");
+}
+
+function renderClaimCoverage(summary) {
+  const claimSummary = summary.customer_claim_summary || {};
+  const claims = summary.customer_claim_coverage || [];
+  const fmd = summary.fmd_context || {};
+  const fmdByContract = Object.fromEntries((fmd.contract_context || []).map((row) => [row.contract_id, row]));
+  const fmdNote = document.querySelector("#fmd-method-note");
+  if (fmdNote) {
+    fmdNote.textContent = fmd.methodology_note
+      ? `${fmd.methodology_note} Disclosure period ${fmd.disclosure_period}; UK generation average ${fmd.uk_generation_average_factor_gco2_per_kwh} gCO2/kWh; residual mix ${fmd.fmd_residual_factor_gco2_per_kwh} gCO2/kWh.`
+      : "FMD context unavailable. Run the Python pipeline.";
+  }
+
+  renderFactRow("#claim-summary", [
+    { label: "Claims assessed", value: formatNumber(claimSummary.contracts_assessed) },
+    { label: "Not supportable", value: formatNumber(claimSummary.contracts_not_supportable) },
+    { label: "Review", value: formatNumber(claimSummary.contracts_review) },
+    { label: "Covered", value: formatNumber(claimSummary.contracts_covered) },
+    { label: "Uncovered", value: `${formatNumber(claimSummary.uncovered_mwh)} MWh` },
+    { label: "Cover cost", value: formatMoney(claimSummary.estimated_cover_cost_gbp) }
+  ]);
+
+  if (!claims.length) {
+    document.querySelector("#claim-coverage-table").innerHTML = '<p class="empty-state">No customer claim coverage output available. Run the Python pipeline.</p>';
+    return;
+  }
+
+  document.querySelector("#claim-coverage-table").innerHTML = table([
+    "Customer", "Product", "Contracted", "Eligible REGOs", "Coverage", "Uncovered", "Invalid / excluded", "Claim status", "Cover cost", "FMD context", "Primary issue"
+  ], claims.map((row) => {
+    const fmdRow = fmdByContract[row.contract_id] || {};
+    const fmdCell = fmdRow.location_based_emissions_proxy_tco2e !== undefined
+      ? `Location proxy ${formatNumber(fmdRow.location_based_emissions_proxy_tco2e)} tCO2e<br><span class="muted">Uncovered residual context ${formatNumber(fmdRow.uncovered_residual_mix_context_tco2e)} tCO2e</span>`
+      : "n/a";
+    return [
+    `${escapeHtml(row.customer_name)}<br>${idCell(row.contract_id)}`,
+    `${escapeHtml(row.product_name)}<br><span class="muted">${escapeHtml(row.claim_type)}</span>`,
+    `${formatNumber(row.contracted_mwh)} MWh`,
+    `${formatNumber(row.eligible_rego_mwh)} MWh`,
+    `${formatNumber(row.coverage_pct, 1)}%`,
+    `${formatNumber(row.uncovered_mwh)} MWh`,
+    `${formatNumber(row.invalid_or_excluded_mwh)} MWh`,
+    `<span class="status-pill ${claimStatusClass(row.claim_status)}">${escapeHtml(row.claim_status)}</span>`,
+    formatMoney(row.estimated_cover_cost_gbp),
+    fmdCell,
+    escapeHtml(row.primary_issue)
+  ]; }));
 }
 
 function renderCarbonConcepts(summary) {
@@ -397,6 +468,15 @@ function statusClass(status) {
   }[status] || "status-review";
 }
 
+function claimStatusClass(status) {
+  return {
+    Covered: "status-covered",
+    Review: "status-review",
+    Shortfall: "status-shortfall",
+    "Not supportable": "status-not-supportable"
+  }[status] || "status-review";
+}
+
 function renderCoverageBars(containerId, contracts) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -593,6 +673,7 @@ async function initDashboard() {
   renderSummaryCards(dashboard.cards);
   renderAttention(dashboard.analyst_attention);
   renderExecutiveStrip(dashboard);
+  renderClaimCoverage(dashboard);
   renderContractSummary(dashboard.rego_contract_summary);
   renderRegisterSummary(dashboard.rego_exceptions);
   renderExceptionSummary(dashboard.rego_exceptions);

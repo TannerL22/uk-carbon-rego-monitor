@@ -1,0 +1,6 @@
+disclosure_period,fuel_type,uk_average_mix_pct,residual_mix_pct,emissions_factor_gco2_per_kwh,radioactive_waste_g_per_kwh,source_url,source_date,notes
+2024-25,Coal,5.9,14.8,919,0.007,https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table,2025-08-01,Official GOV.UK Fuel Mix Disclosure table for 1 April 2024 to 31 March 2025.
+2024-25,Natural Gas,33.3,74.7,382,0.007,https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table,2025-08-01,Official GOV.UK Fuel Mix Disclosure table for 1 April 2024 to 31 March 2025.
+2024-25,Nuclear,16.2,3.9,0,0.007,https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table,2025-08-01,Official GOV.UK Fuel Mix Disclosure table for 1 April 2024 to 31 March 2025.
+2024-25,Renewables,42.1,0.3,0,0.007,https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table,2025-08-01,Official GOV.UK Fuel Mix Disclosure table for 1 April 2024 to 31 March 2025.
+2024-25,Other,2.5,6.3,948,0.007,https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table,2025-08-01,Official GOV.UK Fuel Mix Disclosure table for 1 April 2024 to 31 March 2025.

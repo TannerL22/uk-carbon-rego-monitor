@@ -44,6 +44,10 @@ def pluralize(count: int, singular: str, plural: str | None = None) -> str:
     return singular if count == 1 else (plural or f"{singular}s")
 
 
+def present_verb(count: int, singular: str, plural: str) -> str:
+    return singular if count == 1 else plural
+
+
 def main() -> None:
     data = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
     carbon = data["carbon"]
@@ -51,6 +55,8 @@ def main() -> None:
     power = data["power"]
     contracts = data["rego_contract_summary"]
     exceptions = data["rego_exceptions"]
+    customer_claim_summary = data["customer_claim_summary"]
+    fmd_context = data["fmd_context"]
     source_quality = data["source_quality"]
 
     high_count = sum(1 for item in exceptions if item["severity"] == "High")
@@ -70,7 +76,7 @@ def main() -> None:
 
 This monitor shows why carbon analysis for a renewables supplier is not limited to allowance prices. Auction data provides the compliance carbon-market signal, recent GB power-system data fetched at build time explains the physical emissions backdrop, and REGO reconciliation controls determine whether renewable supply claims can be evidenced against contracts and disclosure periods.
 
-The generated dashboard is operational rather than purely market-facing. The carbon module shows {carbon_regime} over the comparison period {carbon['sample_period_start']} to {carbon['sample_period_end']}. The auction demand signal is {auction_signal.lower()}. The NESO power pull was fetched at build time and shows {power_signal.lower()}, with the main driver classified as {power['main_driver']}. Those context signals matter, but the main action sits in the certificate book: the representative demo REGO ledger contains {len(exceptions)} control exceptions, including {high_count} high-severity items, and {len(shortfalls)} {pluralize(len(shortfalls), 'contract')} have eligible certificate shortfalls.
+The generated dashboard is operational rather than purely market-facing. The carbon module shows {carbon_regime} over the comparison period {carbon['sample_period_start']} to {carbon['sample_period_end']}. The auction demand signal is {auction_signal.lower()}. The NESO power pull was fetched at build time and shows {power_signal.lower()}, with the main driver classified as {power['main_driver']}. Those context signals matter, but the main action sits in the customer claim book: {customer_claim_summary['contracts_not_supportable']} representative customer/product {pluralize(customer_claim_summary['contracts_not_supportable'], 'claim')} {present_verb(customer_claim_summary['contracts_not_supportable'], 'is', 'are')} not supportable, {customer_claim_summary['contracts_review']} {present_verb(customer_claim_summary['contracts_review'], 'requires', 'require')} review, and {customer_claim_summary['uncovered_mwh']:,.0f} MWh is uncovered.
 
 ## 2. Carbon Market Signal
 
@@ -84,11 +90,13 @@ The power-system module fetches recent data from the NESO Carbon Intensity API d
 
 This matters because carbon-market commentary should be connected to physical system conditions. A higher-carbon generation mix may change the emissions context customers see, even though it is not the same thing as contractual renewable supply. Contractual renewable claims still depend on certificate ownership, eligibility, allocation, retirement, and disclosure evidence.
 
-## 4. REGO Reconciliation Findings
+## 4. Customer Claim Coverage Findings
 
-The REGO module is the core control layer. It reconciles representative demo certificate records against representative demo contracts for technology, country, generation vintage, lifecycle status, issue evidence, quantity fields, counterparty, source evidence, and contract ID validity.
+The claim coverage module is the commercial control layer. It reconciles representative customer/product claim contracts against eligible REGO evidence, contract coverage, excluded certificate volume, contract-scoped exceptions, and assumed replacement prices. Claim status is not affected by grid intensity or carbon prices; those are context layers only.
 
-{join_shortfall_sentence(shortfalls)} Total eligible shortfall is {total_shortfall:,.0f} MWh, with {money(total_exposure)} of assumed replacement-cost exposure. {len(covered)} {pluralize(len(covered), 'contract')} {('is' if len(covered) == 1 else 'are')} covered or in surplus in the current generated output.
+The customer claim coverage output shows {customer_claim_summary['uncovered_mwh']:,.0f} MWh uncovered, {customer_claim_summary['invalid_or_excluded_mwh']:,.0f} MWh invalid or excluded, and {money(customer_claim_summary['estimated_cover_cost_gbp'])} of assumed cover-cost exposure. The primary not-supportable claims are driven by contract-scoped high-severity evidence issues and uncovered eligible volume.
+
+The underlying REGO module remains the evidence engine. It reconciles representative demo certificate records against representative demo contracts for technology, country, generation vintage, lifecycle status, issue evidence, quantity fields, counterparty, source evidence, and contract ID validity. {join_shortfall_sentence(shortfalls)} Total eligible REGO shortfall is {total_shortfall:,.0f} MWh, with {money(total_exposure)} of assumed replacement-cost exposure. {len(covered)} {pluralize(len(covered), 'contract')} {('is' if len(covered) == 1 else 'are')} covered or in surplus in the current generated output.
 
 The exception register contains {high_count} high, {medium_count} medium, and {low_count} low severity exceptions. It flags missing certificate IDs, duplicate IDs, invalid contract allocation, lifecycle errors, missing generation dates, missing issue dates, missing or invalid MWh quantities, technology mismatch, country mismatch, vintage mismatch, missing source file, stale available inventory, missing counterparty, retired certificates without retirement dates, and available certificates with allocation-date inconsistencies.
 
@@ -97,6 +105,8 @@ The exception register contains {high_count} high, {medium_count} medium, and {l
 The practical question is whether the supplier can evidence renewable delivery cleanly. The answer is mixed. The priority is to resolve high-severity certificate controls, replace ineligible or unsupported allocations, and source enough eligible certificates to cover open shortfalls before disclosure close.
 
 The replacement-exposure calculation is deliberately simple: shortfall MWh multiplied by an assumed REGO replacement price in the contract file. It is not a market-price forecast, but it creates a clear pricing input for operational prioritisation.
+
+The FMD layer adds disclosure-period context for {fmd_context['disclosure_period']}. It uses the GOV.UK FMD table to show a UK generation-average emissions factor of {fmd_context['uk_generation_average_factor_gco2_per_kwh']} gCO2/kWh and an FMD residual-mix context factor of {fmd_context['fmd_residual_factor_gco2_per_kwh']} gCO2/kWh. These values are used only as reporting context for contracted and uncovered MWh; they do not validate the renewable claim and they are not official customer Scope 2 emissions.
 
 ## 6. Data Limitations
 

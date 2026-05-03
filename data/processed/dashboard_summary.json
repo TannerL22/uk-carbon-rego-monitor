@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-03T21:41:18Z",
+  "generated_at": "2026-05-03T22:39:18Z",
   "data_basis": [
     {
       "label": "Carbon market",
@@ -20,22 +20,22 @@
   ],
   "cards": [
     {
-      "label": "Carbon market signal",
-      "headline": "discount broadly stable",
-      "subline": "UKA-EUA spread GBP -27.98; 2024-10-03 to 2025-05-22",
-      "value": "discount broadly stable"
+      "label": "Claim evidence",
+      "headline": "2 not supportable",
+      "subline": "1 review; 0 covered",
+      "value": "2 not supportable"
     },
     {
-      "label": "Auction demand",
-      "headline": "Neutral",
-      "subline": "Latest UKA cover ratio 1.22 vs 1.27 recent avg",
-      "value": "Neutral"
+      "label": "Uncovered volume",
+      "headline": "900 MWh",
+      "subline": "Customer/product claim coverage gap",
+      "value": "900 MWh"
     },
     {
-      "label": "GB power signal",
-      "headline": "Above recent average",
-      "subline": "200 g/kWh vs 98 g/kWh recent avg",
-      "value": "Above recent average"
+      "label": "Cover cost",
+      "headline": "GBP 6,412",
+      "subline": "Assumed REGO replacement-price exposure",
+      "value": "GBP 6,412"
     },
     {
       "label": "REGO controls",
@@ -44,24 +44,25 @@
       "value": "17 exceptions"
     },
     {
-      "label": "Contract exposure",
-      "headline": "900 MWh shortfall",
-      "subline": "GBP 6,412 estimated cover cost",
-      "value": "900 MWh shortfall"
+      "label": "GB power context",
+      "headline": "Above recent average",
+      "subline": "186 g/kWh vs 99 g/kWh recent avg",
+      "value": "Above recent average"
     },
     {
-      "label": "Data quality",
-      "headline": "0 warnings",
-      "subline": "7 sources registered",
-      "value": "0 warnings"
+      "label": "Carbon context",
+      "headline": "discount broadly stable",
+      "subline": "UKA-EUA spread GBP -27.98; not a claim input",
+      "value": "discount broadly stable"
     }
   ],
   "analyst_attention": [
+    "Corporate Buyer B Solar-backed renewable electricity is not supportable: RC-004 Impossible lifecycle date; 750 MWh uncovered.",
+    "Corporate Buyer A Wind-backed renewable electricity is not supportable: RC-002 Duplicate certificate ID; 150 MWh uncovered.",
+    "1 customer renewable claim requires review before disclosure close.",
+    "Customer claim coverage shows 900 MWh uncovered and GBP 6,412 estimated cover cost.",
     "Contract C-002 has a 750 MWh eligible REGO shortfall with GBP 5,438 estimated cover cost.",
-    "Contract C-001 has a 150 MWh eligible REGO shortfall with GBP 975 estimated cover cost.",
-    "12 high-severity certificate exceptions require review before disclosure close.",
-    "UKA discount broadly stable.",
-    "GB power context: carbon intensity is above recent average, driven by higher gas share."
+    "Contract C-001 has a 150 MWh eligible REGO shortfall with GBP 975 estimated cover cost."
   ],
   "carbon": {
     "latest_auction_date": "2025-05-22",
@@ -94,7 +95,7 @@
       "latest_ccm_triggered": "No",
       "monitoring_window_months": 6,
       "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-      "downloaded_at": "2026-05-03T21:41Z",
+      "downloaded_at": "2026-05-03T22:39Z",
       "published_at": "2026-04-14",
       "note": "Official GOV.UK UK ETS CCM monthly average futures price context; not auction clearing price and not a live trading feed.",
       "series": [
@@ -345,7 +346,7 @@
       "symbol": "EECXM:IND",
       "source_url": "https://tradingeconomics.com/commodity/carbon",
       "docs_url": "https://docs.tradingeconomics.com/markets/historical/",
-      "downloaded_at": "2026-05-03T21:41:15Z",
+      "downloaded_at": "2026-05-03T22:39:14Z",
       "note": "Trading Economics API key not configured; optional market reference disabled.",
       "limitation": "Optional third-party market reference only. It is separate from official EEX auction, ICE UKA auction, and GOV.UK CCM inputs and is not required for the dashboard.",
       "series": []
@@ -412,42 +413,26 @@
   },
   "power": {
     "latest_datetime": "2026-05-03",
-    "latest_carbon_intensity_gco2_kwh": 200.0,
-    "average_recent_carbon_intensity_gco2_kwh": 98.5,
-    "average_30d_carbon_intensity_gco2_kwh": 98.5,
+    "latest_carbon_intensity_gco2_kwh": 186.0,
+    "average_recent_carbon_intensity_gco2_kwh": 98.7,
+    "average_30d_carbon_intensity_gco2_kwh": 98.7,
     "carbon_signal": "Carbon intensity above recent average",
-    "gas_share": 40.9,
+    "gas_share": 36.8,
     "wind_solar_share": 8.7,
-    "renewables_share": 10.2,
-    "low_carbon_share": 35.9,
+    "renewables_share": 10.0,
+    "low_carbon_share": 38.3,
     "main_driver": "higher gas share",
     "source": {
       "name": "NESO Carbon Intensity API",
-      "fetched_at": "2026-05-03T21:41Z",
-      "data_period_start": "2026-04-26T20:30Z",
-      "data_period_end": "2026-05-03T20:30Z",
-      "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-04-26T21:00Z/2026-05-03T21:00Z",
-      "generation_url": "https://api.carbonintensity.org.uk/generation/2026-04-26T21:00Z/2026-05-03T21:00Z",
+      "fetched_at": "2026-05-03T22:39Z",
+      "data_period_start": "2026-04-26T21:30Z",
+      "data_period_end": "2026-05-03T21:30Z",
+      "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-04-26T22:00Z/2026-05-03T22:00Z",
+      "generation_url": "https://api.carbonintensity.org.uk/generation/2026-04-26T22:00Z/2026-05-03T22:00Z",
       "record_count": "337"
     },
     "commentary": "Carbon intensity reflects the physical emissions profile of the GB power system; contractual renewable supply depends on certificate ownership and disclosure rules.",
     "series": [
-      {
-        "date": "2026-04-26",
-        "carbon_intensity_gco2_kwh": 167.0,
-        "gas_share": 35.3,
-        "wind_share": 13.2,
-        "solar_share": 0.1,
-        "renewables_share": 15.1
-      },
-      {
-        "date": "2026-04-26",
-        "carbon_intensity_gco2_kwh": 164.0,
-        "gas_share": 33.5,
-        "wind_share": 13.0,
-        "solar_share": 0.1,
-        "renewables_share": 14.9
-      },
       {
         "date": "2026-04-26",
         "carbon_intensity_gco2_kwh": 160.0,
@@ -2754,7 +2739,7 @@
       },
       {
         "date": "2026-05-02",
-        "carbon_intensity_gco2_kwh": 158.0,
+        "carbon_intensity_gco2_kwh": 156.0,
         "gas_share": 32.2,
         "wind_share": 14.9,
         "solar_share": 0.1,
@@ -3115,7 +3100,7 @@
       {
         "date": "2026-05-03",
         "carbon_intensity_gco2_kwh": 201.0,
-        "gas_share": 41.3,
+        "gas_share": 41.4,
         "wind_share": 8.6,
         "solar_share": 0.1,
         "renewables_share": 10.4
@@ -3123,22 +3108,219 @@
       {
         "date": "2026-05-03",
         "carbon_intensity_gco2_kwh": 200.0,
-        "gas_share": 40.9,
+        "gas_share": 40.1,
+        "wind_share": 8.4,
+        "solar_share": 0.1,
+        "renewables_share": 10.0
+      },
+      {
+        "date": "2026-05-03",
+        "carbon_intensity_gco2_kwh": 193.0,
+        "gas_share": 37.9,
+        "wind_share": 8.4,
+        "solar_share": 0.1,
+        "renewables_share": 10.0
+      },
+      {
+        "date": "2026-05-03",
+        "carbon_intensity_gco2_kwh": 186.0,
+        "gas_share": 36.8,
         "wind_share": 8.6,
         "solar_share": 0.1,
-        "renewables_share": 10.2
+        "renewables_share": 10.0
       }
     ],
     "latest_generation_mix": {
-      "Gas": 40.9,
+      "Gas": 36.8,
       "Wind": 8.6,
       "Solar": 0.1,
-      "Nuclear": 17.2,
-      "Biomass": 8.5,
-      "Hydro": 1.5,
-      "Imports": 22.0,
-      "Other": 1.3
+      "Nuclear": 18.9,
+      "Biomass": 9.4,
+      "Hydro": 1.3,
+      "Imports": 23.0,
+      "Other": 1.8
     }
+  },
+  "customer_claim_coverage": [
+    {
+      "customer_id": "CUS-001",
+      "customer_name": "Corporate Buyer A",
+      "contract_id": "C-001",
+      "product_name": "Wind-backed renewable electricity",
+      "claim_type": "Product-specific renewable supply",
+      "claim_basis": "Annual REGO-backed renewable supply claim",
+      "customer_claim_wording": "Electricity supplied under this product is backed by GB wind REGOs for the disclosure period.",
+      "delivery_period_start": "2024-04-01",
+      "delivery_period_end": "2025-03-31",
+      "disclosure_period": "2024-25",
+      "contracted_mwh": 12000.0,
+      "eligible_rego_mwh": 11850.0,
+      "coverage_pct": 98.75,
+      "uncovered_mwh": 150.0,
+      "surplus_mwh": 0.0,
+      "invalid_or_excluded_mwh": 350.0,
+      "replacement_price_gbp_per_mwh": 6.5,
+      "estimated_cover_cost_gbp": 975.0,
+      "materiality_threshold_mwh": 120.0,
+      "high_claim_blocking_exception_count": 3,
+      "exception_count": 5,
+      "claim_status": "Not supportable",
+      "primary_issue": "RC-002 Duplicate certificate ID",
+      "claim_owner": "Renewables Operations",
+      "technology_requirement": "Wind",
+      "country_requirement": "GB",
+      "methodology_note": "Claim status is based on eligible REGO evidence, contract coverage, and contract-scoped exceptions only. Grid intensity and carbon prices are context layers and do not determine claim validity."
+    },
+    {
+      "customer_id": "CUS-002",
+      "customer_name": "Corporate Buyer B",
+      "contract_id": "C-002",
+      "product_name": "Solar-backed renewable electricity",
+      "claim_type": "Product-specific renewable supply",
+      "claim_basis": "Annual REGO-backed renewable supply claim",
+      "customer_claim_wording": "Electricity supplied under this product is backed by GB solar REGOs for the disclosure period.",
+      "delivery_period_start": "2024-04-01",
+      "delivery_period_end": "2025-03-31",
+      "disclosure_period": "2024-25",
+      "contracted_mwh": 8000.0,
+      "eligible_rego_mwh": 7250.0,
+      "coverage_pct": 90.62,
+      "uncovered_mwh": 750.0,
+      "surplus_mwh": 0.0,
+      "invalid_or_excluded_mwh": 300.0,
+      "replacement_price_gbp_per_mwh": 7.25,
+      "estimated_cover_cost_gbp": 5437.5,
+      "materiality_threshold_mwh": 80.0,
+      "high_claim_blocking_exception_count": 1,
+      "exception_count": 4,
+      "claim_status": "Not supportable",
+      "primary_issue": "RC-004 Impossible lifecycle date",
+      "claim_owner": "Renewables Operations",
+      "technology_requirement": "Solar",
+      "country_requirement": "GB",
+      "methodology_note": "Claim status is based on eligible REGO evidence, contract coverage, and contract-scoped exceptions only. Grid intensity and carbon prices are context layers and do not determine claim validity."
+    },
+    {
+      "customer_id": "CUS-003",
+      "customer_name": "FMD Pool",
+      "contract_id": "C-003",
+      "product_name": "Standard renewable allocation",
+      "claim_type": "FMD renewable allocation",
+      "claim_basis": "Annual REGO-backed FMD allocation",
+      "customer_claim_wording": "Renewable allocation supported by eligible GB renewable REGOs for FMD evidence.",
+      "delivery_period_start": "2024-04-01",
+      "delivery_period_end": "2025-03-31",
+      "disclosure_period": "2024-25",
+      "contracted_mwh": 20000.0,
+      "eligible_rego_mwh": 20900.0,
+      "coverage_pct": 104.5,
+      "uncovered_mwh": 0.0,
+      "surplus_mwh": 900.0,
+      "invalid_or_excluded_mwh": 2.0,
+      "replacement_price_gbp_per_mwh": 5.75,
+      "estimated_cover_cost_gbp": 0.0,
+      "materiality_threshold_mwh": 250.0,
+      "high_claim_blocking_exception_count": 4,
+      "exception_count": 4,
+      "claim_status": "Review",
+      "primary_issue": "RC-016 Missing generation date",
+      "claim_owner": "FMD Reporting",
+      "technology_requirement": "Any Renewable",
+      "country_requirement": "GB",
+      "methodology_note": "Claim status is based on eligible REGO evidence, contract coverage, and contract-scoped exceptions only. Grid intensity and carbon prices are context layers and do not determine claim validity."
+    }
+  ],
+  "customer_claim_summary": {
+    "contracts_assessed": 3,
+    "contracts_covered": 0,
+    "contracts_review": 1,
+    "contracts_shortfall": 0,
+    "contracts_not_supportable": 2,
+    "uncovered_mwh": 900.0,
+    "invalid_or_excluded_mwh": 652.0,
+    "estimated_cover_cost_gbp": 6412.5,
+    "claim_blocking_exception_count": 8,
+    "methodology_note": "REGO evidence determines claim supportability. FMD, NESO, Scope 2, and UK ETS signals provide context only."
+  },
+  "fmd_context": {
+    "disclosure_period": "2024-25",
+    "data_period_start": "2024-04-01",
+    "data_period_end": "2025-03-31",
+    "source": "GOV.UK Fuel Mix Disclosure data table, 2024-2025",
+    "source_url": "https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table",
+    "source_date": "2025-08-01",
+    "uk_generation_average_factor_gco2_per_kwh": 154.0,
+    "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+    "fmd_residual_factor_gco2_per_kwh": 481.09,
+    "radioactive_waste_g_per_kwh": 0.007,
+    "uk_average_mix": {
+      "Coal": 5.9,
+      "Natural Gas": 33.3,
+      "Nuclear": 16.2,
+      "Renewables": 42.1,
+      "Other": 2.5
+    },
+    "residual_mix": {
+      "Coal": 14.8,
+      "Natural Gas": 74.7,
+      "Nuclear": 3.9,
+      "Renewables": 0.3,
+      "Other": 6.3
+    },
+    "methodology_note": "REGOs support contractual renewable claims and FMD evidence. Grid/FMD factors provide reporting context. This dashboard does not calculate an official customer Scope 2 inventory.",
+    "contract_context": [
+      {
+        "customer_id": "CUS-001",
+        "customer_name": "Corporate Buyer A",
+        "contract_id": "C-001",
+        "product_name": "Wind-backed renewable electricity",
+        "disclosure_period": "2024-25",
+        "claim_status": "Not supportable",
+        "contracted_mwh": 12000.0,
+        "uncovered_mwh": 150.0,
+        "location_based_emissions_proxy_tco2e": 1848.0,
+        "uk_mix_attribute_context_tco2e": 2461.52,
+        "uncovered_residual_mix_context_tco2e": 72.16,
+        "fmd_residual_factor_gco2_per_kwh": 481.09,
+        "uk_generation_average_factor_gco2_per_kwh": 154.0,
+        "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+        "methodology_note": "FMD and emissions values are reporting context only. They are not official customer Scope 2 emissions and do not determine REGO claim status."
+      },
+      {
+        "customer_id": "CUS-002",
+        "customer_name": "Corporate Buyer B",
+        "contract_id": "C-002",
+        "product_name": "Solar-backed renewable electricity",
+        "disclosure_period": "2024-25",
+        "claim_status": "Not supportable",
+        "contracted_mwh": 8000.0,
+        "uncovered_mwh": 750.0,
+        "location_based_emissions_proxy_tco2e": 1232.0,
+        "uk_mix_attribute_context_tco2e": 1641.02,
+        "uncovered_residual_mix_context_tco2e": 360.82,
+        "fmd_residual_factor_gco2_per_kwh": 481.09,
+        "uk_generation_average_factor_gco2_per_kwh": 154.0,
+        "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+        "methodology_note": "FMD and emissions values are reporting context only. They are not official customer Scope 2 emissions and do not determine REGO claim status."
+      },
+      {
+        "customer_id": "CUS-003",
+        "customer_name": "FMD Pool",
+        "contract_id": "C-003",
+        "product_name": "Standard renewable allocation",
+        "disclosure_period": "2024-25",
+        "claim_status": "Review",
+        "contracted_mwh": 20000.0,
+        "uncovered_mwh": 0.0,
+        "location_based_emissions_proxy_tco2e": 3080.0,
+        "uk_mix_attribute_context_tco2e": 4102.54,
+        "uncovered_residual_mix_context_tco2e": 0.0,
+        "fmd_residual_factor_gco2_per_kwh": 481.09,
+        "uk_generation_average_factor_gco2_per_kwh": 154.0,
+        "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+        "methodology_note": "FMD and emissions values are reporting context only. They are not official customer Scope 2 emissions and do not determine REGO claim status."
+      }
+    ]
   },
   "rego_contract_summary": [
     {
@@ -3411,7 +3593,7 @@
     }
   ],
   "source_quality": {
-    "sources_registered": 7,
+    "sources_registered": 9,
     "warning_count": 0,
     "stale_source_count": 0,
     "manual_sources_requiring_notes": 0,

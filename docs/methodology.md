@@ -45,6 +45,29 @@ Representative demo contracts and certificate records are generated to mimic mes
 
 The carbon and power sections use public data or curated public extracts. The REGO reconciliation module uses a representative demo ledger because certificate-level supplier allocations and customer contract mappings are internal operating data, not a public dataset.
 
+## Customer Claim Coverage
+
+The customer claim coverage layer reads representative customer/product claim contracts and joins them to the REGO contract summary and exception register. For each contract it calculates contracted MWh, eligible matched REGO MWh, coverage percentage, uncovered MWh, invalid or excluded MWh, surplus MWh, and assumed cover cost.
+
+Claim status is intentionally simple and auditable:
+
+- Covered: eligible REGO coverage is at or above 100% and no contract-scoped exceptions affect the claim.
+- Review: coverage is sufficient or the uncovered volume is immaterial, but non-blocking issues require analyst review.
+- Shortfall: uncovered MWh is material and no high-severity claim-blocking evidence issue is driving the result.
+- Not supportable: contract-scoped high-severity evidence issues affect the claim and the claim is not fully supported by eligible evidence.
+
+GB power intensity, FMD context, Scope 2 context, and UK ETS prices do not determine claim validity. They are context layers only.
+
+## FMD And Emissions-Reporting Context
+
+The FMD module reads a curated GOV.UK Fuel Mix Disclosure table for the 2024-25 disclosure period. It calculates context values for representative customer contracts:
+
+- Location-based emissions proxy using the UK generation-average factor.
+- FMD UK mix attribute context using the disclosed fuel-mix percentages.
+- Uncovered residual-mix context using uncovered MWh and the residual-mix factor.
+
+These values are reporting context only. They do not calculate official customer Scope 2 emissions, do not certify a market-based emissions figure, and do not affect renewable claim status.
+
 The control engine creates an exception register and a contract summary. The contract summary calculates eligible matched MWh, ineligible allocated MWh, shortfall, surplus, assumed replacement price, and estimated exposure.
 
 ## What The Project Does Not Claim

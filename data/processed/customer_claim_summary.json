@@ -1,0 +1,12 @@
+{
+  "contracts_assessed": 3,
+  "contracts_covered": 0,
+  "contracts_review": 1,
+  "contracts_shortfall": 0,
+  "contracts_not_supportable": 2,
+  "uncovered_mwh": 900.0,
+  "invalid_or_excluded_mwh": 652.0,
+  "estimated_cover_cost_gbp": 6412.5,
+  "claim_blocking_exception_count": 8,
+  "methodology_note": "REGO evidence determines claim supportability. FMD, NESO, Scope 2, and UK ETS signals provide context only."
+}

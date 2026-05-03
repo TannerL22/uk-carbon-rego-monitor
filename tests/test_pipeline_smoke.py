@@ -35,6 +35,9 @@ class PipelineSmokeTests(unittest.TestCase):
             "data/processed/auction_signals.json",
             "data/processed/source_quality_summary.json",
             "data/processed/carbon_market_reference.json",
+            "data/processed/customer_claim_coverage.json",
+            "data/processed/customer_claim_summary.json",
+            "data/processed/fmd_context.json",
         ]
         for relative_path in expected_outputs:
             self.read_json(relative_path)
@@ -49,6 +52,9 @@ class PipelineSmokeTests(unittest.TestCase):
             "carbon",
             "auction",
             "power",
+            "customer_claim_coverage",
+            "customer_claim_summary",
+            "fmd_context",
             "rego_contract_summary",
             "rego_exceptions",
             "source_quality",
@@ -57,6 +63,7 @@ class PipelineSmokeTests(unittest.TestCase):
         self.assertEqual(6, len(summary["cards"]))
         self.assertGreaterEqual(len(summary["analyst_attention"]), 3)
         self.assertEqual(3, len(summary["rego_contract_summary"]))
+        self.assertEqual(3, len(summary["customer_claim_coverage"]))
         self.assertGreaterEqual(len(summary["rego_exceptions"]), 10)
 
     def test_carbon_market_labels_are_supported_by_data(self) -> None:

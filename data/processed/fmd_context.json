@@ -1,0 +1,80 @@
+{
+  "disclosure_period": "2024-25",
+  "data_period_start": "2024-04-01",
+  "data_period_end": "2025-03-31",
+  "source": "GOV.UK Fuel Mix Disclosure data table, 2024-2025",
+  "source_url": "https://www.gov.uk/government/publications/fuel-mix-disclosure-data-table/fuel-mix-disclosure-data-table",
+  "source_date": "2025-08-01",
+  "uk_generation_average_factor_gco2_per_kwh": 154.0,
+  "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+  "fmd_residual_factor_gco2_per_kwh": 481.09,
+  "radioactive_waste_g_per_kwh": 0.007,
+  "uk_average_mix": {
+    "Coal": 5.9,
+    "Natural Gas": 33.3,
+    "Nuclear": 16.2,
+    "Renewables": 42.1,
+    "Other": 2.5
+  },
+  "residual_mix": {
+    "Coal": 14.8,
+    "Natural Gas": 74.7,
+    "Nuclear": 3.9,
+    "Renewables": 0.3,
+    "Other": 6.3
+  },
+  "methodology_note": "REGOs support contractual renewable claims and FMD evidence. Grid/FMD factors provide reporting context. This dashboard does not calculate an official customer Scope 2 inventory.",
+  "contract_context": [
+    {
+      "customer_id": "CUS-001",
+      "customer_name": "Corporate Buyer A",
+      "contract_id": "C-001",
+      "product_name": "Wind-backed renewable electricity",
+      "disclosure_period": "2024-25",
+      "claim_status": "Not supportable",
+      "contracted_mwh": 12000.0,
+      "uncovered_mwh": 150.0,
+      "location_based_emissions_proxy_tco2e": 1848.0,
+      "uk_mix_attribute_context_tco2e": 2461.52,
+      "uncovered_residual_mix_context_tco2e": 72.16,
+      "fmd_residual_factor_gco2_per_kwh": 481.09,
+      "uk_generation_average_factor_gco2_per_kwh": 154.0,
+      "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+      "methodology_note": "FMD and emissions values are reporting context only. They are not official customer Scope 2 emissions and do not determine REGO claim status."
+    },
+    {
+      "customer_id": "CUS-002",
+      "customer_name": "Corporate Buyer B",
+      "contract_id": "C-002",
+      "product_name": "Solar-backed renewable electricity",
+      "disclosure_period": "2024-25",
+      "claim_status": "Not supportable",
+      "contracted_mwh": 8000.0,
+      "uncovered_mwh": 750.0,
+      "location_based_emissions_proxy_tco2e": 1232.0,
+      "uk_mix_attribute_context_tco2e": 1641.02,
+      "uncovered_residual_mix_context_tco2e": 360.82,
+      "fmd_residual_factor_gco2_per_kwh": 481.09,
+      "uk_generation_average_factor_gco2_per_kwh": 154.0,
+      "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+      "methodology_note": "FMD and emissions values are reporting context only. They are not official customer Scope 2 emissions and do not determine REGO claim status."
+    },
+    {
+      "customer_id": "CUS-003",
+      "customer_name": "FMD Pool",
+      "contract_id": "C-003",
+      "product_name": "Standard renewable allocation",
+      "disclosure_period": "2024-25",
+      "claim_status": "Review",
+      "contracted_mwh": 20000.0,
+      "uncovered_mwh": 0.0,
+      "location_based_emissions_proxy_tco2e": 3080.0,
+      "uk_mix_attribute_context_tco2e": 4102.54,
+      "uncovered_residual_mix_context_tco2e": 0.0,
+      "fmd_residual_factor_gco2_per_kwh": 481.09,
+      "uk_generation_average_factor_gco2_per_kwh": 154.0,
+      "fmd_uk_mix_proxy_factor_gco2_per_kwh": 205.13,
+      "methodology_note": "FMD and emissions values are reporting context only. They are not official customer Scope 2 emissions and do not determine REGO claim status."
+    }
+  ]
+}
