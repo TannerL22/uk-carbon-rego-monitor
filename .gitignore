@@ -17,4 +17,6 @@ Thumbs.db
 
 # Keep generated project outputs visible by default, but ignore ad hoc exports.
 outputs/tmp/
+outputs/linkedin_post.md
+outputs/resume_bullet.md
 data/tmp/
