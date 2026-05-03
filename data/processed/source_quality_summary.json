@@ -1,24 +1,13 @@
 {
   "sources_registered": 7,
-  "warning_count": 1,
+  "warning_count": 0,
   "stale_source_count": 0,
   "manual_sources_requiring_notes": 0,
   "severity_counts": {
     "High": 0,
-    "Medium": 1,
+    "Medium": 0,
     "Low": 0
   },
-  "issues": [
-    {
-      "issue_id": "SRC-EX-001",
-      "source_id": "SRC-003",
-      "dataset_name": "UKA auction results sample",
-      "control_id": "SC-002",
-      "severity": "Medium",
-      "field": "downloaded_at",
-      "issue": "Missing download timestamp.",
-      "suggested_action": "Populate downloaded_at for source lineage."
-    }
-  ],
-  "summary_signal": "1 source-register warnings"
+  "issues": [],
+  "summary_signal": "0 source-register warnings"
 }

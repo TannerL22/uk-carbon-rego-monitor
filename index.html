@@ -98,15 +98,16 @@
       <section id="carbon" class="section section--context" aria-labelledby="carbon-heading">
         <div class="section-heading">
           <h2 id="carbon-heading">Carbon Market Signals</h2>
-          <p>Official EEX EUA auction data, curated/manual UKA auction inputs, and GOV.UK UK ETS CCM monthly context. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
+          <p>Carbon context is split into official auction results, official UKA policy/price context, and a future optional market-reference layer. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
         </div>
         <div class="section-meta" role="note">
           <p id="carbon-sample-period" class="sample-period"></p>
           <p id="carbon-fx-note" class="method-note"></p>
-          <p id="carbon-feed-note" class="method-note">Official / curated auction intelligence and GOV.UK CCM monthly context; not a licensed live trading feed.</p>
+          <p id="carbon-feed-note" class="method-note">Official / manual auction intelligence and GOV.UK CCM monthly context; not a licensed live trading feed.</p>
         </div>
+        <div id="carbon-concepts" class="carbon-concepts" aria-label="Carbon data concepts"></div>
         <dl id="carbon-metrics" class="fact-row"></dl>
-        <div class="visual-grid">
+        <div class="visual-grid carbon-visual-grid">
           <div>
             <h3>UKA and EUA auction prices <span class="muted">GBP</span></h3>
             <div id="carbon-price-line" class="svg-chart"></div>
@@ -116,6 +117,11 @@
             <h3>UKA&ndash;EUA spread <span class="muted">GBP</span></h3>
             <div id="carbon-spread-line" class="svg-chart"></div>
             <p id="carbon-spread-caption" class="chart-caption"></p>
+          </div>
+          <div class="figure-wide">
+            <h3>UK ETS CCM monthly context <span class="muted">GBP</span></h3>
+            <div id="ccm-price-line" class="svg-chart"></div>
+            <p id="ccm-price-caption" class="chart-caption"></p>
           </div>
         </div>
       </section>

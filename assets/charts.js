@@ -68,8 +68,8 @@ function renderLineChart(containerId, series, fields, options = {}) {
       `).join("")}
       ${paths}
       ${annotation}
-      <text x="${pad.left}" y="${height - 9}" class="axis-label">${escapeHtml(series[0].date || "")}</text>
-      <text x="${width - pad.right}" y="${height - 9}" text-anchor="end" class="axis-label">${escapeHtml(series[series.length - 1].date || "")}</text>
+      <text x="${pad.left}" y="${height - 9}" class="axis-label">${escapeHtml(series[0].date || series[0].month || "")}</text>
+      <text x="${width - pad.right}" y="${height - 9}" text-anchor="end" class="axis-label">${escapeHtml(series[series.length - 1].date || series[series.length - 1].month || "")}</text>
     </svg>
     <div class="chart-legend">${legend}</div>
   `;
@@ -127,6 +127,16 @@ function renderDashboardVisuals(summary) {
     summary.carbon?.series || [],
     [{ key: "spread_gbp", label: "UKA-EUA spread GBP", color: "#9a5b00" }],
     { label: "UKA-EUA spread in GBP" }
+  );
+
+  renderLineChart(
+    "ccm-price-line",
+    summary.carbon?.uka_ccm_context?.series || [],
+    [
+      { key: "monthly_average_price_gbp", label: "Monthly average", color: "#1f6b58" },
+      { key: "trigger_price_gbp", label: "CCM trigger", color: "#9a5b00" }
+    ],
+    { label: "UK ETS CCM monthly average and trigger price" }
   );
 }
 

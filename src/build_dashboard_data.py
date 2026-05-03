@@ -90,7 +90,7 @@ def main() -> None:
     summary = {
         "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "data_basis": [
-            {"label": "Carbon market", "value": "Official/curated auction + CCM context"},
+            {"label": "Carbon market", "value": "Official/manual auction + CCM context"},
             {"label": "Power", "value": "NESO Carbon Intensity API"},
             {"label": "REGO controls", "value": "Representative demo supplier-style ledger"},
             {"label": "Contracts", "value": "Representative demo contracts"},

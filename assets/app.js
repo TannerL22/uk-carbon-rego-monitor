@@ -9,14 +9,14 @@ const emptyDashboard = {
     { label: "Data quality signal", value: "Dashboard data not loaded" }
   ],
   analyst_attention: ["Run python src/build_all.py, then serve the project root with python -m http.server 8000."],
-  carbon: { series: [] },
+  carbon: { series: [], uka_ccm_context: { available: false, series: [] } },
   auction: { series: [] },
   power: { series: [], latest_generation_mix: {}, source: {} },
   rego_contract_summary: [],
   rego_exceptions: [],
   source_quality: { issues: [], sources_registered: 0, warning_count: 0, stale_source_count: 0, manual_sources_requiring_notes: 0 },
   data_basis: [
-    { label: "Carbon market", value: "Official/curated auction + CCM context" },
+    { label: "Carbon market", value: "Official/manual auction + CCM context" },
     { label: "Power", value: "NESO Carbon Intensity API" },
     { label: "REGO controls", value: "Representative demo supplier-style ledger" },
     { label: "Contracts", value: "Representative demo contracts" }
@@ -195,6 +195,47 @@ function renderFactRow(selector, facts) {
   `).join("");
 }
 
+function renderCarbonConcepts(summary) {
+  const carbon = summary.carbon || {};
+  const ccm = carbon.uka_ccm_context || {};
+  const auctionPeriod = carbon.sample_period_start && carbon.sample_period_end
+    ? `${carbon.sample_period_start} to ${carbon.sample_period_end}`
+    : "n/a";
+  const ccmLine = ccm.available
+    ? `${ccm.latest_month || "n/a"} monthly average ${ccm.latest_monthly_average_price_gbp !== null && ccm.latest_monthly_average_price_gbp !== undefined ? `GBP ${ccm.latest_monthly_average_price_gbp}` : "n/a"}; trigger ${ccm.latest_trigger_price_gbp !== null && ccm.latest_trigger_price_gbp !== undefined ? `GBP ${ccm.latest_trigger_price_gbp}` : "n/a"}`
+    : "GOV.UK CCM data not loaded.";
+
+  const concepts = [
+    {
+      label: "Official auction signal",
+      title: "UKA/EUA primary auctions",
+      detail: `EEX EUA auction data + manually curated ICE UKA input. Comparison window: ${auctionPeriod}.`,
+      status: "Used for spread and auction demand",
+    },
+    {
+      label: "Official UKA context",
+      title: "GOV.UK CCM table",
+      detail: ccmLine,
+      status: "Monthly futures-average and trigger context",
+    },
+    {
+      label: "Optional market reference",
+      title: "Not implemented",
+      detail: "No third-party near-live market reference is used in this MVP.",
+      status: "Avoids unsupported live-trading claims",
+    },
+  ];
+
+  document.querySelector("#carbon-concepts").innerHTML = concepts.map((item) => `
+    <article class="carbon-concept">
+      <p>${escapeHtml(item.label)}</p>
+      <h3>${escapeHtml(item.title)}</h3>
+      <strong>${escapeHtml(item.status)}</strong>
+      <span>${escapeHtml(item.detail)}</span>
+    </article>
+  `).join("");
+}
+
 function renderCarbonMetrics(summary) {
   const carbon = summary.carbon || {};
   const auction = summary.auction || {};
@@ -210,8 +251,8 @@ function renderCarbonMetrics(summary) {
   const feedNote = document.querySelector("#carbon-feed-note");
   if (feedNote) {
     feedNote.textContent = ccm.available
-      ? `Official EEX EUA auction data, curated/manual UKA auction inputs, and GOV.UK UK ETS CCM monthly context. Latest CCM month: ${ccm.latest_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
-      : "Official/curated auction intelligence only; not a licensed live trading feed.";
+      ? `Auction signal: official EEX EUA + manually curated ICE UKA. UKA context: GOV.UK CCM monthly table. Optional third-party market reference: not implemented. Latest CCM month: ${ccm.latest_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
+      : "Auction signal: official/manual inputs. UKA CCM context not loaded. Optional third-party market reference not implemented.";
   }
   renderFactRow("#carbon-metrics", [
     { label: "Latest UKA", value: carbon.latest_uka_price_gbp ? `GBP ${carbon.latest_uka_price_gbp}` : "n/a" },
@@ -268,8 +309,15 @@ function renderChartCaptions(summary) {
     "#generation-bars-caption",
     topMix ? `${topMix[0]} is the largest current contributor in the latest mix; gas share remains an important emissions driver.` : "Latest mix data are loaded from the power signal output."
   );
-  setChartCaption("#carbon-price-caption", "Official EEX EUA auction data are compared with curated/manual UKA auction inputs over the displayed period.");
+  setChartCaption("#carbon-price-caption", "Official EEX EUA auction data are compared with manually curated ICE UKA auction inputs over the displayed period.");
   setChartCaption("#carbon-spread-caption", "Spread is FX-adjusted using the stated EUR/GBP assumption; GOV.UK CCM context is separate from auction clearing prices.");
+  const ccm = summary.carbon?.uka_ccm_context || {};
+  setChartCaption(
+    "#ccm-price-caption",
+    ccm.available
+      ? "Official GOV.UK CCM monthly average futures prices are shown against trigger prices; these are not auction clearing prices."
+      : "GOV.UK CCM context is not loaded."
+  );
 }
 
 function renderSourceQuality(sourceQuality) {
@@ -538,6 +586,7 @@ async function initDashboard() {
   populateFilters(dashboard.rego_exceptions);
   renderExceptionTable();
   renderPowerMetrics(dashboard);
+  renderCarbonConcepts(dashboard);
   renderCarbonMetrics(dashboard);
   renderChartCaptions(dashboard);
   renderSourceQuality(dashboard.source_quality);

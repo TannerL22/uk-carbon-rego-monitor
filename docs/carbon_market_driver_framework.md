@@ -4,14 +4,14 @@ The carbon module is a market-intelligence context layer. It is not a trading te
 
 ## Inputs
 
-- `data/raw/carbon/uka_auction_results_sample.csv`
+- `data/raw/carbon/uka_auction_results.csv`
 - `data/raw/carbon/eua_auction_results.csv`
 - `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`
 - `data/raw/carbon/eua_auction_results_sample.csv` as a fallback demo-seed input only
 
 Fields include market, auction date, auction volume, clearing price, currency, cover ratio, reference price, source, URL, and notes.
 
-The normal dashboard build fetches official EEX EUA public auction workbooks into `data/raw/carbon/eua_auction_results.csv`, fetches GOV.UK UK ETS CCM monthly tables into `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`, and reads UKA auction inputs from the curated/manual CSV. It does not regenerate representative demo records. Use `python src/seed_demo_data.py` only when intentionally resetting the demo/sample input files.
+The normal dashboard build validates the manually curated ICE UKA CSV, fetches official EEX EUA public auction workbooks into `data/raw/carbon/eua_auction_results.csv`, fetches GOV.UK UK ETS CCM monthly tables into `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`, and reads the validated UKA auction input. It does not regenerate representative demo records. Use `python src/seed_demo_data.py` only when intentionally resetting the demo/sample input files.
 
 ## Metrics
 
@@ -39,7 +39,7 @@ UKA prices are denominated in GBP. EUA prices are denominated in EUR. The pipeli
 
 GOV.UK CCM monthly average futures prices are separate from auction clearing prices. They are included as official UKA policy and price-context evidence, not as a replacement for auction data or a live market feed.
 
-The dashboard displays the carbon market comparison period so curated/manual UKA inputs are not presented as live market data.
+The dashboard displays the carbon market comparison period so manually curated UKA inputs are not presented as live market data.
 
 ## Auction Demand Signal
 
@@ -53,3 +53,13 @@ missing cover ratio                          -> data insufficient
 ## Interpretation
 
 The carbon signal helps frame market conditions for an analyst. It does not determine whether renewable supply can be claimed. That evidence comes from certificate ownership, eligibility, allocation, retirement, and disclosure controls.
+
+## Dashboard Framing
+
+The dashboard separates carbon data into three concepts:
+
+1. Official auction signal: EEX EUA auction results and manually curated ICE UKA auction inputs.
+2. Official UKA monthly context: GOV.UK UK ETS CCM monthly average futures price, trigger price, and triggered status.
+3. Optional market reference: reserved for a future third-party source such as ICAP or Trading Economics, not implemented in the MVP.
+
+This keeps auction clearing prices, policy trigger context, and any future market reference data visibly distinct.

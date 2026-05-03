@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-03T08:44:51Z",
+  "generated_at": "2026-05-03T10:57:16Z",
   "data_basis": [
     {
       "label": "Carbon market",
-      "value": "Official/curated auction + CCM context"
+      "value": "Official/manual auction + CCM context"
     },
     {
       "label": "Power",
@@ -34,7 +34,7 @@
     {
       "label": "GB power signal",
       "headline": "Above recent average",
-      "subline": "124 g/kWh vs 95 g/kWh recent avg",
+      "subline": "119 g/kWh vs 95 g/kWh recent avg",
       "value": "Above recent average"
     },
     {
@@ -51,16 +51,15 @@
     },
     {
       "label": "Data quality",
-      "headline": "1 warnings",
+      "headline": "0 warnings",
       "subline": "7 sources registered",
-      "value": "1 warnings"
+      "value": "0 warnings"
     }
   ],
   "analyst_attention": [
     "Contract C-002 has a 750 MWh eligible REGO shortfall with GBP 5,438 estimated cover cost.",
     "Contract C-001 has a 150 MWh eligible REGO shortfall with GBP 975 estimated cover cost.",
     "8 high-severity certificate exceptions require review before disclosure close.",
-    "1 source-register warnings require documentation clean-up.",
     "UKA discount broadly stable.",
     "GB power context: carbon intensity is above recent average, driven by higher gas share."
   ],
@@ -95,7 +94,7 @@
       "latest_ccm_triggered": "No",
       "monitoring_window_months": 6,
       "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-      "downloaded_at": "2026-05-03T08:44Z",
+      "downloaded_at": "2026-05-03T10:57Z",
       "published_at": "2026-04-14",
       "note": "Official GOV.UK UK ETS CCM monthly average futures price context; not auction clearing price and not a live trading feed.",
       "series": [
@@ -400,58 +399,26 @@
   },
   "power": {
     "latest_datetime": "2026-05-03",
-    "latest_carbon_intensity_gco2_kwh": 124.0,
-    "average_recent_carbon_intensity_gco2_kwh": 94.8,
-    "average_30d_carbon_intensity_gco2_kwh": 94.8,
+    "latest_carbon_intensity_gco2_kwh": 119.0,
+    "average_recent_carbon_intensity_gco2_kwh": 95.3,
+    "average_30d_carbon_intensity_gco2_kwh": 95.3,
     "carbon_signal": "Carbon intensity above recent average",
-    "gas_share": 18.5,
-    "wind_solar_share": 24.1,
-    "renewables_share": 25.2,
-    "low_carbon_share": 53.0,
+    "gas_share": 19.5,
+    "wind_solar_share": 30.6,
+    "renewables_share": 31.8,
+    "low_carbon_share": 56.4,
     "main_driver": "higher gas share",
     "source": {
       "name": "NESO Carbon Intensity API",
-      "fetched_at": "2026-05-03T08:44Z",
-      "data_period_start": "2026-04-26T07:30Z",
-      "data_period_end": "2026-05-03T07:30Z",
-      "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-04-26T08:00Z/2026-05-03T08:00Z",
-      "generation_url": "https://api.carbonintensity.org.uk/generation/2026-04-26T08:00Z/2026-05-03T08:00Z",
+      "fetched_at": "2026-05-03T10:57Z",
+      "data_period_start": "2026-04-26T09:30Z",
+      "data_period_end": "2026-05-03T09:30Z",
+      "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-04-26T10:00Z/2026-05-03T10:00Z",
+      "generation_url": "https://api.carbonintensity.org.uk/generation/2026-04-26T10:00Z/2026-05-03T10:00Z",
       "record_count": "337"
     },
     "commentary": "Carbon intensity reflects the physical emissions profile of the GB power system; contractual renewable supply depends on certificate ownership and disclosure rules.",
     "series": [
-      {
-        "date": "2026-04-26",
-        "carbon_intensity_gco2_kwh": 85.0,
-        "gas_share": 8.7,
-        "wind_share": 10.9,
-        "solar_share": 19.9,
-        "renewables_share": 32.2
-      },
-      {
-        "date": "2026-04-26",
-        "carbon_intensity_gco2_kwh": 73.0,
-        "gas_share": 6.7,
-        "wind_share": 10.2,
-        "solar_share": 25.2,
-        "renewables_share": 36.8
-      },
-      {
-        "date": "2026-04-26",
-        "carbon_intensity_gco2_kwh": 67.0,
-        "gas_share": 5.4,
-        "wind_share": 9.5,
-        "solar_share": 29.7,
-        "renewables_share": 40.4
-      },
-      {
-        "date": "2026-04-26",
-        "carbon_intensity_gco2_kwh": 65.0,
-        "gas_share": 5.2,
-        "wind_share": 8.9,
-        "solar_share": 32.9,
-        "renewables_share": 42.9
-      },
       {
         "date": "2026-04-26",
         "carbon_intensity_gco2_kwh": 63.0,
@@ -2742,7 +2709,7 @@
       },
       {
         "date": "2026-05-02",
-        "carbon_intensity_gco2_kwh": 88.0,
+        "carbon_intensity_gco2_kwh": 86.0,
         "gas_share": 10.9,
         "wind_share": 9.0,
         "solar_share": 26.7,
@@ -2758,7 +2725,7 @@
       },
       {
         "date": "2026-05-02",
-        "carbon_intensity_gco2_kwh": 78.0,
+        "carbon_intensity_gco2_kwh": 77.0,
         "gas_share": 10.6,
         "wind_share": 9.4,
         "solar_share": 31.7,
@@ -3105,27 +3072,59 @@
         "carbon_intensity_gco2_kwh": 120.0,
         "gas_share": 17.5,
         "wind_share": 16.0,
-        "solar_share": 7.2,
-        "renewables_share": 24.2
+        "solar_share": 7.4,
+        "renewables_share": 24.4
       },
       {
         "date": "2026-05-03",
         "carbon_intensity_gco2_kwh": 124.0,
-        "gas_share": 18.5,
-        "wind_share": 15.3,
-        "solar_share": 8.8,
-        "renewables_share": 25.2
+        "gas_share": 18.4,
+        "wind_share": 15.2,
+        "solar_share": 9.2,
+        "renewables_share": 25.5
+      },
+      {
+        "date": "2026-05-03",
+        "carbon_intensity_gco2_kwh": 121.0,
+        "gas_share": 18.8,
+        "wind_share": 14.9,
+        "solar_share": 11.7,
+        "renewables_share": 27.6
+      },
+      {
+        "date": "2026-05-03",
+        "carbon_intensity_gco2_kwh": 120.0,
+        "gas_share": 19.0,
+        "wind_share": 14.6,
+        "solar_share": 13.9,
+        "renewables_share": 29.6
+      },
+      {
+        "date": "2026-05-03",
+        "carbon_intensity_gco2_kwh": 122.0,
+        "gas_share": 20.1,
+        "wind_share": 13.5,
+        "solar_share": 15.6,
+        "renewables_share": 30.2
+      },
+      {
+        "date": "2026-05-03",
+        "carbon_intensity_gco2_kwh": 119.0,
+        "gas_share": 19.5,
+        "wind_share": 13.1,
+        "solar_share": 17.5,
+        "renewables_share": 31.8
       }
     ],
     "latest_generation_mix": {
-      "Gas": 18.5,
-      "Wind": 15.3,
-      "Solar": 8.8,
-      "Nuclear": 18.5,
-      "Biomass": 9.3,
-      "Hydro": 1.1,
-      "Imports": 25.1,
-      "Other": 3.4
+      "Gas": 19.5,
+      "Wind": 13.1,
+      "Solar": 17.5,
+      "Nuclear": 16.4,
+      "Biomass": 8.2,
+      "Hydro": 1.2,
+      "Imports": 22.2,
+      "Other": 1.9
     }
   },
   "rego_contract_summary": [
@@ -3348,27 +3347,16 @@
   ],
   "source_quality": {
     "sources_registered": 7,
-    "warning_count": 1,
+    "warning_count": 0,
     "stale_source_count": 0,
     "manual_sources_requiring_notes": 0,
     "severity_counts": {
       "High": 0,
-      "Medium": 1,
+      "Medium": 0,
       "Low": 0
     },
-    "issues": [
-      {
-        "issue_id": "SRC-EX-001",
-        "source_id": "SRC-003",
-        "dataset_name": "UKA auction results sample",
-        "control_id": "SC-002",
-        "severity": "Medium",
-        "field": "downloaded_at",
-        "issue": "Missing download timestamp.",
-        "suggested_action": "Populate downloaded_at for source lineage."
-      }
-    ],
-    "summary_signal": "1 source-register warnings"
+    "issues": [],
+    "summary_signal": "0 source-register warnings"
   },
   "analyst_note_path": "outputs/analyst_note.md"
 }

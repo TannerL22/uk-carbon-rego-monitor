@@ -14,7 +14,7 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parents[1]
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
 AUCTION_INPUTS = {
-    "UKA": ["uka_auction_results.csv", "uka_auction_results_sample.csv"],
+    "UKA": ["uka_auction_results.csv"],
     "EUA": ["eua_auction_results.csv", "eua_auction_results_sample.csv"],
 }
 REQUIRED_COLUMNS = {

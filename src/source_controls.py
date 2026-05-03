@@ -61,7 +61,8 @@ def main() -> None:
             add_issue(issues, source_id, dataset_name, "SC-002", "Medium", "downloaded_at", "Missing download timestamp.", "Populate downloaded_at for source lineage.")
         if pd.isna(period_start) or pd.isna(period_end):
             add_issue(issues, source_id, dataset_name, "SC-003", "Medium", "data_period_start/data_period_end", "Missing data period.", "Add the covered data period.")
-        if downloaded_at:
+        source_exempt_from_freshness = any(token in source_type for token in ["representative demo", "assumption"])
+        if downloaded_at and not source_exempt_from_freshness:
             downloaded_dt = pd.to_datetime(downloaded_at, errors="coerce", utc=True)
             if pd.notna(downloaded_dt) and downloaded_dt < stale_cutoff:
                 add_issue(issues, source_id, dataset_name, "SC-004", "Low", "downloaded_at", "Source download is stale versus latest registered source.", "Refresh the sample or note why the older extract remains valid.")
