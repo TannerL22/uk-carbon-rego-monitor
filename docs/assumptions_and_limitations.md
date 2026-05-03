@@ -19,7 +19,7 @@
 
 ## Power Data
 
-- The MVP fetches live recent data from the NESO Carbon Intensity API during the Python build.
+- The MVP fetches recent data from the NESO Carbon Intensity API during the Python build.
 - No API key is required.
 - The dashboard is static after the build; it does not fetch live data in the browser.
 - If the NESO API or local network is unavailable, the build fails clearly.

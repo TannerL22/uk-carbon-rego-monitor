@@ -20,7 +20,7 @@
         <div class="header-copy">
           <p class="eyebrow">Market operations briefing</p>
           <h1>UK Carbon &amp; REGO Operations Monitor</h1>
-          <p class="lede">Carbon market signals, GB power fundamentals, and renewable certificate controls &mdash; generated from a reproducible Python pipeline against public and representative demo data.</p>
+          <p class="lede">Carbon market signals, GB power fundamentals, and renewable certificate controls &mdash; generated from a reproducible Python pipeline using public, curated, and representative demo data.</p>
           <div class="header-meta">
             <p id="data-status" class="data-status" role="status">Loading dashboard data&hellip;</p>
             <section class="data-basis" aria-labelledby="data-basis-heading">
@@ -78,7 +78,7 @@
       <section id="power" class="section section--context" aria-labelledby="power-heading">
         <div class="section-heading">
           <h2 id="power-heading">GB Power Fundamentals</h2>
-          <p>Live NESO Carbon Intensity API data fetched during the Python build. Physical emissions context is separate from contractual renewable supply.</p>
+          <p>Recent NESO Carbon Intensity API data fetched during the Python build. Physical emissions context is separate from contractual renewable supply.</p>
         </div>
         <dl id="power-metrics" class="fact-row"></dl>
         <div class="visual-grid">
@@ -98,12 +98,12 @@
       <section id="carbon" class="section section--context" aria-labelledby="carbon-heading">
         <div class="section-heading">
           <h2 id="carbon-heading">Carbon Market Signals</h2>
-          <p>Carbon context is split into official auction results, official UKA policy/price context, and a future optional market-reference layer. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
+          <p>Carbon context is split into official auction results, official UKA policy/price context, and an optional third-party market-reference layer. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
         </div>
         <div class="section-meta" role="note">
           <p id="carbon-sample-period" class="sample-period"></p>
           <p id="carbon-fx-note" class="method-note"></p>
-          <p id="carbon-feed-note" class="method-note">Official / manual auction intelligence and GOV.UK CCM monthly context; not a licensed live trading feed.</p>
+          <p id="carbon-feed-note" class="method-note">EEX official auction data, manually curated ICE UKA inputs, and GOV.UK CCM monthly context; not a licensed live trading feed.</p>
         </div>
         <div id="carbon-concepts" class="carbon-concepts" aria-label="Carbon data concepts"></div>
         <dl id="carbon-metrics" class="fact-row"></dl>
@@ -145,7 +145,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>Uses official/curated carbon market inputs, live NESO power data fetched at build time, and representative demo REGO operating data. Not trading, legal, or compliance advice.</p>
+      <p>Uses official/curated carbon market inputs, recent NESO power data fetched at build time, and representative demo REGO operating data. Not trading, legal, or compliance advice.</p>
     </footer>
 
     <script src="assets/charts.js"></script>

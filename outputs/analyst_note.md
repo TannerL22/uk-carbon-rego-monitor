@@ -4,7 +4,7 @@
 
 This monitor shows why carbon analysis for a renewables supplier is not limited to allowance prices. Auction data provides the compliance carbon market signal, GB power fundamentals explain the physical emissions backdrop, and REGO reconciliation controls determine whether renewable supply claims can be evidenced against contracts and disclosure periods.
 
-The current dashboard signal is operational rather than purely market-facing. The UKA auction input shows a GBP-normalised discount to official EEX EUA auction pricing, while the GOV.UK UK ETS CCM table provides monthly futures-average and trigger-price context. The live NESO power pull provides the recent GB physical-emissions backdrop. Those conditions provide useful context, but the main action sits in the certificate book: the representative demo REGO ledger contains 13 control exceptions, including 8 high-severity items, and two contracts have eligible certificate shortfalls.
+The current dashboard signal is operational rather than purely market-facing. The UKA auction input shows a GBP-normalised discount to official EEX EUA auction pricing, while the GOV.UK UK ETS CCM table provides monthly futures-average and trigger-price context. The NESO power pull provides the recent GB physical-emissions backdrop at build time. Those conditions provide useful context, but the main action sits in the certificate book: the representative demo REGO ledger contains 13 control exceptions, including 8 high-severity items, and two contracts have eligible certificate shortfalls.
 
 ## 2. Carbon Market Signal
 
@@ -14,7 +14,7 @@ This approach is intentionally conservative. Official auction and policy tables 
 
 ## 3. GB Power Fundamentals
 
-The power-system module fetches recent live data from the NESO Carbon Intensity API during the Python build. The dashboard compares latest carbon intensity with the recent API window average and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
+The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares latest carbon intensity with the recent API window average and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
 
 This matters because carbon-market commentary should be connected to physical system conditions. A higher-carbon generation mix may change the emissions context customers see, even though it is not the same thing as contractual renewable supply.
 
@@ -34,4 +34,4 @@ The replacement-exposure calculation is deliberately simple: shortfall MWh multi
 
 ## 6. Data Limitations
 
-The carbon data are official public or manually curated inputs, not licensed live UKA/EUA market data. The UKA auction CSV is not an automated ICE feed and should be checked against ICE Report Centre before external analytical use. The carbon spread uses a stated static EUR/GBP assumption and should not be read as a live traded spread. GOV.UK CCM monthly averages are policy/market context, not auction clearing prices. The power data are fetched live from the NESO Carbon Intensity API at build time and may be revised by the source. The REGO ledger and contracts are representative demo operating data because certificate-level supplier allocations and customer contract mappings are not public datasets. Assumed replacement prices are illustrative. The monitor is not trading advice, legal advice, or compliance sign-off.
+The carbon data are official public or manually curated inputs, not licensed live UKA/EUA market data. The UKA auction CSV is not an automated ICE feed and should be checked against ICE Report Centre before external analytical use. The carbon spread uses a stated static EUR/GBP assumption and should not be read as a live traded spread. GOV.UK CCM monthly averages are policy/market context, not auction clearing prices. The power data are fetched from the NESO Carbon Intensity API at build time, served as static dashboard output, and may be revised by the source. The REGO ledger and contracts are representative demo operating data because certificate-level supplier allocations and customer contract mappings are not public datasets. Assumed replacement prices are illustrative. The monitor is not trading advice, legal advice, or compliance sign-off.

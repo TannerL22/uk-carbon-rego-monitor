@@ -16,7 +16,7 @@ const emptyDashboard = {
   rego_exceptions: [],
   source_quality: { issues: [], sources_registered: 0, warning_count: 0, stale_source_count: 0, manual_sources_requiring_notes: 0 },
   data_basis: [
-    { label: "Carbon market", value: "Official/manual auction + CCM context" },
+    { label: "Carbon market", value: "EEX/GOV.UK + manual ICE UKA" },
     { label: "Power", value: "NESO Carbon Intensity API" },
     { label: "REGO controls", value: "Representative demo supplier-style ledger" },
     { label: "Contracts", value: "Representative demo contracts" }
@@ -48,7 +48,7 @@ async function loadJson(path) {
     }
     const data = mergeDashboard(await response.json());
     if (isDashboardStale(data)) {
-      return { status: "stale", data, message: "Data loaded, but the live NESO fetch is more than 48 hours old. Re-run python src/build_all.py." };
+      return { status: "stale", data, message: "Data loaded, but the NESO build-time fetch is more than 48 hours old. Re-run python src/build_all.py." };
     }
     return { status: "loaded", data, message: buildLoadedStatus(data) };
   } catch (error) {
@@ -265,7 +265,7 @@ function renderCarbonMetrics(summary) {
       : "Optional third-party market reference not configured.";
     feedNote.textContent = ccm.available
       ? `Auction signal: official EEX EUA + manually curated ICE UKA. UKA context: GOV.UK CCM monthly table. ${marketPhrase} Latest CCM month: ${ccm.latest_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
-      : `Auction signal: official/manual inputs. UKA CCM context not loaded. ${marketPhrase}`;
+      : `Auction signal: EEX/ICE auction inputs. UKA CCM context not loaded. ${marketPhrase}`;
   }
   renderFactRow("#carbon-metrics", [
     { label: "Latest UKA", value: carbon.latest_uka_price_gbp ? `GBP ${carbon.latest_uka_price_gbp}` : "n/a" },

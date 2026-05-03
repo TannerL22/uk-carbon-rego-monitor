@@ -294,7 +294,7 @@ def generate_source_register() -> list[dict[str, object]]:
             "data_period_start": "",
             "data_period_end": "",
             "used_for": "GB power fundamentals",
-            "known_limitations": "Fetched live during build; build fails clearly if the API is unavailable",
+            "known_limitations": "Fetched from public API during build; build fails clearly if the API is unavailable",
         },
         {
             "source_id": "SRC-006",

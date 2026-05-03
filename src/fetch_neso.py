@@ -1,4 +1,4 @@
-"""Fetch live NESO Carbon Intensity API data for the power module."""
+"""Fetch recent NESO Carbon Intensity API data for the power module."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ FUELS = ["gas", "wind", "solar", "nuclear", "biomass", "hydro", "imports", "coal
 
 
 class NesoFetchError(RuntimeError):
-    """Raised when the live NESO fetch cannot produce usable dashboard data."""
+    """Raised when the NESO fetch cannot produce usable dashboard data."""
 
 
 def iso_z(value: datetime) -> str:
@@ -134,7 +134,7 @@ def update_source_register(metadata: dict[str, str]) -> None:
             row["data_period_end"] = metadata["to"]
             row["source_url"] = BASE_URL
             row["manual_or_api"] = "api"
-            row["known_limitations"] = "Live public API fetch at build time; values may be revised by NESO."
+            row["known_limitations"] = "Public API fetch at build time; values may be revised by NESO."
 
     with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")

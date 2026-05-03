@@ -24,7 +24,7 @@ Normal dashboard builds validate the manually curated ICE UKA auction CSV, fetch
 
 ## GB Power Fundamentals
 
-The power module fetches recent live data from the NESO Carbon Intensity API during the Python build. It calculates latest carbon intensity, recent average carbon intensity, gas share, wind and solar share, low-carbon share, and a simple driver label.
+The power module fetches recent data from the NESO Carbon Intensity API during the Python build. It calculates latest carbon intensity, recent average carbon intensity, gas share, wind and solar share, low-carbon share, and a simple driver label.
 
 Driver logic is intentionally explainable:
 
@@ -37,7 +37,7 @@ else:
     driver = mixed generation effects
 ```
 
-This section distinguishes physical emissions from contractual renewable supply. Carbon intensity describes the grid mix; REGO ownership and disclosure evidence describe contractual claims. If the NESO API or network is unavailable, the build fails clearly rather than substituting fake live data.
+This section distinguishes physical emissions from contractual renewable supply. Carbon intensity describes the grid mix; REGO ownership and disclosure evidence describe contractual claims. If the NESO API or network is unavailable, the build fails clearly rather than substituting fake data.
 
 ## REGO Reconciliation
 

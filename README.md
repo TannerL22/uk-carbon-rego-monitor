@@ -12,7 +12,7 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 
 - Uses official EEX EUA auction results, manually curated ICE UKA auction inputs, and GOV.UK UK ETS CCM monthly price context to build carbon-market context.
 - Tracks UKA/EUA auction prices, a GBP-normalised spread using a stated EUR/GBP FX assumption, auction volume, and demand signals.
-- Pulls live NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
+- Fetches recent NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
 - Uses a representative demo supplier-style REGO ledger and representative demo customer contracts.
 - Reconciles certificate inventory against contract eligibility, delivery periods, counterparty records, lifecycle fields, and source evidence.
 - Flags duplicate certificate IDs, missing IDs, invalid contract allocations, lifecycle errors, technology/country mismatches, vintage breaches, stale inventory, and source-quality issues.
@@ -86,7 +86,7 @@ Carbon market data in this project uses official/public or curated inputs rather
 
 UKA auction prices are denominated in GBP. EUA auction prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating the UKA-EUA spread. Because official EEX and UKA auction calendars differ, UKA dates are aligned to the nearest EUA auction date within 14 days. GOV.UK CCM monthly prices are shown separately from auction clearing prices. The spread is therefore labelled as a GBP spread and should be treated as a transparent auction-context indicator, not a live traded spread.
 
-GB power data is fetched live from the official NESO Carbon Intensity API during `python src/build_all.py`. No API key is required. If the API or network is unavailable, the build fails clearly instead of silently substituting fake power data.
+GB power data is fetched from the official NESO Carbon Intensity API during `python src/build_all.py`. No API key is required. If the API or network is unavailable, the build fails clearly instead of silently substituting fake power data. The published site displays the most recent static output committed by the build, not a browser-side live feed.
 
 The carbon and power sections use public data, official public files, or curated public extracts. The REGO reconciliation module uses a representative demo ledger because certificate-level supplier allocations and customer contract mappings are internal operating data, not a public dataset.
 
@@ -108,7 +108,7 @@ See `docs/carbon_market_driver_framework.md`.
 
 ## GB Power Fundamentals Methodology
 
-The power module fetches recent live NESO Carbon Intensity API data, compares latest carbon intensity with the recent API window average, calculates gas and renewable shares, and identifies whether higher gas share, lower renewable output, or mixed generation effects are driving the signal.
+The power module fetches recent NESO Carbon Intensity API data during the build, compares latest carbon intensity with the recent API window average, calculates gas and renewable shares, and identifies whether higher gas share, lower renewable output, or mixed generation effects are driving the signal.
 
 ## How To Run The Project
 
