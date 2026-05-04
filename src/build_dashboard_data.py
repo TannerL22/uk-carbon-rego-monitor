@@ -122,7 +122,12 @@ def main() -> None:
     exceptions = read_json("rego_exceptions.json")
     customer_claim_coverage = read_json("customer_claim_coverage.json")
     customer_claim_summary = read_json("customer_claim_summary.json")
+    scope2_readiness = read_json("scope2_readiness.json")
+    scope2_readiness_summary = read_json("scope2_readiness_summary.json")
+    claim_evidence_register = read_json("claim_evidence_register.json")
+    claim_evidence_summary = read_json("claim_evidence_summary.json")
     fmd_context = read_json("fmd_context.json")
+    carbon_cost_context = read_json("carbon_cost_context.json")
     source_quality = read_json("source_quality_summary.json")
 
     latest_ci = float(power["latest_carbon_intensity_gco2_kwh"])
@@ -162,7 +167,12 @@ def main() -> None:
         "power": power,
         "customer_claim_coverage": customer_claim_coverage,
         "customer_claim_summary": customer_claim_summary,
+        "scope2_readiness": scope2_readiness,
+        "scope2_readiness_summary": scope2_readiness_summary,
+        "claim_evidence_register": claim_evidence_register,
+        "claim_evidence_summary": claim_evidence_summary,
         "fmd_context": fmd_context,
+        "carbon_cost_context": carbon_cost_context,
         "rego_contract_summary": contracts,
         "rego_exceptions": exceptions,
         "source_quality": source_quality,

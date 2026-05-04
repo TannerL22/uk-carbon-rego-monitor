@@ -1,0 +1,12 @@
+{
+  "register_items": 17,
+  "open_items": 16,
+  "customer_impacting_items": 15,
+  "fmd_impacting_items": 14,
+  "high_severity_items": 12,
+  "owners": [
+    "FMD Reporting",
+    "Renewables Operations"
+  ],
+  "methodology_note": "Every material shortfall and high-severity control issue is carried into the evidence register with an owner, status, impact label, target date, and remediation action."
+}

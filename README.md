@@ -28,13 +28,26 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 
 - Uses official EEX EUA auction results, manually curated ICE UKA auction inputs, and GOV.UK UK ETS CCM monthly price context to build carbon-market context.
 - Tracks UKA/EUA auction prices, a GBP-normalised spread using a stated EUR/GBP FX assumption, auction volume, and demand signals.
+- Converts selected emissions factors into indicative UKA carbon-cost context in GBP/MWh, explicitly separate from claim validation and billing.
 - Fetches recent NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
 - Assesses representative customer/product renewable claim coverage using eligible matched REGOs, contract-scoped exceptions, uncovered MWh, and assumed replacement prices.
+- Builds a claim evidence register that assigns remediation actions, owners, status, target dates, and customer/FMD impact labels to certificate-control issues.
 - Adds GOV.UK Fuel Mix Disclosure context for the disclosure period as reporting context, not as an official customer Scope 2 calculation.
+- Adds a future Scope 2 readiness layer that flags whether representative customer contracts have the data fields needed for possible hourly matching and deliverability scrutiny.
 - Uses a representative demo supplier-style REGO ledger and representative demo customer contracts.
 - Reconciles certificate inventory against contract eligibility, delivery periods, counterparty records, lifecycle fields, quantity fields, and source evidence.
 - Flags duplicate certificate IDs, missing IDs, invalid contract allocations, lifecycle errors, missing generation/issue/quantity fields, invalid quantity values, technology/country mismatches, vintage breaches, stale inventory, and source-quality issues.
 - Calculates eligible matched MWh, shortfall/surplus, and estimated replacement exposure using assumed REGO prices in the contract file.
+
+## What This Project Demonstrates
+
+- Python data pipeline design for public, curated, and representative demo energy datasets.
+- Supplier-side REGO and FMD evidence controls.
+- Customer renewable claim coverage logic, including uncovered MWh and assumed cover-cost exposure.
+- Exception register design with severity, remediation ownership, and audit-trail fields.
+- Static GitHub Pages publication from generated JSON/CSV outputs.
+- Clear separation between public data, manually curated official inputs, representative demo operating records, and assumptions.
+- Policy-aware product design without claiming official Scope 2 calculation, trading advice, or compliance sign-off.
 
 ## Dashboard Screenshots
 
@@ -116,6 +129,10 @@ The customer renewable claim coverage module is the commercial layer above the c
 
 The FMD context module reads a curated GOV.UK Fuel Mix Disclosure data table for the 2024-25 disclosure period. It adds location-based and residual-mix emissions context to contracted and uncovered MWh, but it does not calculate official customer Scope 2 emissions and it does not affect claim status.
 
+The future Scope 2 readiness module is separate from current annual claim supportability. It checks whether representative contracts have generation-period data, market-boundary fields, hourly/settlement-period availability, and deliverability flags that would be needed for more granular future reporting analysis. It does not apply final revised Scope 2 rules and it does not perform 24/7 matching.
+
+The claim evidence register translates exceptions into an audit/remediation workflow. Each register item includes source evidence, source-quality score, owner, status, target resolution date, customer-claim impact, FMD impact, and a recommended remediation action. It is an operating workflow aid, not legal or compliance sign-off.
+
 The REGO control engine is the operational core. It validates certificate IDs, lifecycle dates, generation dates, issue dates, missing or invalid quantity fields, allocation status, contract references, technology/country eligibility, delivery-period vintage, source evidence, stale available inventory, missing counterparty records, and contract-level shortfalls.
 
 See `docs/control_framework.md` for the full control register.
@@ -125,6 +142,8 @@ See `docs/control_framework.md` for the full control register.
 The carbon module calculates latest UKA/EUA auction prices, converts EUA prices into GBP using the stated FX assumption, aligns UKA auction dates to nearby EUA auction dates where calendars differ, calculates the GBP-normalised UKA-EUA spread, trailing spread average, spread z-score, and a simple spread regime. It also surfaces the latest GOV.UK CCM monthly average futures price, trigger price, and triggered status as official UKA policy context. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
 
 The dashboard separates carbon inputs into three labelled layers: official auction signal, official UKA CCM monthly context, and an optional third-party market-reference layer. The optional Trading Economics EU Carbon Permits reference is fetched only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately and should not be read as an official exchange feed.
+
+The carbon-cost context module multiplies the latest generated UKA auction price by selected emissions-factor assumptions to produce indicative GBP/MWh context. This is not a bill calculation, power-price forecast, REGO claim validation input, or official customer emissions result.
 
 See `docs/carbon_market_driver_framework.md`.
 
@@ -158,8 +177,16 @@ data/processed/power_signals.json
 data/processed/customer_claim_coverage.json
 data/processed/customer_claim_coverage.csv
 data/processed/customer_claim_summary.json
+data/processed/claim_evidence_register.json
+data/processed/claim_evidence_register.csv
+data/processed/claim_evidence_summary.json
+data/processed/scope2_readiness.json
+data/processed/scope2_readiness.csv
+data/processed/scope2_readiness_summary.json
 data/processed/fmd_context.json
 data/processed/fmd_context.csv
+data/processed/carbon_cost_context.json
+data/processed/carbon_cost_context.csv
 data/processed/rego_contract_summary.json
 data/processed/rego_exceptions.json
 data/processed/source_quality_summary.json

@@ -37,7 +37,12 @@ class PipelineSmokeTests(unittest.TestCase):
             "data/processed/carbon_market_reference.json",
             "data/processed/customer_claim_coverage.json",
             "data/processed/customer_claim_summary.json",
+            "data/processed/claim_evidence_register.json",
+            "data/processed/claim_evidence_summary.json",
             "data/processed/fmd_context.json",
+            "data/processed/carbon_cost_context.json",
+            "data/processed/scope2_readiness.json",
+            "data/processed/scope2_readiness_summary.json",
         ]
         for relative_path in expected_outputs:
             self.read_json(relative_path)
@@ -54,7 +59,12 @@ class PipelineSmokeTests(unittest.TestCase):
             "power",
             "customer_claim_coverage",
             "customer_claim_summary",
+            "claim_evidence_register",
+            "claim_evidence_summary",
+            "scope2_readiness",
+            "scope2_readiness_summary",
             "fmd_context",
+            "carbon_cost_context",
             "rego_contract_summary",
             "rego_exceptions",
             "source_quality",
@@ -64,6 +74,8 @@ class PipelineSmokeTests(unittest.TestCase):
         self.assertGreaterEqual(len(summary["analyst_attention"]), 3)
         self.assertEqual(3, len(summary["rego_contract_summary"]))
         self.assertEqual(3, len(summary["customer_claim_coverage"]))
+        self.assertEqual(3, len(summary["scope2_readiness"]))
+        self.assertGreaterEqual(len(summary["claim_evidence_register"]), 10)
         self.assertGreaterEqual(len(summary["rego_exceptions"]), 10)
 
     def test_carbon_market_labels_are_supported_by_data(self) -> None:

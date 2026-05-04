@@ -23,6 +23,27 @@ const emptyDashboard = {
     invalid_or_excluded_mwh: 0,
     estimated_cover_cost_gbp: 0
   },
+  scope2_readiness: [],
+  scope2_readiness_summary: {
+    contracts_assessed: 0,
+    high_readiness: 0,
+    medium_readiness: 0,
+    low_readiness: 0,
+    hourly_data_available_count: 0,
+    generation_period_data_available_count: 0,
+    market_boundary_available_count: 0,
+    methodology_note: ""
+  },
+  claim_evidence_register: [],
+  claim_evidence_summary: {
+    register_items: 0,
+    open_items: 0,
+    customer_impacting_items: 0,
+    fmd_impacting_items: 0,
+    high_severity_items: 0,
+    owners: [],
+    methodology_note: ""
+  },
   fmd_context: {
     disclosure_period: "",
     uk_generation_average_factor_gco2_per_kwh: 0,
@@ -30,6 +51,7 @@ const emptyDashboard = {
     contract_context: [],
     methodology_note: ""
   },
+  carbon_cost_context: { rows: [], methodology_note: "" },
   rego_contract_summary: [],
   rego_exceptions: [],
   source_quality: { issues: [], sources_registered: 0, warning_count: 0, stale_source_count: 0, manual_sources_requiring_notes: 0 },
@@ -100,11 +122,16 @@ function mergeDashboard(data) {
     auction: { ...emptyDashboard.auction, ...(data.auction || {}) },
     power: { ...emptyDashboard.power, ...(data.power || {}) },
     customer_claim_summary: { ...emptyDashboard.customer_claim_summary, ...(data.customer_claim_summary || {}) },
+    scope2_readiness_summary: { ...emptyDashboard.scope2_readiness_summary, ...(data.scope2_readiness_summary || {}) },
+    claim_evidence_summary: { ...emptyDashboard.claim_evidence_summary, ...(data.claim_evidence_summary || {}) },
     fmd_context: { ...emptyDashboard.fmd_context, ...(data.fmd_context || {}) },
+    carbon_cost_context: { ...emptyDashboard.carbon_cost_context, ...(data.carbon_cost_context || {}) },
     source_quality: { ...emptyDashboard.source_quality, ...(data.source_quality || {}) },
     cards: Array.isArray(data.cards) ? data.cards : emptyDashboard.cards,
     analyst_attention: Array.isArray(data.analyst_attention) ? data.analyst_attention : emptyDashboard.analyst_attention,
     customer_claim_coverage: Array.isArray(data.customer_claim_coverage) ? data.customer_claim_coverage : [],
+    scope2_readiness: Array.isArray(data.scope2_readiness) ? data.scope2_readiness : [],
+    claim_evidence_register: Array.isArray(data.claim_evidence_register) ? data.claim_evidence_register : [],
     rego_contract_summary: Array.isArray(data.rego_contract_summary) ? data.rego_contract_summary : [],
     rego_exceptions: Array.isArray(data.rego_exceptions) ? data.rego_exceptions : [],
     data_basis: Array.isArray(data.data_basis) ? data.data_basis : emptyDashboard.data_basis
@@ -266,6 +293,156 @@ function renderClaimCoverage(summary) {
   ]; }));
 }
 
+function renderFmdContext(summary) {
+  const fmd = summary.fmd_context || {};
+  const rows = fmd.contract_context || [];
+  const note = document.querySelector("#fmd-context-note");
+  if (note) {
+    note.textContent = fmd.methodology_note
+      ? `${fmd.methodology_note} Disclosure period ${fmd.disclosure_period}; data period ${fmd.data_period_start} to ${fmd.data_period_end}.`
+      : "FMD context unavailable. Run the Python pipeline.";
+  }
+
+  renderFactRow("#fmd-summary", [
+    { label: "Disclosure period", value: fmd.disclosure_period || "n/a" },
+    { label: "UK generation avg", value: `${formatNumber(fmd.uk_generation_average_factor_gco2_per_kwh)} gCO2/kWh` },
+    { label: "FMD UK mix proxy", value: `${formatNumber(fmd.fmd_uk_mix_proxy_factor_gco2_per_kwh)} gCO2/kWh` },
+    { label: "Residual mix", value: `${formatNumber(fmd.fmd_residual_factor_gco2_per_kwh)} gCO2/kWh` },
+    { label: "Source", value: fmd.source || "GOV.UK FMD table" }
+  ]);
+
+  const target = document.querySelector("#fmd-context-table");
+  if (!target) return;
+  if (!rows.length) {
+    target.innerHTML = '<p class="empty-state">No FMD contract context available. Run the Python pipeline.</p>';
+    return;
+  }
+
+  target.innerHTML = table([
+    "Customer / contract", "Claim status", "Contracted MWh", "Uncovered MWh", "Location proxy", "FMD UK mix context", "Uncovered residual context"
+  ], rows.map((row) => [
+    `${escapeHtml(row.customer_name)}<br>${idCell(row.contract_id)}`,
+    `<span class="status-pill ${claimStatusClass(row.claim_status)}">${escapeHtml(row.claim_status)}</span>`,
+    `${formatNumber(row.contracted_mwh)} MWh`,
+    `${formatNumber(row.uncovered_mwh)} MWh`,
+    `${formatNumber(row.location_based_emissions_proxy_tco2e)} tCO2e`,
+    `${formatNumber(row.uk_mix_attribute_context_tco2e)} tCO2e`,
+    `${formatNumber(row.uncovered_residual_mix_context_tco2e)} tCO2e`
+  ]));
+}
+
+function readinessStatusClass(status) {
+  const value = String(status || "").toLowerCase();
+  if (value === "high") return "status-covered";
+  if (value === "medium") return "status-review";
+  if (value === "low") return "status-not-supportable";
+  return "";
+}
+
+function boolText(value) {
+  return value ? "Yes" : "No";
+}
+
+function renderScope2Readiness(summary) {
+  const rows = summary.scope2_readiness || [];
+  const readinessSummary = summary.scope2_readiness_summary || {};
+  const note = document.querySelector("#scope2-method-note");
+  if (note) {
+    note.textContent = readinessSummary.methodology_note || "Future Scope 2 readiness output unavailable. Run the Python pipeline.";
+  }
+
+  renderFactRow("#scope2-summary", [
+    { label: "Contracts assessed", value: formatNumber(readinessSummary.contracts_assessed) },
+    { label: "High readiness", value: formatNumber(readinessSummary.high_readiness) },
+    { label: "Medium readiness", value: formatNumber(readinessSummary.medium_readiness) },
+    { label: "Low readiness", value: formatNumber(readinessSummary.low_readiness) },
+    { label: "Generation-period data", value: `${formatNumber(readinessSummary.generation_period_data_available_count)} / ${formatNumber(readinessSummary.contracts_assessed)}` },
+    { label: "Hourly data", value: `${formatNumber(readinessSummary.hourly_data_available_count)} / ${formatNumber(readinessSummary.contracts_assessed)}` }
+  ]);
+
+  const target = document.querySelector("#scope2-readiness-table");
+  if (!target) return;
+  if (!rows.length) {
+    target.innerHTML = '<p class="empty-state">No Scope 2 readiness output available. Run the Python pipeline.</p>';
+    return;
+  }
+
+  target.innerHTML = table([
+    "Customer", "Contract", "Current annual status", "Generation data", "Market boundary", "Hourly data", "Future readiness", "Primary gap"
+  ], rows.map((row) => [
+    escapeHtml(row.customer_name),
+    `${idCell(row.contract_id)}<br><span class="muted">${escapeHtml(row.product_name)}</span>`,
+    `<span class="status-pill ${claimStatusClass(row.current_annual_claim_status)}">${escapeHtml(row.current_annual_claim_status)}</span>`,
+    boolText(row.generation_period_data_available),
+    row.market_boundary_available ? escapeHtml(row.market_boundary || "Available") : "No",
+    boolText(row.hourly_data_available),
+    `<span class="status-pill ${readinessStatusClass(row.future_scope2_readiness)}">${escapeHtml(row.future_scope2_readiness)}</span>`,
+    escapeHtml(row.primary_readiness_gap)
+  ]));
+}
+
+function renderClaimEvidenceRegister(summary) {
+  const evidenceSummary = summary.claim_evidence_summary || {};
+  const note = document.querySelector("#evidence-method-note");
+  if (note) {
+    note.textContent = evidenceSummary.methodology_note || "Claim evidence register unavailable. Run the Python pipeline.";
+  }
+  renderEvidenceSummary(evidenceSummary);
+  renderClaimEvidenceTable();
+}
+
+function renderEvidenceSummary(summary) {
+  const target = document.querySelector("#evidence-summary");
+  if (!target) return;
+  target.innerHTML = [
+    { label: "Register items", value: formatNumber(summary.register_items), cls: "" },
+    { label: "Open items", value: formatNumber(summary.open_items), cls: "register-medium" },
+    { label: "High severity", value: formatNumber(summary.high_severity_items), cls: "register-high" },
+    { label: "Customer-impacting", value: formatNumber(summary.customer_impacting_items), cls: "register-high" },
+    { label: "FMD-impacting", value: formatNumber(summary.fmd_impacting_items), cls: "register-medium" }
+  ].map((item) => `
+    <div>
+      <dt>${escapeHtml(item.label)}</dt>
+      <dd class="${item.cls}">${escapeHtml(item.value)}</dd>
+    </div>
+  `).join("");
+}
+
+function filteredEvidenceRows() {
+  const highOnly = document.querySelector("#evidence-high-filter")?.checked;
+  const customerOnly = document.querySelector("#evidence-customer-filter")?.checked;
+  const fmdOnly = document.querySelector("#evidence-fmd-filter")?.checked;
+  const openOnly = document.querySelector("#evidence-open-filter")?.checked;
+  return (dashboard.claim_evidence_register || []).filter((row) => (
+    (!highOnly || row.severity === "High")
+    && (!customerOnly || row.customer_claim_impact === "Customer-impacting")
+    && (!fmdOnly || row.fmd_impact === "FMD-impacting")
+    && (!openOnly || String(row.status || "").startsWith("Open"))
+  ));
+}
+
+function renderClaimEvidenceTable() {
+  const target = document.querySelector("#claim-evidence-table");
+  if (!target) return;
+  const rows = filteredEvidenceRows();
+  if (!rows.length) {
+    target.innerHTML = '<p class="empty-state">No claim evidence register items match the current filters.</p>';
+    return;
+  }
+  target.innerHTML = table([
+    "Register", "Customer / contract", "Certificate", "Severity", "Impact", "Owner / status", "Target", "Remediation"
+  ], rows.map((row) => [
+    `${idCell(row.evidence_register_id)}<br><span class="muted">${escapeHtml(row.control_type)}</span>`,
+    `${escapeHtml(row.customer_name || "-")}<br>${idCell(row.contract_id || "-")}`,
+    idCell(row.certificate_id || "-"),
+    severity(row.severity),
+    `${escapeHtml(row.customer_claim_impact)}<br><span class="muted">${escapeHtml(row.fmd_impact)}</span>`,
+    `${escapeHtml(row.exception_owner)}<br><span class="muted">${escapeHtml(row.status)}</span>`,
+    escapeHtml(row.target_resolution_date),
+    escapeHtml(row.remediation_action)
+  ]));
+}
+
 function renderCarbonConcepts(summary) {
   const carbon = summary.carbon || {};
   const ccm = carbon.uka_ccm_context || {};
@@ -348,6 +525,37 @@ function renderCarbonMetrics(summary) {
     { label: "Regime", value: carbon.spread_regime ?? "n/a" },
     { label: "Auction demand", value: auction.demand_signal ?? "n/a" }
   ]);
+}
+
+function renderCarbonCostContext(summary) {
+  const context = summary.carbon_cost_context || {};
+  const rows = context.rows || [];
+  const target = document.querySelector("#carbon-cost-context");
+  if (!target) return;
+  if (!rows.length) {
+    target.innerHTML = '<p class="empty-state">No carbon-cost context available. Run the Python pipeline.</p>';
+    return;
+  }
+
+  target.innerHTML = `
+    <div class="carbon-cost-header">
+      <div>
+        <p>Context only</p>
+        <h3>Indicative carbon-cost market context</h3>
+      </div>
+      <span>UKA GBP ${escapeHtml(context.latest_uka_price_gbp_per_tco2)} / tCO2 · ARP GBP ${escapeHtml(context.auction_reserve_price_gbp_per_tco2)} from ${escapeHtml(context.auction_reserve_price_effective_from)}</span>
+    </div>
+    <p class="carbon-cost-note">${escapeHtml(context.methodology_note)}</p>
+    <div class="carbon-cost-grid">
+      ${rows.map((row) => `
+        <article class="carbon-cost-card">
+          <p>${escapeHtml(row.label)}</p>
+          <strong>GBP ${escapeHtml(row.indicative_carbon_cost_gbp_per_mwh)} / MWh</strong>
+          <span>${escapeHtml(row.emissions_factor_gco2_per_kwh)} gCO2/kWh · ${escapeHtml(row.factor_basis)}</span>
+        </article>
+      `).join("")}
+    </div>
+  `;
 }
 
 function formatCarbonSampleWindow(label) {
@@ -662,6 +870,10 @@ function attachFilterEvents() {
   ["#severity-filter", "#contract-filter", "#control-filter"].forEach((selector) => {
     document.querySelector(selector).addEventListener("change", renderExceptionTable);
   });
+  ["#evidence-high-filter", "#evidence-customer-filter", "#evidence-fmd-filter", "#evidence-open-filter"].forEach((selector) => {
+    const element = document.querySelector(selector);
+    if (element) element.addEventListener("change", renderClaimEvidenceTable);
+  });
 }
 
 async function initDashboard() {
@@ -674,6 +886,9 @@ async function initDashboard() {
   renderAttention(dashboard.analyst_attention);
   renderExecutiveStrip(dashboard);
   renderClaimCoverage(dashboard);
+  renderClaimEvidenceRegister(dashboard);
+  renderFmdContext(dashboard);
+  renderScope2Readiness(dashboard);
   renderContractSummary(dashboard.rego_contract_summary);
   renderRegisterSummary(dashboard.rego_exceptions);
   renderExceptionSummary(dashboard.rego_exceptions);
@@ -682,6 +897,7 @@ async function initDashboard() {
   renderPowerMetrics(dashboard);
   renderCarbonConcepts(dashboard);
   renderCarbonMetrics(dashboard);
+  renderCarbonCostContext(dashboard);
   renderChartCaptions(dashboard);
   renderSourceQuality(dashboard.source_quality);
 

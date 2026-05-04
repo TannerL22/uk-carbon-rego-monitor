@@ -1,0 +1,10 @@
+{
+  "contracts_assessed": 3,
+  "high_readiness": 0,
+  "medium_readiness": 1,
+  "low_readiness": 2,
+  "hourly_data_available_count": 0,
+  "generation_period_data_available_count": 2,
+  "market_boundary_available_count": 3,
+  "methodology_note": "This readiness layer is consultation-aware but not a compliance calculation. Current annual claim status remains governed by REGO evidence and contract controls."
+}

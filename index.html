@@ -11,7 +11,11 @@
     <header class="site-header">
       <nav class="top-links" aria-label="Project links">
         <a href="#claims">Claims</a>
+        <a href="#evidence">Evidence</a>
         <a href="#rego">REGO controls</a>
+        <a href="#fmd">FMD context</a>
+        <a href="#carbon-cost">Carbon cost</a>
+        <a href="#scope2">Scope 2 readiness</a>
         <a href="#power">Power</a>
         <a href="#carbon">Carbon</a>
         <a href="#sources">Sources</a>
@@ -42,6 +46,10 @@
           </div>
           <p>Contract coverage, certificate controls, source quality, and market context &mdash; generated from Python outputs and reconciled against the source register.</p>
         </div>
+        <aside class="read-guide" aria-label="How to read this dashboard">
+          <p class="eyebrow">How to read this dashboard</p>
+          <p>This dashboard tests whether representative customer renewable electricity claims are backed by eligible REGO evidence. It estimates uncovered MWh and assumed cover cost, then adds FMD, grid-emissions, and carbon-market context. It does not calculate official customer Scope 2 emissions or provide live trading data.</p>
+        </aside>
         <div class="hero-grid">
           <div class="attention-panel">
             <h2 id="attention-heading">What requires attention</h2>
@@ -60,6 +68,22 @@
         <p id="fmd-method-note" class="claim-context-note"></p>
         <dl id="claim-summary" class="fact-row"></dl>
         <div id="claim-coverage-table" class="table-wrap"></div>
+      </section>
+
+      <section id="evidence" class="section section--ops section--evidence-register" aria-labelledby="evidence-heading">
+        <div class="section-heading">
+          <h2 id="evidence-heading">Claim Evidence Register</h2>
+          <p>Operational audit trail linking customer claims, certificate exceptions, source evidence, remediation ownership, and customer/FMD impact.</p>
+        </div>
+        <p id="evidence-method-note" class="claim-context-note"></p>
+        <dl id="evidence-summary" class="register-summary" aria-label="Claim evidence register summary"></dl>
+        <div class="filters filters--evidence" aria-label="Claim evidence filters">
+          <label><input id="evidence-high-filter" type="checkbox"> High severity only</label>
+          <label><input id="evidence-customer-filter" type="checkbox"> Customer-impacting only</label>
+          <label><input id="evidence-fmd-filter" type="checkbox"> FMD-impacting only</label>
+          <label><input id="evidence-open-filter" type="checkbox"> Open only</label>
+        </div>
+        <div id="claim-evidence-table" class="table-wrap"></div>
       </section>
 
       <section id="rego" class="section section--ops" aria-labelledby="rego-heading">
@@ -84,6 +108,34 @@
           <label>Control <select id="control-filter"><option value="">All</option></select></label>
         </div>
         <div id="exception-table" class="table-wrap"></div>
+      </section>
+
+      <section id="fmd" class="section section--context section--fmd" aria-labelledby="fmd-heading">
+        <div class="section-heading">
+          <h2 id="fmd-heading">FMD &amp; Emissions-Reporting Context</h2>
+          <p>GOV.UK Fuel Mix Disclosure factors provide disclosure-period context for contracted and uncovered MWh. They do not validate renewable claims or calculate official customer Scope 2 emissions.</p>
+        </div>
+        <p id="fmd-context-note" class="claim-context-note"></p>
+        <dl id="fmd-summary" class="fact-row"></dl>
+        <div id="fmd-context-table" class="table-wrap"></div>
+      </section>
+
+      <section id="carbon-cost" class="section section--context section--carbon-cost" aria-labelledby="carbon-cost-heading">
+        <div class="section-heading">
+          <h2 id="carbon-cost-heading">Carbon-Cost Market Context</h2>
+          <p>Indicative UKA carbon-cost context converts selected emissions factors into GBP/MWh. It is not a bill calculation, power-price forecast, or REGO claim validation input.</p>
+        </div>
+        <div id="carbon-cost-context" class="carbon-cost-context" aria-label="Indicative carbon-cost context"></div>
+      </section>
+
+      <section id="scope2" class="section section--context section--scope2" aria-labelledby="scope2-heading">
+        <div class="section-heading">
+          <h2 id="scope2-heading">Future Scope 2 Readiness</h2>
+          <p>Consultation-aware data-readiness view for future hourly matching and deliverability expectations. This does not apply final Scope 2 rules, calculate official customer emissions, or change current annual REGO claim status.</p>
+        </div>
+        <p id="scope2-method-note" class="claim-context-note"></p>
+        <dl id="scope2-summary" class="fact-row"></dl>
+        <div id="scope2-readiness-table" class="table-wrap"></div>
       </section>
 
       <section id="power" class="section section--context" aria-labelledby="power-heading">

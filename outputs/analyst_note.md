@@ -14,7 +14,7 @@ The latest generated comparison shows UKA at GBP 33.8 and EUA at EUR 71.84, equi
 
 ## 3. GB Power Fundamentals
 
-The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of 186.0 g/kWh with a recent average of 98.7 g/kWh, and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
+The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of 151.0 g/kWh with a recent average of 98.9 g/kWh, and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
 
 This matters because carbon-market commentary should be connected to physical system conditions. A higher-carbon generation mix may change the emissions context customers see, even though it is not the same thing as contractual renewable supply. Contractual renewable claims still depend on certificate ownership, eligibility, allocation, retirement, and disclosure evidence.
 
@@ -23,6 +23,8 @@ This matters because carbon-market commentary should be connected to physical sy
 The claim coverage module is the commercial control layer. It reconciles representative customer/product claim contracts against eligible REGO evidence, contract coverage, excluded certificate volume, contract-scoped exceptions, and assumed replacement prices. Claim status is not affected by grid intensity or carbon prices; those are context layers only.
 
 The customer claim coverage output shows 900 MWh uncovered, 652 MWh invalid or excluded, and GBP 6,412 of assumed cover-cost exposure. The primary not-supportable claims are driven by contract-scoped high-severity evidence issues and uncovered eligible volume.
+
+The claim evidence register converts control exceptions into an operational remediation workflow. It contains 17 register items, including 16 open items, 15 customer-impacting items, and 14 FMD-impacting items. Each item carries an owner, status, target resolution date, source-evidence reference, impact label, and recommended remediation action.
 
 The underlying REGO module remains the evidence engine. It reconciles representative demo certificate records against representative demo contracts for technology, country, generation vintage, lifecycle status, issue evidence, quantity fields, counterparty, source evidence, and contract ID validity. C-002 has a 750 MWh shortfall with GBP 5,438 estimated cover cost; C-001 has a 150 MWh shortfall with GBP 975 estimated cover cost. Total eligible REGO shortfall is 900 MWh, with GBP 6,412 of assumed replacement-cost exposure. 1 contract is covered or in surplus in the current generated output.
 
@@ -35,6 +37,10 @@ The practical question is whether the supplier can evidence renewable delivery c
 The replacement-exposure calculation is deliberately simple: shortfall MWh multiplied by an assumed REGO replacement price in the contract file. It is not a market-price forecast, but it creates a clear pricing input for operational prioritisation.
 
 The FMD layer adds disclosure-period context for 2024-25. It uses the GOV.UK FMD table to show a UK generation-average emissions factor of 154.0 gCO2/kWh and an FMD residual-mix context factor of 481.09 gCO2/kWh. These values are used only as reporting context for contracted and uncovered MWh; they do not validate the renewable claim and they are not official customer Scope 2 emissions.
+
+The future Scope 2 readiness layer is a data-preparedness view, not a compliance result. It separates current annual REGO claim supportability from possible future expectations around hourly matching and deliverability. The current output classifies 0 contracts as high readiness, 1 as medium readiness, and 2 as low readiness. It does not apply final revised Scope 2 rules and it does not perform 24/7 matching.
+
+The carbon-cost layer adds a market-cost lens without changing claim status. Using the latest generated UKA auction price of GBP 33.8 per tCO2, it converts selected emissions factors into indicative GBP/MWh values. For example, the FMD residual-mix context row is GBP 16.26 per MWh. This is not a bill calculation, power-price forecast, or REGO claim validation input.
 
 ## 6. Data Limitations
 

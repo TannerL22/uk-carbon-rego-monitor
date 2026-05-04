@@ -56,7 +56,10 @@ def main() -> None:
     contracts = data["rego_contract_summary"]
     exceptions = data["rego_exceptions"]
     customer_claim_summary = data["customer_claim_summary"]
+    scope2_readiness_summary = data["scope2_readiness_summary"]
+    claim_evidence_summary = data["claim_evidence_summary"]
     fmd_context = data["fmd_context"]
+    carbon_cost_context = data["carbon_cost_context"]
     source_quality = data["source_quality"]
 
     high_count = sum(1 for item in exceptions if item["severity"] == "High")
@@ -96,6 +99,8 @@ The claim coverage module is the commercial control layer. It reconciles represe
 
 The customer claim coverage output shows {customer_claim_summary['uncovered_mwh']:,.0f} MWh uncovered, {customer_claim_summary['invalid_or_excluded_mwh']:,.0f} MWh invalid or excluded, and {money(customer_claim_summary['estimated_cover_cost_gbp'])} of assumed cover-cost exposure. The primary not-supportable claims are driven by contract-scoped high-severity evidence issues and uncovered eligible volume.
 
+The claim evidence register converts control exceptions into an operational remediation workflow. It contains {claim_evidence_summary['register_items']} register items, including {claim_evidence_summary['open_items']} open items, {claim_evidence_summary['customer_impacting_items']} customer-impacting items, and {claim_evidence_summary['fmd_impacting_items']} FMD-impacting items. Each item carries an owner, status, target resolution date, source-evidence reference, impact label, and recommended remediation action.
+
 The underlying REGO module remains the evidence engine. It reconciles representative demo certificate records against representative demo contracts for technology, country, generation vintage, lifecycle status, issue evidence, quantity fields, counterparty, source evidence, and contract ID validity. {join_shortfall_sentence(shortfalls)} Total eligible REGO shortfall is {total_shortfall:,.0f} MWh, with {money(total_exposure)} of assumed replacement-cost exposure. {len(covered)} {pluralize(len(covered), 'contract')} {('is' if len(covered) == 1 else 'are')} covered or in surplus in the current generated output.
 
 The exception register contains {high_count} high, {medium_count} medium, and {low_count} low severity exceptions. It flags missing certificate IDs, duplicate IDs, invalid contract allocation, lifecycle errors, missing generation dates, missing issue dates, missing or invalid MWh quantities, technology mismatch, country mismatch, vintage mismatch, missing source file, stale available inventory, missing counterparty, retired certificates without retirement dates, and available certificates with allocation-date inconsistencies.
@@ -107,6 +112,10 @@ The practical question is whether the supplier can evidence renewable delivery c
 The replacement-exposure calculation is deliberately simple: shortfall MWh multiplied by an assumed REGO replacement price in the contract file. It is not a market-price forecast, but it creates a clear pricing input for operational prioritisation.
 
 The FMD layer adds disclosure-period context for {fmd_context['disclosure_period']}. It uses the GOV.UK FMD table to show a UK generation-average emissions factor of {fmd_context['uk_generation_average_factor_gco2_per_kwh']} gCO2/kWh and an FMD residual-mix context factor of {fmd_context['fmd_residual_factor_gco2_per_kwh']} gCO2/kWh. These values are used only as reporting context for contracted and uncovered MWh; they do not validate the renewable claim and they are not official customer Scope 2 emissions.
+
+The future Scope 2 readiness layer is a data-preparedness view, not a compliance result. It separates current annual REGO claim supportability from possible future expectations around hourly matching and deliverability. The current output classifies {scope2_readiness_summary['high_readiness']} contracts as high readiness, {scope2_readiness_summary['medium_readiness']} as medium readiness, and {scope2_readiness_summary['low_readiness']} as low readiness. It does not apply final revised Scope 2 rules and it does not perform 24/7 matching.
+
+The carbon-cost layer adds a market-cost lens without changing claim status. Using the latest generated UKA auction price of GBP {carbon_cost_context['latest_uka_price_gbp_per_tco2']} per tCO2, it converts selected emissions factors into indicative GBP/MWh values. For example, the FMD residual-mix context row is GBP {next(row['indicative_carbon_cost_gbp_per_mwh'] for row in carbon_cost_context['rows'] if row['factor_id'] == 'FMD_RESIDUAL_MIX')} per MWh. This is not a bill calculation, power-price forecast, or REGO claim validation input.
 
 ## 6. Data Limitations
 

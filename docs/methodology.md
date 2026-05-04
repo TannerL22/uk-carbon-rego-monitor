@@ -68,6 +68,44 @@ The FMD module reads a curated GOV.UK Fuel Mix Disclosure table for the 2024-25 
 
 These values are reporting context only. They do not calculate official customer Scope 2 emissions, do not certify a market-based emissions figure, and do not affect renewable claim status.
 
+## Carbon-Cost Context
+
+The carbon-cost layer reuses the latest generated UKA auction price and selected emissions-factor assumptions to produce indicative GBP/MWh context:
+
+```text
+indicative carbon cost GBP/MWh = UKA GBP/tCO2 * emissions factor tCO2/MWh
+```
+
+This helps frame the wider carbon-cost environment around fossil or residual exposure. It is not a customer bill calculation, not a power-price forecast, not a REGO claim validation input, and not an official customer emissions result. Customer claim status is unchanged if carbon prices move.
+
+## Future Scope 2 Readiness
+
+The future-readiness layer is a data-preparedness view for possible Scope 2 methodology changes. It checks representative customer contracts for annual claim status, generation-period evidence, market-boundary fields, hourly/settlement-period data availability, and deliverability flags.
+
+The readiness output is deliberately separate from current annual REGO claim supportability:
+
+- Current annual claim status is governed by REGO evidence, contract coverage, and contract-scoped controls.
+- Future readiness is a Low / Medium / High data-readiness flag.
+- The dashboard does not apply final revised Scope 2 rules.
+- The dashboard does not calculate 24/7 matching, hourly deliverability, or official customer Scope 2 emissions.
+
+This keeps future reporting risk visible without overstating what the representative data can support.
+
+## Claim Evidence Register
+
+The claim evidence register converts certificate-control exceptions into an operating remediation workflow. It joins the exception register to customer claim coverage and ledger source fields, then assigns:
+
+- evidence source and source-file reference,
+- source-quality score,
+- exception owner,
+- remediation action,
+- target resolution date,
+- customer-claim impact,
+- FMD impact,
+- open/monitor status.
+
+The purpose is to show what an analyst should do next. High-severity and material customer-impacting items stay visible as unresolved operating risks until the underlying evidence issue is corrected, replaced, or excluded from the claim. The register is not legal advice or compliance sign-off.
+
 The control engine creates an exception register and a contract summary. The contract summary calculates eligible matched MWh, ineligible allocated MWh, shortfall, surplus, assumed replacement price, and estimated exposure.
 
 ## What The Project Does Not Claim
