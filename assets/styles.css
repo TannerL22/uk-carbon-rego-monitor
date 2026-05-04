@@ -1189,8 +1189,14 @@ th {
 }
 
 #claim-coverage-table table {
-  min-width: 1180px;
+  min-width: 1080px;
   font-variant-numeric: tabular-nums;
+  font-size: calc(var(--type-small) - 0.5px);
+}
+
+#claim-coverage-table th,
+#claim-coverage-table td {
+  padding-inline: 8px;
 }
 
 #claim-coverage-table th:nth-child(3),
@@ -1215,7 +1221,7 @@ th {
 }
 
 #claim-coverage-table td:nth-child(10) {
-  min-width: 180px;
+  min-width: 150px;
   font-variant-numeric: tabular-nums;
 }
 

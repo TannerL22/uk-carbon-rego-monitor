@@ -34,7 +34,8 @@ def card(label: str, headline: str, subline: str) -> dict[str, str]:
 
 
 def short_carbon_headline(regime: str) -> str:
-    return regime.replace("UKA ", "").replace(" than recent average", "")
+    headline = regime.replace("UKA ", "").replace(" than recent average", "").strip()
+    return headline[:1].upper() + headline[1:] if headline else headline
 
 
 def power_context_attention(power: dict[str, object]) -> str:
