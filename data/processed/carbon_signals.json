@@ -29,8 +29,8 @@
     "latest_ccm_triggered": "No",
     "monitoring_window_months": 6,
     "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-    "downloaded_at": "2026-06-12T10:57Z",
-    "published_at": "2026-06-10",
+    "downloaded_at": "2026-06-13T09:54Z",
+    "published_at": "2026-06-12",
     "note": "Official GOV.UK UK ETS CCM monthly average futures price context; not auction clearing price and not a live trading feed.",
     "series": [
       {
