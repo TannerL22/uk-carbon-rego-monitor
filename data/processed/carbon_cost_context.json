@@ -5,8 +5,8 @@
   "auction_reserve_price_gbp_per_tco2": 28.0,
   "auction_reserve_price_effective_from": "2026-04-08",
   "auction_reserve_price_source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/taking-part-in-the-uk-emissions-trading-scheme-markets",
-  "ccm_latest_month": "2026-06",
-  "ccm_trigger_price_gbp_per_tco2": 130.98,
+  "ccm_latest_month": "2026-07",
+  "ccm_trigger_price_gbp_per_tco2": 133.85,
   "fmd_disclosure_period": "2024-25",
   "rows": [
     {
@@ -18,8 +18,8 @@
       "indicative_carbon_cost_gbp_per_mwh": 5.21,
       "auction_reserve_price_gbp_per_tco2": 28.0,
       "auction_reserve_price_cost_gbp_per_mwh": 4.31,
-      "ccm_trigger_price_gbp_per_tco2": 130.98,
-      "ccm_trigger_context_gbp_per_mwh": 20.17
+      "ccm_trigger_price_gbp_per_tco2": 133.85,
+      "ccm_trigger_context_gbp_per_mwh": 20.61
     },
     {
       "factor_id": "FMD_RESIDUAL_MIX",
@@ -30,8 +30,8 @@
       "indicative_carbon_cost_gbp_per_mwh": 16.26,
       "auction_reserve_price_gbp_per_tco2": 28.0,
       "auction_reserve_price_cost_gbp_per_mwh": 13.47,
-      "ccm_trigger_price_gbp_per_tco2": 130.98,
-      "ccm_trigger_context_gbp_per_mwh": 63.01
+      "ccm_trigger_price_gbp_per_tco2": 133.85,
+      "ccm_trigger_context_gbp_per_mwh": 64.39
     },
     {
       "factor_id": "GAS_PROXY",
@@ -42,8 +42,8 @@
       "indicative_carbon_cost_gbp_per_mwh": 12.91,
       "auction_reserve_price_gbp_per_tco2": 28.0,
       "auction_reserve_price_cost_gbp_per_mwh": 10.7,
-      "ccm_trigger_price_gbp_per_tco2": 130.98,
-      "ccm_trigger_context_gbp_per_mwh": 50.03
+      "ccm_trigger_price_gbp_per_tco2": 133.85,
+      "ccm_trigger_context_gbp_per_mwh": 51.13
     }
   ],
   "methodology_note": "Indicative carbon cost per MWh = UKA GBP/tCO2 * emissions factor tCO2/MWh. This is market and fossil/residual exposure context only: not a bill calculation, not a power-price forecast, not a REGO claim validation input, and not an official customer emissions result."
