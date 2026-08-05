@@ -6,7 +6,7 @@
   "symbol": "EECXM:IND",
   "source_url": "https://tradingeconomics.com/commodity/carbon",
   "docs_url": "https://docs.tradingeconomics.com/markets/historical/",
-  "downloaded_at": "2026-08-04T09:35:56Z",
+  "downloaded_at": "2026-08-05T09:31:26Z",
   "note": "Trading Economics API key not configured; optional market reference disabled.",
   "limitation": "Optional third-party market reference only. It is separate from official EEX auction, ICE UKA auction, and GOV.UK CCM inputs and is not required for the dashboard.",
   "series": []
