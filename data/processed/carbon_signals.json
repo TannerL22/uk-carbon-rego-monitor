@@ -23,23 +23,16 @@
   "alignment_note": "UKA auction dates are compared with the nearest official EUA auction date within 14 days because UKA and EUA auction calendars differ.",
   "uka_ccm_context": {
     "available": true,
-    "latest_month": "2026-07",
-    "latest_monthly_average_price_gbp": 57.02,
-    "latest_trigger_price_gbp": 133.85,
+    "latest_month": "2026-08",
+    "latest_monthly_average_price_gbp": 58.68,
+    "latest_trigger_price_gbp": 137.71,
     "latest_ccm_triggered": "No",
     "monitoring_window_months": 6,
     "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-    "downloaded_at": "2026-08-10T08:23Z",
-    "published_at": "2026-07-10",
+    "downloaded_at": "2026-08-11T08:06Z",
+    "published_at": "2026-08-10",
     "note": "Official GOV.UK UK ETS CCM monthly average futures price context; not auction clearing price and not a live trading feed.",
     "series": [
-      {
-        "month": "2025-02",
-        "monthly_average_price_gbp": 35.84,
-        "trigger_price_gbp": 166.62,
-        "ccm_triggered": "No",
-        "monitoring_window_months": 6
-      },
       {
         "month": "2025-03",
         "monthly_average_price_gbp": 44.31,
@@ -156,6 +149,13 @@
         "month": "2026-07",
         "monthly_average_price_gbp": 57.02,
         "trigger_price_gbp": 133.85,
+        "ccm_triggered": "No",
+        "monitoring_window_months": 6
+      },
+      {
+        "month": "2026-08",
+        "monthly_average_price_gbp": 58.68,
+        "trigger_price_gbp": 137.71,
         "ccm_triggered": "No",
         "monitoring_window_months": 6
       }
