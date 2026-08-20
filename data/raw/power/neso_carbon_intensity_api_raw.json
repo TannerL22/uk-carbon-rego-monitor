@@ -2,438 +2,6 @@
   "intensity": {
     "data": [
       {
-        "from": "2026-08-12T06:30Z",
-        "to": "2026-08-12T07:00Z",
-        "intensity": {
-          "forecast": 120,
-          "actual": 97,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T07:00Z",
-        "to": "2026-08-12T07:30Z",
-        "intensity": {
-          "forecast": 105,
-          "actual": 92,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T07:30Z",
-        "to": "2026-08-12T08:00Z",
-        "intensity": {
-          "forecast": 98,
-          "actual": 79,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T08:00Z",
-        "to": "2026-08-12T08:30Z",
-        "intensity": {
-          "forecast": 80,
-          "actual": 73,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T08:30Z",
-        "to": "2026-08-12T09:00Z",
-        "intensity": {
-          "forecast": 74,
-          "actual": 68,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T09:00Z",
-        "to": "2026-08-12T09:30Z",
-        "intensity": {
-          "forecast": 65,
-          "actual": 64,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T09:30Z",
-        "to": "2026-08-12T10:00Z",
-        "intensity": {
-          "forecast": 63,
-          "actual": 63,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T10:00Z",
-        "to": "2026-08-12T10:30Z",
-        "intensity": {
-          "forecast": 58,
-          "actual": 61,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T10:30Z",
-        "to": "2026-08-12T11:00Z",
-        "intensity": {
-          "forecast": 60,
-          "actual": 58,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T11:00Z",
-        "to": "2026-08-12T11:30Z",
-        "intensity": {
-          "forecast": 59,
-          "actual": 59,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T11:30Z",
-        "to": "2026-08-12T12:00Z",
-        "intensity": {
-          "forecast": 59,
-          "actual": 58,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T12:00Z",
-        "to": "2026-08-12T12:30Z",
-        "intensity": {
-          "forecast": 55,
-          "actual": 58,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T12:30Z",
-        "to": "2026-08-12T13:00Z",
-        "intensity": {
-          "forecast": 57,
-          "actual": 62,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T13:00Z",
-        "to": "2026-08-12T13:30Z",
-        "intensity": {
-          "forecast": 55,
-          "actual": 63,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T13:30Z",
-        "to": "2026-08-12T14:00Z",
-        "intensity": {
-          "forecast": 59,
-          "actual": 68,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T14:00Z",
-        "to": "2026-08-12T14:30Z",
-        "intensity": {
-          "forecast": 62,
-          "actual": 73,
-          "index": "low"
-        }
-      },
-      {
-        "from": "2026-08-12T14:30Z",
-        "to": "2026-08-12T15:00Z",
-        "intensity": {
-          "forecast": 64,
-          "actual": 90,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T15:00Z",
-        "to": "2026-08-12T15:30Z",
-        "intensity": {
-          "forecast": 80,
-          "actual": 111,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T15:30Z",
-        "to": "2026-08-12T16:00Z",
-        "intensity": {
-          "forecast": 95,
-          "actual": 146,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T16:00Z",
-        "to": "2026-08-12T16:30Z",
-        "intensity": {
-          "forecast": 109,
-          "actual": 161,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T16:30Z",
-        "to": "2026-08-12T17:00Z",
-        "intensity": {
-          "forecast": 119,
-          "actual": 165,
-          "index": "moderate"
-        }
-      },
-      {
-        "from": "2026-08-12T17:00Z",
-        "to": "2026-08-12T17:30Z",
-        "intensity": {
-          "forecast": 173,
-          "actual": 177,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T17:30Z",
-        "to": "2026-08-12T18:00Z",
-        "intensity": {
-          "forecast": 192,
-          "actual": 188,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T18:00Z",
-        "to": "2026-08-12T18:30Z",
-        "intensity": {
-          "forecast": 196,
-          "actual": 194,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T18:30Z",
-        "to": "2026-08-12T19:00Z",
-        "intensity": {
-          "forecast": 190,
-          "actual": 191,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T19:00Z",
-        "to": "2026-08-12T19:30Z",
-        "intensity": {
-          "forecast": 193,
-          "actual": 197,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T19:30Z",
-        "to": "2026-08-12T20:00Z",
-        "intensity": {
-          "forecast": 191,
-          "actual": 200,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T20:00Z",
-        "to": "2026-08-12T20:30Z",
-        "intensity": {
-          "forecast": 202,
-          "actual": 200,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T20:30Z",
-        "to": "2026-08-12T21:00Z",
-        "intensity": {
-          "forecast": 193,
-          "actual": 205,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T21:00Z",
-        "to": "2026-08-12T21:30Z",
-        "intensity": {
-          "forecast": 195,
-          "actual": 204,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T21:30Z",
-        "to": "2026-08-12T22:00Z",
-        "intensity": {
-          "forecast": 184,
-          "actual": 195,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T22:00Z",
-        "to": "2026-08-12T22:30Z",
-        "intensity": {
-          "forecast": 203,
-          "actual": 194,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T22:30Z",
-        "to": "2026-08-12T23:00Z",
-        "intensity": {
-          "forecast": 205,
-          "actual": 188,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T23:00Z",
-        "to": "2026-08-12T23:30Z",
-        "intensity": {
-          "forecast": 204,
-          "actual": 190,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-12T23:30Z",
-        "to": "2026-08-13T00:00Z",
-        "intensity": {
-          "forecast": 201,
-          "actual": 189,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T00:00Z",
-        "to": "2026-08-13T00:30Z",
-        "intensity": {
-          "forecast": 186,
-          "actual": 189,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T00:30Z",
-        "to": "2026-08-13T01:00Z",
-        "intensity": {
-          "forecast": 190,
-          "actual": 191,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T01:00Z",
-        "to": "2026-08-13T01:30Z",
-        "intensity": {
-          "forecast": 188,
-          "actual": 195,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T01:30Z",
-        "to": "2026-08-13T02:00Z",
-        "intensity": {
-          "forecast": 188,
-          "actual": 205,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T02:00Z",
-        "to": "2026-08-13T02:30Z",
-        "intensity": {
-          "forecast": 196,
-          "actual": 209,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T02:30Z",
-        "to": "2026-08-13T03:00Z",
-        "intensity": {
-          "forecast": 170,
-          "actual": 217,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T03:00Z",
-        "to": "2026-08-13T03:30Z",
-        "intensity": {
-          "forecast": 213,
-          "actual": 219,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T03:30Z",
-        "to": "2026-08-13T04:00Z",
-        "intensity": {
-          "forecast": 208,
-          "actual": 222,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T04:00Z",
-        "to": "2026-08-13T04:30Z",
-        "intensity": {
-          "forecast": 160,
-          "actual": 224,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T04:30Z",
-        "to": "2026-08-13T05:00Z",
-        "intensity": {
-          "forecast": 154,
-          "actual": 221,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T05:00Z",
-        "to": "2026-08-13T05:30Z",
-        "intensity": {
-          "forecast": 226,
-          "actual": 223,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T05:30Z",
-        "to": "2026-08-13T06:00Z",
-        "intensity": {
-          "forecast": 228,
-          "actual": 206,
-          "index": "high"
-        }
-      },
-      {
-        "from": "2026-08-13T06:00Z",
-        "to": "2026-08-13T06:30Z",
-        "intensity": {
-          "forecast": 213,
-          "actual": 199,
-          "index": "high"
-        }
-      },
-      {
         "from": "2026-08-13T06:30Z",
         "to": "2026-08-13T07:00Z",
         "intensity": {
@@ -2616,7 +2184,7 @@
         "to": "2026-08-18T08:00Z",
         "intensity": {
           "forecast": 140,
-          "actual": 137,
+          "actual": 136,
           "index": "moderate"
         }
       },
@@ -2625,7 +2193,7 @@
         "to": "2026-08-18T08:30Z",
         "intensity": {
           "forecast": 136,
-          "actual": 129,
+          "actual": 127,
           "index": "moderate"
         }
       },
@@ -2634,7 +2202,7 @@
         "to": "2026-08-18T09:00Z",
         "intensity": {
           "forecast": 122,
-          "actual": 118,
+          "actual": 117,
           "index": "moderate"
         }
       },
@@ -2643,7 +2211,7 @@
         "to": "2026-08-18T09:30Z",
         "intensity": {
           "forecast": 110,
-          "actual": 109,
+          "actual": 108,
           "index": "moderate"
         }
       },
@@ -2661,7 +2229,7 @@
         "to": "2026-08-18T10:30Z",
         "intensity": {
           "forecast": 93,
-          "actual": 106,
+          "actual": 108,
           "index": "moderate"
         }
       },
@@ -2670,7 +2238,7 @@
         "to": "2026-08-18T11:00Z",
         "intensity": {
           "forecast": 86,
-          "actual": 97,
+          "actual": 94,
           "index": "moderate"
         }
       },
@@ -2679,7 +2247,7 @@
         "to": "2026-08-18T11:30Z",
         "intensity": {
           "forecast": 106,
-          "actual": 92,
+          "actual": 93,
           "index": "moderate"
         }
       },
@@ -2688,7 +2256,7 @@
         "to": "2026-08-18T12:00Z",
         "intensity": {
           "forecast": 102,
-          "actual": 89,
+          "actual": 88,
           "index": "low"
         }
       },
@@ -2697,7 +2265,7 @@
         "to": "2026-08-18T12:30Z",
         "intensity": {
           "forecast": 93,
-          "actual": 86,
+          "actual": 87,
           "index": "low"
         }
       },
@@ -2715,7 +2283,7 @@
         "to": "2026-08-18T13:30Z",
         "intensity": {
           "forecast": 87,
-          "actual": 87,
+          "actual": 86,
           "index": "low"
         }
       },
@@ -2724,7 +2292,7 @@
         "to": "2026-08-18T14:00Z",
         "intensity": {
           "forecast": 93,
-          "actual": 86,
+          "actual": 87,
           "index": "low"
         }
       },
@@ -2733,7 +2301,7 @@
         "to": "2026-08-18T14:30Z",
         "intensity": {
           "forecast": 90,
-          "actual": 97,
+          "actual": 100,
           "index": "moderate"
         }
       },
@@ -2742,7 +2310,7 @@
         "to": "2026-08-18T15:00Z",
         "intensity": {
           "forecast": 95,
-          "actual": 117,
+          "actual": 119,
           "index": "moderate"
         }
       },
@@ -2751,7 +2319,7 @@
         "to": "2026-08-18T15:30Z",
         "intensity": {
           "forecast": 112,
-          "actual": 132,
+          "actual": 134,
           "index": "moderate"
         }
       },
@@ -2760,7 +2328,7 @@
         "to": "2026-08-18T16:00Z",
         "intensity": {
           "forecast": 126,
-          "actual": 144,
+          "actual": 145,
           "index": "moderate"
         }
       },
@@ -2769,7 +2337,7 @@
         "to": "2026-08-18T16:30Z",
         "intensity": {
           "forecast": 154,
-          "actual": 153,
+          "actual": 154,
           "index": "moderate"
         }
       },
@@ -2796,7 +2364,7 @@
         "to": "2026-08-18T18:00Z",
         "intensity": {
           "forecast": 167,
-          "actual": 182,
+          "actual": 183,
           "index": "high"
         }
       },
@@ -2886,7 +2454,7 @@
         "to": "2026-08-18T23:00Z",
         "intensity": {
           "forecast": 203,
-          "actual": 202,
+          "actual": 203,
           "index": "high"
         }
       },
@@ -2922,7 +2490,7 @@
         "to": "2026-08-19T01:00Z",
         "intensity": {
           "forecast": 206,
-          "actual": 202,
+          "actual": 203,
           "index": "high"
         }
       },
@@ -2931,7 +2499,7 @@
         "to": "2026-08-19T01:30Z",
         "intensity": {
           "forecast": 197,
-          "actual": 201,
+          "actual": 200,
           "index": "high"
         }
       },
@@ -2985,7 +2553,7 @@
         "to": "2026-08-19T04:30Z",
         "intensity": {
           "forecast": 185,
-          "actual": 200,
+          "actual": 199,
           "index": "high"
         }
       },
@@ -3030,2030 +2598,446 @@
         "to": "2026-08-19T07:00Z",
         "intensity": {
           "forecast": 183,
+          "actual": 180,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T07:00Z",
+        "to": "2026-08-19T07:30Z",
+        "intensity": {
+          "forecast": 181,
+          "actual": 176,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T07:30Z",
+        "to": "2026-08-19T08:00Z",
+        "intensity": {
+          "forecast": 172,
+          "actual": 164,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T08:00Z",
+        "to": "2026-08-19T08:30Z",
+        "intensity": {
+          "forecast": 169,
+          "actual": 157,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T08:30Z",
+        "to": "2026-08-19T09:00Z",
+        "intensity": {
+          "forecast": 162,
+          "actual": 149,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T09:00Z",
+        "to": "2026-08-19T09:30Z",
+        "intensity": {
+          "forecast": 153,
+          "actual": 138,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T09:30Z",
+        "to": "2026-08-19T10:00Z",
+        "intensity": {
+          "forecast": 145,
+          "actual": 135,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T10:00Z",
+        "to": "2026-08-19T10:30Z",
+        "intensity": {
+          "forecast": 134,
+          "actual": 139,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T10:30Z",
+        "to": "2026-08-19T11:00Z",
+        "intensity": {
+          "forecast": 133,
+          "actual": 137,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T11:00Z",
+        "to": "2026-08-19T11:30Z",
+        "intensity": {
+          "forecast": 133,
+          "actual": 134,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T11:30Z",
+        "to": "2026-08-19T12:00Z",
+        "intensity": {
+          "forecast": 123,
+          "actual": 131,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T12:00Z",
+        "to": "2026-08-19T12:30Z",
+        "intensity": {
+          "forecast": 127,
+          "actual": 129,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T12:30Z",
+        "to": "2026-08-19T13:00Z",
+        "intensity": {
+          "forecast": 126,
+          "actual": 128,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T13:00Z",
+        "to": "2026-08-19T13:30Z",
+        "intensity": {
+          "forecast": 120,
+          "actual": 131,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T13:30Z",
+        "to": "2026-08-19T14:00Z",
+        "intensity": {
+          "forecast": 118,
+          "actual": 125,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T14:00Z",
+        "to": "2026-08-19T14:30Z",
+        "intensity": {
+          "forecast": 125,
+          "actual": 126,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T14:30Z",
+        "to": "2026-08-19T15:00Z",
+        "intensity": {
+          "forecast": 140,
+          "actual": 134,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T15:00Z",
+        "to": "2026-08-19T15:30Z",
+        "intensity": {
+          "forecast": 167,
+          "actual": 155,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T15:30Z",
+        "to": "2026-08-19T16:00Z",
+        "intensity": {
+          "forecast": 152,
+          "actual": 164,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-19T16:00Z",
+        "to": "2026-08-19T16:30Z",
+        "intensity": {
+          "forecast": 176,
+          "actual": 171,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T16:30Z",
+        "to": "2026-08-19T17:00Z",
+        "intensity": {
+          "forecast": 175,
+          "actual": 177,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T17:00Z",
+        "to": "2026-08-19T17:30Z",
+        "intensity": {
+          "forecast": 180,
+          "actual": 182,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T17:30Z",
+        "to": "2026-08-19T18:00Z",
+        "intensity": {
+          "forecast": 191,
+          "actual": 188,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T18:00Z",
+        "to": "2026-08-19T18:30Z",
+        "intensity": {
+          "forecast": 196,
+          "actual": 189,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T18:30Z",
+        "to": "2026-08-19T19:00Z",
+        "intensity": {
+          "forecast": 200,
+          "actual": 196,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T19:00Z",
+        "to": "2026-08-19T19:30Z",
+        "intensity": {
+          "forecast": 202,
+          "actual": 194,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T19:30Z",
+        "to": "2026-08-19T20:00Z",
+        "intensity": {
+          "forecast": 203,
+          "actual": 196,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T20:00Z",
+        "to": "2026-08-19T20:30Z",
+        "intensity": {
+          "forecast": 202,
+          "actual": 199,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T20:30Z",
+        "to": "2026-08-19T21:00Z",
+        "intensity": {
+          "forecast": 89,
+          "actual": 205,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T21:00Z",
+        "to": "2026-08-19T21:30Z",
+        "intensity": {
+          "forecast": 200,
+          "actual": 210,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T21:30Z",
+        "to": "2026-08-19T22:00Z",
+        "intensity": {
+          "forecast": 199,
+          "actual": 197,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T22:00Z",
+        "to": "2026-08-19T22:30Z",
+        "intensity": {
+          "forecast": 213,
+          "actual": 187,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T22:30Z",
+        "to": "2026-08-19T23:00Z",
+        "intensity": {
+          "forecast": 196,
+          "actual": 184,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T23:00Z",
+        "to": "2026-08-19T23:30Z",
+        "intensity": {
+          "forecast": 194,
+          "actual": 179,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-19T23:30Z",
+        "to": "2026-08-20T00:00Z",
+        "intensity": {
+          "forecast": 177,
           "actual": 181,
           "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T00:00Z",
+        "to": "2026-08-20T00:30Z",
+        "intensity": {
+          "forecast": 178,
+          "actual": 181,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T00:30Z",
+        "to": "2026-08-20T01:00Z",
+        "intensity": {
+          "forecast": 167,
+          "actual": 182,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T01:00Z",
+        "to": "2026-08-20T01:30Z",
+        "intensity": {
+          "forecast": 175,
+          "actual": 184,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T01:30Z",
+        "to": "2026-08-20T02:00Z",
+        "intensity": {
+          "forecast": 180,
+          "actual": 185,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T02:00Z",
+        "to": "2026-08-20T02:30Z",
+        "intensity": {
+          "forecast": 183,
+          "actual": 184,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T02:30Z",
+        "to": "2026-08-20T03:00Z",
+        "intensity": {
+          "forecast": 181,
+          "actual": 187,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T03:00Z",
+        "to": "2026-08-20T03:30Z",
+        "intensity": {
+          "forecast": 179,
+          "actual": 186,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T03:30Z",
+        "to": "2026-08-20T04:00Z",
+        "intensity": {
+          "forecast": 177,
+          "actual": 188,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T04:00Z",
+        "to": "2026-08-20T04:30Z",
+        "intensity": {
+          "forecast": 159,
+          "actual": 189,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T04:30Z",
+        "to": "2026-08-20T05:00Z",
+        "intensity": {
+          "forecast": 183,
+          "actual": 181,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T05:00Z",
+        "to": "2026-08-20T05:30Z",
+        "intensity": {
+          "forecast": 190,
+          "actual": 180,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T05:30Z",
+        "to": "2026-08-20T06:00Z",
+        "intensity": {
+          "forecast": 174,
+          "actual": 170,
+          "index": "high"
+        }
+      },
+      {
+        "from": "2026-08-20T06:00Z",
+        "to": "2026-08-20T06:30Z",
+        "intensity": {
+          "forecast": 174,
+          "actual": 165,
+          "index": "moderate"
+        }
+      },
+      {
+        "from": "2026-08-20T06:30Z",
+        "to": "2026-08-20T07:00Z",
+        "intensity": {
+          "forecast": 166,
+          "actual": 152,
+          "index": "moderate"
         }
       }
     ]
   },
   "generation": {
     "data": [
-      {
-        "from": "2026-08-12T06:30Z",
-        "to": "2026-08-12T07:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 23.1
-          },
-          {
-            "fuel": "gas",
-            "perc": 14.2
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 12.8
-          },
-          {
-            "fuel": "other",
-            "perc": 2.1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.9
-          },
-          {
-            "fuel": "solar",
-            "perc": 11.5
-          },
-          {
-            "fuel": "wind",
-            "perc": 27.5
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T07:00Z",
-        "to": "2026-08-12T07:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.6
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 23.1
-          },
-          {
-            "fuel": "gas",
-            "perc": 12.8
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 12.6
-          },
-          {
-            "fuel": "other",
-            "perc": 2.3
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 15.4
-          },
-          {
-            "fuel": "wind",
-            "perc": 25.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T07:30Z",
-        "to": "2026-08-12T08:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.1
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 23.4
-          },
-          {
-            "fuel": "gas",
-            "perc": 10.4
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 12.4
-          },
-          {
-            "fuel": "other",
-            "perc": 1.5
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 19.6
-          },
-          {
-            "fuel": "wind",
-            "perc": 24.9
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T08:00Z",
-        "to": "2026-08-12T08:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 22.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 8
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 12
-          },
-          {
-            "fuel": "other",
-            "perc": 2
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 23.8
-          },
-          {
-            "fuel": "wind",
-            "perc": 23
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T08:30Z",
-        "to": "2026-08-12T09:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 22.2
-          },
-          {
-            "fuel": "gas",
-            "perc": 7.2
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.8
-          },
-          {
-            "fuel": "other",
-            "perc": 1.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.6
-          },
-          {
-            "fuel": "solar",
-            "perc": 28
-          },
-          {
-            "fuel": "wind",
-            "perc": 20.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T09:00Z",
-        "to": "2026-08-12T09:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.5
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 21.8
-          },
-          {
-            "fuel": "gas",
-            "perc": 6.5
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.6
-          },
-          {
-            "fuel": "other",
-            "perc": 1.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 31.4
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.9
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T09:30Z",
-        "to": "2026-08-12T10:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 21.2
-          },
-          {
-            "fuel": "gas",
-            "perc": 6.3
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.3
-          },
-          {
-            "fuel": "other",
-            "perc": 1.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.6
-          },
-          {
-            "fuel": "solar",
-            "perc": 33.3
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.1
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T10:00Z",
-        "to": "2026-08-12T10:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 20.6
-          },
-          {
-            "fuel": "gas",
-            "perc": 6
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.9
-          },
-          {
-            "fuel": "other",
-            "perc": 2
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.5
-          },
-          {
-            "fuel": "solar",
-            "perc": 34.9
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.2
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T10:30Z",
-        "to": "2026-08-12T11:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 20.1
-          },
-          {
-            "fuel": "gas",
-            "perc": 5.7
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.7
-          },
-          {
-            "fuel": "other",
-            "perc": 1.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.5
-          },
-          {
-            "fuel": "solar",
-            "perc": 36.1
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T11:00Z",
-        "to": "2026-08-12T11:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.9
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 19.8
-          },
-          {
-            "fuel": "gas",
-            "perc": 5.7
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.5
-          },
-          {
-            "fuel": "other",
-            "perc": 1.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.4
-          },
-          {
-            "fuel": "solar",
-            "perc": 36.7
-          },
-          {
-            "fuel": "wind",
-            "perc": 18
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T11:30Z",
-        "to": "2026-08-12T12:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.9
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 19.6
-          },
-          {
-            "fuel": "gas",
-            "perc": 5.8
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.4
-          },
-          {
-            "fuel": "other",
-            "perc": 1.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.4
-          },
-          {
-            "fuel": "solar",
-            "perc": 36.8
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T12:00Z",
-        "to": "2026-08-12T12:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 19.5
-          },
-          {
-            "fuel": "gas",
-            "perc": 5.7
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.3
-          },
-          {
-            "fuel": "other",
-            "perc": 1.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.4
-          },
-          {
-            "fuel": "solar",
-            "perc": 36.8
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T12:30Z",
-        "to": "2026-08-12T13:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 19.4
-          },
-          {
-            "fuel": "gas",
-            "perc": 6.4
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.3
-          },
-          {
-            "fuel": "other",
-            "perc": 2.1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.4
-          },
-          {
-            "fuel": "solar",
-            "perc": 36.6
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T13:00Z",
-        "to": "2026-08-12T13:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.1
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 19.4
-          },
-          {
-            "fuel": "gas",
-            "perc": 7
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.4
-          },
-          {
-            "fuel": "other",
-            "perc": 1.8
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.4
-          },
-          {
-            "fuel": "solar",
-            "perc": 36.3
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T13:30Z",
-        "to": "2026-08-12T14:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.2
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 18.4
-          },
-          {
-            "fuel": "gas",
-            "perc": 7.9
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.6
-          },
-          {
-            "fuel": "other",
-            "perc": 1.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.5
-          },
-          {
-            "fuel": "solar",
-            "perc": 35.9
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.8
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T14:00Z",
-        "to": "2026-08-12T14:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.5
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 18.2
-          },
-          {
-            "fuel": "gas",
-            "perc": 9.6
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.6
-          },
-          {
-            "fuel": "other",
-            "perc": 1.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.5
-          },
-          {
-            "fuel": "solar",
-            "perc": 34.1
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T14:30Z",
-        "to": "2026-08-12T15:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.2
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 16.4
-          },
-          {
-            "fuel": "gas",
-            "perc": 13.9
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.7
-          },
-          {
-            "fuel": "other",
-            "perc": 2
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.5
-          },
-          {
-            "fuel": "solar",
-            "perc": 31.2
-          },
-          {
-            "fuel": "wind",
-            "perc": 19.1
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T15:00Z",
-        "to": "2026-08-12T15:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 15.5
-          },
-          {
-            "fuel": "gas",
-            "perc": 20
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.3
-          },
-          {
-            "fuel": "other",
-            "perc": 1.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.5
-          },
-          {
-            "fuel": "solar",
-            "perc": 27.1
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T15:30Z",
-        "to": "2026-08-12T16:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.9
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 8.2
-          },
-          {
-            "fuel": "gas",
-            "perc": 29.9
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.3
-          },
-          {
-            "fuel": "other",
-            "perc": 2.4
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 23.3
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.2
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T16:00Z",
-        "to": "2026-08-12T16:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 7.8
-          },
-          {
-            "fuel": "gas",
-            "perc": 35.1
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.4
-          },
-          {
-            "fuel": "other",
-            "perc": 1.8
-          },
-          {
-            "fuel": "hydro",
-            "perc": 0.9
-          },
-          {
-            "fuel": "solar",
-            "perc": 19.2
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.9
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T16:30Z",
-        "to": "2026-08-12T17:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 7.3
-          },
-          {
-            "fuel": "gas",
-            "perc": 36.7
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.4
-          },
-          {
-            "fuel": "other",
-            "perc": 2.8
-          },
-          {
-            "fuel": "hydro",
-            "perc": 3.1
-          },
-          {
-            "fuel": "solar",
-            "perc": 15.1
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.5
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T17:00Z",
-        "to": "2026-08-12T17:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 7.3
-          },
-          {
-            "fuel": "gas",
-            "perc": 39.5
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 10.4
-          },
-          {
-            "fuel": "other",
-            "perc": 2.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 3.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 11.5
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T17:30Z",
-        "to": "2026-08-12T18:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.5
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 8.5
-          },
-          {
-            "fuel": "gas",
-            "perc": 42
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11
-          },
-          {
-            "fuel": "other",
-            "perc": 3
-          },
-          {
-            "fuel": "hydro",
-            "perc": 4
-          },
-          {
-            "fuel": "solar",
-            "perc": 5.8
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.2
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T18:00Z",
-        "to": "2026-08-12T18:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.8
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 8.9
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.2
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.5
-          },
-          {
-            "fuel": "other",
-            "perc": 3.3
-          },
-          {
-            "fuel": "hydro",
-            "perc": 4.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 1.7
-          },
-          {
-            "fuel": "wind",
-            "perc": 19.4
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T18:30Z",
-        "to": "2026-08-12T19:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 9.6
-          },
-          {
-            "fuel": "gas",
-            "perc": 42
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.3
-          },
-          {
-            "fuel": "other",
-            "perc": 3.1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 4.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 2.5
-          },
-          {
-            "fuel": "wind",
-            "perc": 19.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T19:00Z",
-        "to": "2026-08-12T19:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.8
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 9.9
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.3
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.4
-          },
-          {
-            "fuel": "other",
-            "perc": 3.2
-          },
-          {
-            "fuel": "hydro",
-            "perc": 3.6
-          },
-          {
-            "fuel": "solar",
-            "perc": 1.1
-          },
-          {
-            "fuel": "wind",
-            "perc": 19.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T19:30Z",
-        "to": "2026-08-12T20:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.9
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 13.4
-          },
-          {
-            "fuel": "gas",
-            "perc": 42.9
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.6
-          },
-          {
-            "fuel": "other",
-            "perc": 1.6
-          },
-          {
-            "fuel": "hydro",
-            "perc": 2.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0.5
-          },
-          {
-            "fuel": "wind",
-            "perc": 20.1
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T20:00Z",
-        "to": "2026-08-12T20:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 13.8
-          },
-          {
-            "fuel": "gas",
-            "perc": 42.5
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 11.9
-          },
-          {
-            "fuel": "other",
-            "perc": 1.9
-          },
-          {
-            "fuel": "hydro",
-            "perc": 2.1
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 20.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T20:30Z",
-        "to": "2026-08-12T21:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.6
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.6
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 12.5
-          },
-          {
-            "fuel": "other",
-            "perc": 2.5
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.8
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 21.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T21:00Z",
-        "to": "2026-08-12T21:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.9
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 12
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.5
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 13
-          },
-          {
-            "fuel": "other",
-            "perc": 2.1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 21.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T21:30Z",
-        "to": "2026-08-12T22:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.2
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.3
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.2
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 13.5
-          },
-          {
-            "fuel": "other",
-            "perc": 3
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 20.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T22:00Z",
-        "to": "2026-08-12T22:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.4
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.2
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14
-          },
-          {
-            "fuel": "other",
-            "perc": 2
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.1
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 20.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T22:30Z",
-        "to": "2026-08-12T23:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.5
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 14.1
-          },
-          {
-            "fuel": "gas",
-            "perc": 42
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14.2
-          },
-          {
-            "fuel": "other",
-            "perc": 1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 20
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T23:00Z",
-        "to": "2026-08-12T23:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.5
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 14.3
-          },
-          {
-            "fuel": "gas",
-            "perc": 42.6
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14.3
-          },
-          {
-            "fuel": "other",
-            "perc": 0.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.1
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 19.5
-          }
-        ]
-      },
-      {
-        "from": "2026-08-12T23:30Z",
-        "to": "2026-08-13T00:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.5
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 15.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 41.5
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14.4
-          },
-          {
-            "fuel": "other",
-            "perc": 0.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 19
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T00:00Z",
-        "to": "2026-08-13T00:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.8
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 16
-          },
-          {
-            "fuel": "gas",
-            "perc": 41.9
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14.6
-          },
-          {
-            "fuel": "other",
-            "perc": 0.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 18.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T00:30Z",
-        "to": "2026-08-13T01:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.6
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 16.6
-          },
-          {
-            "fuel": "gas",
-            "perc": 43
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14.6
-          },
-          {
-            "fuel": "other",
-            "perc": 0.5
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 17.6
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T01:00Z",
-        "to": "2026-08-13T01:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.8
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 16.9
-          },
-          {
-            "fuel": "gas",
-            "perc": 43.6
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 15
-          },
-          {
-            "fuel": "other",
-            "perc": 0.6
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 16
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T01:30Z",
-        "to": "2026-08-13T02:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 14.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 45.7
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 15.5
-          },
-          {
-            "fuel": "other",
-            "perc": 1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 14.8
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T02:00Z",
-        "to": "2026-08-13T02:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.1
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 14.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 47.3
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 15.7
-          },
-          {
-            "fuel": "other",
-            "perc": 0.6
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 13.3
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T02:30Z",
-        "to": "2026-08-13T03:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.6
-          },
-          {
-            "fuel": "gas",
-            "perc": 50.4
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 16.2
-          },
-          {
-            "fuel": "other",
-            "perc": 0.7
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 12.5
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T03:00Z",
-        "to": "2026-08-13T03:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 51
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 16.2
-          },
-          {
-            "fuel": "other",
-            "perc": 0.6
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 11.8
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T03:30Z",
-        "to": "2026-08-13T04:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.9
-          },
-          {
-            "fuel": "gas",
-            "perc": 51.2
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 16.2
-          },
-          {
-            "fuel": "other",
-            "perc": 1.5
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 10.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T04:00Z",
-        "to": "2026-08-13T04:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 7.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 11.9
-          },
-          {
-            "fuel": "gas",
-            "perc": 51.4
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 16.1
-          },
-          {
-            "fuel": "other",
-            "perc": 2.2
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.4
-          },
-          {
-            "fuel": "solar",
-            "perc": 0
-          },
-          {
-            "fuel": "wind",
-            "perc": 9.8
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T04:30Z",
-        "to": "2026-08-13T05:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.9
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 16
-          },
-          {
-            "fuel": "gas",
-            "perc": 49.3
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 15.4
-          },
-          {
-            "fuel": "other",
-            "perc": 2.1
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.7
-          },
-          {
-            "fuel": "solar",
-            "perc": 0.4
-          },
-          {
-            "fuel": "wind",
-            "perc": 8.2
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T05:00Z",
-        "to": "2026-08-13T05:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.6
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 15.7
-          },
-          {
-            "fuel": "gas",
-            "perc": 47.3
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 14.6
-          },
-          {
-            "fuel": "other",
-            "perc": 5.5
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.6
-          },
-          {
-            "fuel": "solar",
-            "perc": 0.9
-          },
-          {
-            "fuel": "wind",
-            "perc": 7.7
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T05:30Z",
-        "to": "2026-08-13T06:00Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6.3
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 23.8
-          },
-          {
-            "fuel": "gas",
-            "perc": 42.5
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 13.9
-          },
-          {
-            "fuel": "other",
-            "perc": 1.3
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.3
-          },
-          {
-            "fuel": "solar",
-            "perc": 3.6
-          },
-          {
-            "fuel": "wind",
-            "perc": 7.2
-          }
-        ]
-      },
-      {
-        "from": "2026-08-13T06:00Z",
-        "to": "2026-08-13T06:30Z",
-        "generationmix": [
-          {
-            "fuel": "biomass",
-            "perc": 6
-          },
-          {
-            "fuel": "coal",
-            "perc": 0
-          },
-          {
-            "fuel": "imports",
-            "perc": 22.9
-          },
-          {
-            "fuel": "gas",
-            "perc": 40.9
-          },
-          {
-            "fuel": "nuclear",
-            "perc": 13.2
-          },
-          {
-            "fuel": "other",
-            "perc": 1.5
-          },
-          {
-            "fuel": "hydro",
-            "perc": 1.2
-          },
-          {
-            "fuel": "solar",
-            "perc": 7.5
-          },
-          {
-            "fuel": "wind",
-            "perc": 6.7
-          }
-        ]
-      },
       {
         "from": "2026-08-13T06:30Z",
         "to": "2026-08-13T07:00Z",
@@ -16903,12 +14887,12 @@
         "to": "2026-08-19T04:00Z",
         "generationmix": [
           {
-            "fuel": "biomass",
-            "perc": 9.9
+            "perc": 9.9,
+            "fuel": "biomass"
           },
           {
-            "fuel": "coal",
-            "perc": 0
+            "perc": 0,
+            "fuel": "coal"
           },
           {
             "fuel": "imports",
@@ -16923,8 +14907,8 @@
             "fuel": "nuclear"
           },
           {
-            "fuel": "other",
-            "perc": 2.6
+            "perc": 2.6,
+            "fuel": "other"
           },
           {
             "perc": 1.4,
@@ -16935,8 +14919,8 @@
             "perc": 0
           },
           {
-            "perc": 22.3,
-            "fuel": "wind"
+            "fuel": "wind",
+            "perc": 22.3
           }
         ]
       },
@@ -16953,20 +14937,20 @@
             "fuel": "coal"
           },
           {
-            "fuel": "imports",
-            "perc": 0.4
+            "perc": 0.4,
+            "fuel": "imports"
           },
           {
-            "perc": 45.4,
-            "fuel": "gas"
+            "fuel": "gas",
+            "perc": 45.4
           },
           {
-            "fuel": "nuclear",
-            "perc": 17.3
+            "perc": 17.3,
+            "fuel": "nuclear"
           },
           {
-            "perc": 3.2,
-            "fuel": "other"
+            "fuel": "other",
+            "perc": 3.2
           },
           {
             "perc": 2.5,
@@ -16987,20 +14971,20 @@
         "to": "2026-08-19T05:00Z",
         "generationmix": [
           {
-            "perc": 9.9,
-            "fuel": "biomass"
+            "fuel": "biomass",
+            "perc": 9.9
           },
           {
             "fuel": "coal",
             "perc": 0
           },
           {
-            "fuel": "imports",
-            "perc": 0.6
+            "perc": 0.6,
+            "fuel": "imports"
           },
           {
-            "perc": 46.2,
-            "fuel": "gas"
+            "fuel": "gas",
+            "perc": 46.2
           },
           {
             "fuel": "nuclear",
@@ -17015,8 +14999,8 @@
             "perc": 2.2
           },
           {
-            "perc": 0.1,
-            "fuel": "solar"
+            "fuel": "solar",
+            "perc": 0.1
           },
           {
             "perc": 20.3,
@@ -17033,36 +15017,36 @@
             "perc": 9.5
           },
           {
-            "perc": 0,
-            "fuel": "coal"
+            "fuel": "coal",
+            "perc": 0
           },
           {
-            "fuel": "imports",
-            "perc": 0.8
+            "perc": 0.8,
+            "fuel": "imports"
           },
           {
             "fuel": "gas",
             "perc": 44
           },
           {
-            "perc": 16.8,
-            "fuel": "nuclear"
+            "fuel": "nuclear",
+            "perc": 16.8
           },
           {
-            "fuel": "other",
-            "perc": 5
+            "perc": 5,
+            "fuel": "other"
           },
           {
-            "perc": 3.1,
-            "fuel": "hydro"
+            "fuel": "hydro",
+            "perc": 3.1
           },
           {
             "fuel": "solar",
             "perc": 0.4
           },
           {
-            "perc": 20.4,
-            "fuel": "wind"
+            "fuel": "wind",
+            "perc": 20.4
           }
         ]
       },
@@ -17071,20 +15055,20 @@
         "to": "2026-08-19T06:00Z",
         "generationmix": [
           {
-            "perc": 9.1,
-            "fuel": "biomass"
+            "fuel": "biomass",
+            "perc": 9.1
           },
           {
-            "perc": 0,
-            "fuel": "coal"
+            "fuel": "coal",
+            "perc": 0
           },
           {
             "fuel": "imports",
             "perc": 8.1
           },
           {
-            "fuel": "gas",
-            "perc": 41.7
+            "perc": 41.7,
+            "fuel": "gas"
           },
           {
             "perc": 16.2,
@@ -17117,36 +15101,36 @@
             "perc": 8.9
           },
           {
-            "fuel": "coal",
-            "perc": 0
+            "perc": 0,
+            "fuel": "coal"
           },
           {
-            "perc": 8.7,
-            "fuel": "imports"
+            "fuel": "imports",
+            "perc": 8.7
           },
           {
-            "perc": 40.4,
-            "fuel": "gas"
+            "fuel": "gas",
+            "perc": 40.4
           },
           {
             "perc": 15.9,
             "fuel": "nuclear"
           },
           {
-            "fuel": "other",
-            "perc": 4.9
+            "perc": 4.9,
+            "fuel": "other"
           },
           {
-            "fuel": "hydro",
-            "perc": 1.6
+            "perc": 1.6,
+            "fuel": "hydro"
           },
           {
             "fuel": "solar",
             "perc": 2.9
           },
           {
-            "fuel": "wind",
-            "perc": 16.6
+            "perc": 16.6,
+            "fuel": "wind"
           }
         ]
       },
@@ -17163,11 +15147,11 @@
             "fuel": "coal"
           },
           {
-            "perc": 13.3,
+            "perc": 14,
             "fuel": "imports"
           },
           {
-            "perc": 37.8,
+            "perc": 37.6,
             "fuel": "gas"
           },
           {
@@ -17175,8 +15159,680 @@
             "fuel": "nuclear"
           },
           {
-            "perc": 2.6,
+            "fuel": "other",
+            "perc": 2.5
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.6
+          },
+          {
+            "perc": 5.5,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 15.1
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T07:00Z",
+        "to": "2026-08-19T07:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 8.5
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 14.3
+          },
+          {
+            "perc": 36.2,
+            "fuel": "gas"
+          },
+          {
+            "perc": 15,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 2.6
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.2
+          },
+          {
+            "perc": 7.3,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 14.9
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T07:30Z",
+        "to": "2026-08-19T08:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 8.3
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 17.7
+          },
+          {
+            "perc": 32.5,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.7
+          },
+          {
+            "fuel": "other",
+            "perc": 1.8
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.2
+          },
+          {
+            "fuel": "solar",
+            "perc": 9.9
+          },
+          {
+            "perc": 14,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T08:00Z",
+        "to": "2026-08-19T08:30Z",
+        "generationmix": [
+          {
+            "perc": 8.1,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 17.7,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 30.8
+          },
+          {
+            "perc": 14.6,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1.7,
             "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.9
+          },
+          {
+            "perc": 12.5,
+            "fuel": "solar"
+          },
+          {
+            "perc": 13.6,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T08:30Z",
+        "to": "2026-08-19T09:00Z",
+        "generationmix": [
+          {
+            "perc": 8,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 18,
+            "fuel": "imports"
+          },
+          {
+            "perc": 28.9,
+            "fuel": "gas"
+          },
+          {
+            "perc": 14.6,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 1.6
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.6
+          },
+          {
+            "fuel": "solar",
+            "perc": 15.3
+          },
+          {
+            "perc": 13,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T09:00Z",
+        "to": "2026-08-19T09:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 8.1
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 18.1
+          },
+          {
+            "fuel": "gas",
+            "perc": 26.2
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.7
+          },
+          {
+            "fuel": "other",
+            "perc": 1.6
+          },
+          {
+            "perc": 0.6,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 18.5
+          },
+          {
+            "perc": 12.2,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T09:30Z",
+        "to": "2026-08-19T10:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 8
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 18.5
+          },
+          {
+            "fuel": "gas",
+            "perc": 24.1
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.6
+          },
+          {
+            "fuel": "other",
+            "perc": 2.5
+          },
+          {
+            "perc": 0.5,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 20.5,
+            "fuel": "solar"
+          },
+          {
+            "perc": 11.2,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T10:00Z",
+        "to": "2026-08-19T10:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 8
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 16.8,
+            "fuel": "imports"
+          },
+          {
+            "perc": 24.4,
+            "fuel": "gas"
+          },
+          {
+            "perc": 14.7,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 3.7,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.5
+          },
+          {
+            "fuel": "solar",
+            "perc": 21.9
+          },
+          {
+            "fuel": "wind",
+            "perc": 10
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T10:30Z",
+        "to": "2026-08-19T11:00Z",
+        "generationmix": [
+          {
+            "perc": 7.9,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 17.2
+          },
+          {
+            "perc": 23.5,
+            "fuel": "gas"
+          },
+          {
+            "perc": 14.5,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 4
+          },
+          {
+            "perc": 0.6,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 22.7,
+            "fuel": "solar"
+          },
+          {
+            "perc": 9.5,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T11:00Z",
+        "to": "2026-08-19T11:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.9
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 17.2
+          },
+          {
+            "fuel": "gas",
+            "perc": 23
+          },
+          {
+            "perc": 14.5,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 3.7
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.6
+          },
+          {
+            "fuel": "solar",
+            "perc": 23.2
+          },
+          {
+            "perc": 10,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T11:30Z",
+        "to": "2026-08-19T12:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.8
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 17.7,
+            "fuel": "imports"
+          },
+          {
+            "perc": 23.4,
+            "fuel": "gas"
+          },
+          {
+            "perc": 14.2,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 2.1
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.5
+          },
+          {
+            "perc": 23.7,
+            "fuel": "solar"
+          },
+          {
+            "perc": 10.7,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T12:00Z",
+        "to": "2026-08-19T12:30Z",
+        "generationmix": [
+          {
+            "perc": 7.7,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 17.6
+          },
+          {
+            "fuel": "gas",
+            "perc": 23.1
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.2
+          },
+          {
+            "perc": 1.9,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.5
+          },
+          {
+            "fuel": "solar",
+            "perc": 23
+          },
+          {
+            "fuel": "wind",
+            "perc": 11.9
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T12:30Z",
+        "to": "2026-08-19T13:00Z",
+        "generationmix": [
+          {
+            "perc": 7.6,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 17.2
+          },
+          {
+            "fuel": "gas",
+            "perc": 23.3
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.1
+          },
+          {
+            "perc": 1.7,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.5
+          },
+          {
+            "perc": 23.1,
+            "fuel": "solar"
+          },
+          {
+            "perc": 12.5,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T13:00Z",
+        "to": "2026-08-19T13:30Z",
+        "generationmix": [
+          {
+            "perc": 6.7,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 16.9
+          },
+          {
+            "fuel": "gas",
+            "perc": 24.5
+          },
+          {
+            "perc": 14,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1.5,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.5
+          },
+          {
+            "fuel": "solar",
+            "perc": 23.8
+          },
+          {
+            "fuel": "wind",
+            "perc": 12.1
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T13:30Z",
+        "to": "2026-08-19T14:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 12.5,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 26.2
+          },
+          {
+            "perc": 14.4,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1.5,
+            "fuel": "other"
+          },
+          {
+            "perc": 1,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 24.8,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 12.6
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T14:00Z",
+        "to": "2026-08-19T14:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.9
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 12
+          },
+          {
+            "fuel": "gas",
+            "perc": 26.3
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.1
+          },
+          {
+            "perc": 1.9,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.2
+          },
+          {
+            "fuel": "solar",
+            "perc": 24.3
+          },
+          {
+            "perc": 13.3,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T14:30Z",
+        "to": "2026-08-19T15:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.9
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 9.8
+          },
+          {
+            "fuel": "gas",
+            "perc": 28.5
+          },
+          {
+            "perc": 13.8,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 3.2
           },
           {
             "fuel": "hydro",
@@ -17184,11 +15840,1355 @@
           },
           {
             "fuel": "solar",
-            "perc": 5.5
+            "perc": 22.5
           },
           {
-            "perc": 14.9,
+            "fuel": "wind",
+            "perc": 13.2
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T15:00Z",
+        "to": "2026-08-19T15:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.7
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 9.6,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 34
+          },
+          {
+            "perc": 13.5,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 3.1,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.9
+          },
+          {
+            "fuel": "solar",
+            "perc": 19.2
+          },
+          {
+            "perc": 13.1,
             "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T15:30Z",
+        "to": "2026-08-19T16:00Z",
+        "generationmix": [
+          {
+            "perc": 6.4,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 11.5,
+            "fuel": "imports"
+          },
+          {
+            "perc": 36.8,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 12.9
+          },
+          {
+            "perc": 2.3,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 0.8
+          },
+          {
+            "fuel": "solar",
+            "perc": 16
+          },
+          {
+            "fuel": "wind",
+            "perc": 13.2
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T16:00Z",
+        "to": "2026-08-19T16:30Z",
+        "generationmix": [
+          {
+            "perc": 6.4,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 11.5
+          },
+          {
+            "perc": 38.7,
+            "fuel": "gas"
+          },
+          {
+            "perc": 13,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 2.1,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.5
+          },
+          {
+            "perc": 12.9,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 14
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T16:30Z",
+        "to": "2026-08-19T17:00Z",
+        "generationmix": [
+          {
+            "perc": 6.5,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 11.4
+          },
+          {
+            "fuel": "gas",
+            "perc": 40.2
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 13.2
+          },
+          {
+            "perc": 2,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.8
+          },
+          {
+            "fuel": "solar",
+            "perc": 10.6
+          },
+          {
+            "perc": 14.4,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T17:00Z",
+        "to": "2026-08-19T17:30Z",
+        "generationmix": [
+          {
+            "perc": 6.5,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 11.1,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 40.6
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 13.2
+          },
+          {
+            "perc": 3,
+            "fuel": "other"
+          },
+          {
+            "perc": 1.7,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 8.7
+          },
+          {
+            "perc": 15.2,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T17:30Z",
+        "to": "2026-08-19T18:00Z",
+        "generationmix": [
+          {
+            "perc": 6.6,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 8.4
+          },
+          {
+            "perc": 41.7,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 13.3
+          },
+          {
+            "perc": 3.9,
+            "fuel": "other"
+          },
+          {
+            "perc": 2.8,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 6.4
+          },
+          {
+            "fuel": "wind",
+            "perc": 16.9
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T18:00Z",
+        "to": "2026-08-19T18:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.8
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 8.2,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 42.4
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 13.4
+          },
+          {
+            "fuel": "other",
+            "perc": 3.5
+          },
+          {
+            "fuel": "hydro",
+            "perc": 4.2
+          },
+          {
+            "perc": 3.8,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 17.8
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T18:30Z",
+        "to": "2026-08-19T19:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.1
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 7.4,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.9
+          },
+          {
+            "perc": 13.8,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 3.9,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 3.9
+          },
+          {
+            "perc": 1.6,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 18.4
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T19:00Z",
+        "to": "2026-08-19T19:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.1
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 7.5,
+            "fuel": "imports"
+          },
+          {
+            "perc": 43.7,
+            "fuel": "gas"
+          },
+          {
+            "perc": 14.2,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 3.5,
+            "fuel": "other"
+          },
+          {
+            "perc": 3.7,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 0.6,
+            "fuel": "solar"
+          },
+          {
+            "perc": 19.8,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T19:30Z",
+        "to": "2026-08-19T20:00Z",
+        "generationmix": [
+          {
+            "perc": 7.2,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 7
+          },
+          {
+            "fuel": "gas",
+            "perc": 44.4
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.5
+          },
+          {
+            "fuel": "other",
+            "perc": 3
+          },
+          {
+            "perc": 2.6,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 0.2,
+            "fuel": "solar"
+          },
+          {
+            "perc": 21,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T20:00Z",
+        "to": "2026-08-19T20:30Z",
+        "generationmix": [
+          {
+            "perc": 7.5,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 7,
+            "fuel": "imports"
+          },
+          {
+            "perc": 45.6,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 14.9
+          },
+          {
+            "perc": 2.2,
+            "fuel": "other"
+          },
+          {
+            "perc": 2.4,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 0,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 20.3
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T20:30Z",
+        "to": "2026-08-19T21:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.8
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 2.5,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 46.5
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 15.6
+          },
+          {
+            "fuel": "other",
+            "perc": 4
+          },
+          {
+            "fuel": "hydro",
+            "perc": 3.1
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "perc": 20.5,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T21:00Z",
+        "to": "2026-08-19T21:30Z",
+        "generationmix": [
+          {
+            "perc": 8.1,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 2.6,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 47.7
+          },
+          {
+            "perc": 16.3,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 4.2
+          },
+          {
+            "perc": 1.9,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 19.3
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T21:30Z",
+        "to": "2026-08-19T22:00Z",
+        "generationmix": [
+          {
+            "perc": 8.6,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 3.2,
+            "fuel": "imports"
+          },
+          {
+            "perc": 45.7,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 17.2
+          },
+          {
+            "fuel": "other",
+            "perc": 2.3
+          },
+          {
+            "fuel": "hydro",
+            "perc": 2
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 21.1
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T22:00Z",
+        "to": "2026-08-19T22:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.2
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 3.3
+          },
+          {
+            "perc": 42.9,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 17.9
+          },
+          {
+            "fuel": "other",
+            "perc": 3.5
+          },
+          {
+            "perc": 2.5,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 0,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 23.5
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T22:30Z",
+        "to": "2026-08-19T23:00Z",
+        "generationmix": [
+          {
+            "perc": 6.3,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 3.8,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.8
+          },
+          {
+            "perc": 18.2,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 1.1
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.6
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 25.2
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T23:00Z",
+        "to": "2026-08-19T23:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.5
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 3.6,
+            "fuel": "imports"
+          },
+          {
+            "perc": 42.8,
+            "fuel": "gas"
+          },
+          {
+            "perc": 18.3,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 0.7
+          },
+          {
+            "perc": 1.8,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 26.2
+          }
+        ]
+      },
+      {
+        "from": "2026-08-19T23:30Z",
+        "to": "2026-08-20T00:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.5
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 1.6,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.3
+          },
+          {
+            "perc": 18.6,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 1
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.8
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 27.1
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T00:00Z",
+        "to": "2026-08-20T00:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.5
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 1.5,
+            "fuel": "imports"
+          },
+          {
+            "perc": 43.1,
+            "fuel": "gas"
+          },
+          {
+            "perc": 18.6,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 1.2
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.6
+          },
+          {
+            "perc": 0,
+            "fuel": "solar"
+          },
+          {
+            "perc": 27.5,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T00:30Z",
+        "to": "2026-08-20T01:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.6
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 1.7
+          },
+          {
+            "perc": 43.7,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 18.5
+          },
+          {
+            "perc": 0.7,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.6
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 27.3
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T01:00Z",
+        "to": "2026-08-20T01:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 1.6
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.7
+          },
+          {
+            "perc": 18.5,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1,
+            "fuel": "other"
+          },
+          {
+            "perc": 1.1,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 0,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 27
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T01:30Z",
+        "to": "2026-08-20T02:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.2
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 0.5
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.8
+          },
+          {
+            "perc": 18.6,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1.3,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.6
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "perc": 27.1,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T02:00Z",
+        "to": "2026-08-20T02:30Z",
+        "generationmix": [
+          {
+            "perc": 7.1,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 0.4
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.6
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 18.5
+          },
+          {
+            "perc": 1.4,
+            "fuel": "other"
+          },
+          {
+            "perc": 1.2,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 27.9
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T02:30Z",
+        "to": "2026-08-20T03:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.2
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 0
+          },
+          {
+            "perc": 43.9,
+            "fuel": "gas"
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 18.3
+          },
+          {
+            "perc": 1.8,
+            "fuel": "other"
+          },
+          {
+            "perc": 1.5,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "fuel": "wind",
+            "perc": 27.2
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T03:00Z",
+        "to": "2026-08-20T03:30Z",
+        "generationmix": [
+          {
+            "perc": 7.4,
+            "fuel": "biomass"
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 0,
+            "fuel": "imports"
+          },
+          {
+            "perc": 44.1,
+            "fuel": "gas"
+          },
+          {
+            "perc": 18.4,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1.4,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.1
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "perc": 27.5,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T03:30Z",
+        "to": "2026-08-20T04:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.3
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 0
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.6
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 18.1
+          },
+          {
+            "fuel": "other",
+            "perc": 2.5
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.8
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "perc": 26.6,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T04:00Z",
+        "to": "2026-08-20T04:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 7.3
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 0.1,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 43.5
+          },
+          {
+            "perc": 17.9,
+            "fuel": "nuclear"
+          },
+          {
+            "fuel": "other",
+            "perc": 3
+          },
+          {
+            "perc": 1.7,
+            "fuel": "hydro"
+          },
+          {
+            "fuel": "solar",
+            "perc": 0
+          },
+          {
+            "perc": 26.4,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T04:30Z",
+        "to": "2026-08-20T05:00Z",
+        "generationmix": [
+          {
+            "perc": 7.2,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 1.7,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 42.5
+          },
+          {
+            "perc": 17.7,
+            "fuel": "nuclear"
+          },
+          {
+            "perc": 1.9,
+            "fuel": "other"
+          },
+          {
+            "perc": 1.2,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 0.1,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 27.8
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T05:00Z",
+        "to": "2026-08-20T05:30Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.9
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "perc": 2,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 40.6
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 16.9
+          },
+          {
+            "fuel": "other",
+            "perc": 4.1
+          },
+          {
+            "fuel": "hydro",
+            "perc": 2
+          },
+          {
+            "perc": 0.4,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 27.1
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T05:30Z",
+        "to": "2026-08-20T06:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.6
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "fuel": "imports",
+            "perc": 9.1
+          },
+          {
+            "fuel": "gas",
+            "perc": 37.8
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 16.4
+          },
+          {
+            "perc": 1.8,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.4
+          },
+          {
+            "perc": 1.2,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 25.7
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T06:00Z",
+        "to": "2026-08-20T06:30Z",
+        "generationmix": [
+          {
+            "perc": 6.6,
+            "fuel": "biomass"
+          },
+          {
+            "perc": 0,
+            "fuel": "coal"
+          },
+          {
+            "fuel": "imports",
+            "perc": 9.7
+          },
+          {
+            "fuel": "gas",
+            "perc": 34.7
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 16
+          },
+          {
+            "perc": 3.6,
+            "fuel": "other"
+          },
+          {
+            "fuel": "hydro",
+            "perc": 1.5
+          },
+          {
+            "fuel": "solar",
+            "perc": 2.8
+          },
+          {
+            "perc": 25,
+            "fuel": "wind"
+          }
+        ]
+      },
+      {
+        "from": "2026-08-20T06:30Z",
+        "to": "2026-08-20T07:00Z",
+        "generationmix": [
+          {
+            "fuel": "biomass",
+            "perc": 6.2
+          },
+          {
+            "fuel": "coal",
+            "perc": 0
+          },
+          {
+            "perc": 16.8,
+            "fuel": "imports"
+          },
+          {
+            "fuel": "gas",
+            "perc": 30.6
+          },
+          {
+            "fuel": "nuclear",
+            "perc": 15.3
+          },
+          {
+            "fuel": "other",
+            "perc": 1.1
+          },
+          {
+            "perc": 1,
+            "fuel": "hydro"
+          },
+          {
+            "perc": 5.2,
+            "fuel": "solar"
+          },
+          {
+            "fuel": "wind",
+            "perc": 23.7
           }
         ]
       }
