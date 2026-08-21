@@ -1,409 +1,25 @@
 {
-  "latest_datetime": "2026-08-20",
-  "latest_carbon_intensity_gco2_kwh": 152.0,
-  "average_recent_carbon_intensity_gco2_kwh": 167.5,
-  "average_30d_carbon_intensity_gco2_kwh": 167.5,
+  "latest_datetime": "2026-08-21",
+  "latest_carbon_intensity_gco2_kwh": 151.0,
+  "average_recent_carbon_intensity_gco2_kwh": 161.6,
+  "average_30d_carbon_intensity_gco2_kwh": 161.6,
   "carbon_signal": "Carbon intensity below recent average",
   "gas_share": 30.6,
-  "wind_solar_share": 28.9,
-  "renewables_share": 29.9,
-  "low_carbon_share": 51.4,
+  "wind_solar_share": 26.6,
+  "renewables_share": 27.6,
+  "low_carbon_share": 48.5,
   "main_driver": "mixed generation effects",
   "source": {
     "name": "NESO Carbon Intensity API",
-    "fetched_at": "2026-08-20T07:35Z",
-    "data_period_start": "2026-08-13T06:30Z",
-    "data_period_end": "2026-08-20T06:30Z",
-    "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-08-13T07:00Z/2026-08-20T07:00Z",
-    "generation_url": "https://api.carbonintensity.org.uk/generation/2026-08-13T07:00Z/2026-08-20T07:00Z",
+    "fetched_at": "2026-08-21T07:37Z",
+    "data_period_start": "2026-08-14T06:30Z",
+    "data_period_end": "2026-08-21T06:30Z",
+    "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-08-14T07:00Z/2026-08-21T07:00Z",
+    "generation_url": "https://api.carbonintensity.org.uk/generation/2026-08-14T07:00Z/2026-08-21T07:00Z",
     "record_count": "337"
   },
   "commentary": "Carbon intensity reflects the physical emissions profile of the GB power system; contractual renewable supply depends on certificate ownership and disclosure rules.",
   "series": [
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 192.0,
-      "gas_share": 38.9,
-      "wind_share": 5.8,
-      "solar_share": 11.1,
-      "renewables_share": 18.3
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 185.0,
-      "gas_share": 36.8,
-      "wind_share": 5.1,
-      "solar_share": 14.8,
-      "renewables_share": 21.0
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 170.0,
-      "gas_share": 33.3,
-      "wind_share": 5.0,
-      "solar_share": 18.9,
-      "renewables_share": 24.9
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 159.0,
-      "gas_share": 30.7,
-      "wind_share": 4.7,
-      "solar_share": 23.1,
-      "renewables_share": 28.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 149.0,
-      "gas_share": 29.0,
-      "wind_share": 4.5,
-      "solar_share": 27.0,
-      "renewables_share": 32.4
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 141.0,
-      "gas_share": 27.2,
-      "wind_share": 4.4,
-      "solar_share": 30.0,
-      "renewables_share": 35.2
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 135.0,
-      "gas_share": 25.4,
-      "wind_share": 4.3,
-      "solar_share": 32.2,
-      "renewables_share": 37.3
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 131.0,
-      "gas_share": 24.8,
-      "wind_share": 4.1,
-      "solar_share": 33.8,
-      "renewables_share": 38.6
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 130.0,
-      "gas_share": 24.3,
-      "wind_share": 4.3,
-      "solar_share": 34.9,
-      "renewables_share": 39.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 127.0,
-      "gas_share": 24.1,
-      "wind_share": 4.5,
-      "solar_share": 35.7,
-      "renewables_share": 40.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 126.0,
-      "gas_share": 23.7,
-      "wind_share": 5.2,
-      "solar_share": 35.8,
-      "renewables_share": 41.6
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 125.0,
-      "gas_share": 23.7,
-      "wind_share": 5.9,
-      "solar_share": 35.9,
-      "renewables_share": 42.4
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 124.0,
-      "gas_share": 23.8,
-      "wind_share": 6.5,
-      "solar_share": 35.1,
-      "renewables_share": 42.2
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 125.0,
-      "gas_share": 24.0,
-      "wind_share": 6.9,
-      "solar_share": 34.3,
-      "renewables_share": 42.0
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 130.0,
-      "gas_share": 25.1,
-      "wind_share": 7.2,
-      "solar_share": 33.0,
-      "renewables_share": 41.0
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 135.0,
-      "gas_share": 26.7,
-      "wind_share": 7.6,
-      "solar_share": 31.4,
-      "renewables_share": 40.2
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 142.0,
-      "gas_share": 28.5,
-      "wind_share": 7.8,
-      "solar_share": 28.6,
-      "renewables_share": 37.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 154.0,
-      "gas_share": 31.4,
-      "wind_share": 7.7,
-      "solar_share": 25.6,
-      "renewables_share": 35.0
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 167.0,
-      "gas_share": 34.8,
-      "wind_share": 7.9,
-      "solar_share": 22.4,
-      "renewables_share": 32.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 177.0,
-      "gas_share": 36.6,
-      "wind_share": 7.8,
-      "solar_share": 18.8,
-      "renewables_share": 29.7
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 188.0,
-      "gas_share": 39.1,
-      "wind_share": 7.9,
-      "solar_share": 15.2,
-      "renewables_share": 28.3
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 197.0,
-      "gas_share": 40.9,
-      "wind_share": 8.1,
-      "solar_share": 12.2,
-      "renewables_share": 25.7
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 201.0,
-      "gas_share": 41.5,
-      "wind_share": 8.1,
-      "solar_share": 9.2,
-      "renewables_share": 22.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 208.0,
-      "gas_share": 43.0,
-      "wind_share": 8.3,
-      "solar_share": 5.9,
-      "renewables_share": 19.9
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 214.0,
-      "gas_share": 44.4,
-      "wind_share": 8.8,
-      "solar_share": 3.1,
-      "renewables_share": 17.7
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 217.0,
-      "gas_share": 44.7,
-      "wind_share": 9.1,
-      "solar_share": 1.1,
-      "renewables_share": 16.1
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 213.0,
-      "gas_share": 44.2,
-      "wind_share": 9.5,
-      "solar_share": 0.4,
-      "renewables_share": 15.5
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 218.0,
-      "gas_share": 45.7,
-      "wind_share": 9.4,
-      "solar_share": 0.0,
-      "renewables_share": 13.7
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 223.0,
-      "gas_share": 47.4,
-      "wind_share": 9.3,
-      "solar_share": 0.0,
-      "renewables_share": 12.1
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 223.0,
-      "gas_share": 47.9,
-      "wind_share": 9.5,
-      "solar_share": 0.0,
-      "renewables_share": 12.1
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 234.0,
-      "gas_share": 51.1,
-      "wind_share": 10.6,
-      "solar_share": 0.0,
-      "renewables_share": 12.5
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 232.0,
-      "gas_share": 49.9,
-      "wind_share": 10.2,
-      "solar_share": 0.0,
-      "renewables_share": 12.1
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 222.0,
-      "gas_share": 47.1,
-      "wind_share": 10.2,
-      "solar_share": 0.0,
-      "renewables_share": 11.8
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 218.0,
-      "gas_share": 46.2,
-      "wind_share": 11.0,
-      "solar_share": 0.0,
-      "renewables_share": 13.1
-    },
-    {
-      "date": "2026-08-13",
-      "carbon_intensity_gco2_kwh": 218.0,
-      "gas_share": 46.4,
-      "wind_share": 12.2,
-      "solar_share": 0.0,
-      "renewables_share": 14.3
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 217.0,
-      "gas_share": 46.1,
-      "wind_share": 12.8,
-      "solar_share": 0.0,
-      "renewables_share": 14.6
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 212.0,
-      "gas_share": 44.6,
-      "wind_share": 12.4,
-      "solar_share": 0.0,
-      "renewables_share": 14.2
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 211.0,
-      "gas_share": 44.4,
-      "wind_share": 12.1,
-      "solar_share": 0.0,
-      "renewables_share": 13.9
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 216.0,
-      "gas_share": 47.3,
-      "wind_share": 12.1,
-      "solar_share": 0.0,
-      "renewables_share": 14.0
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 215.0,
-      "gas_share": 47.0,
-      "wind_share": 13.0,
-      "solar_share": 0.0,
-      "renewables_share": 14.3
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 215.0,
-      "gas_share": 49.3,
-      "wind_share": 13.3,
-      "solar_share": 0.0,
-      "renewables_share": 15.2
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 217.0,
-      "gas_share": 50.1,
-      "wind_share": 13.1,
-      "solar_share": 0.0,
-      "renewables_share": 15.1
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 215.0,
-      "gas_share": 50.1,
-      "wind_share": 13.6,
-      "solar_share": 0.0,
-      "renewables_share": 15.6
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 213.0,
-      "gas_share": 48.9,
-      "wind_share": 14.3,
-      "solar_share": 0.0,
-      "renewables_share": 16.4
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 208.0,
-      "gas_share": 46.4,
-      "wind_share": 14.1,
-      "solar_share": 0.3,
-      "renewables_share": 16.5
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 206.0,
-      "gas_share": 44.6,
-      "wind_share": 14.2,
-      "solar_share": 0.8,
-      "renewables_share": 17.2
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 193.0,
-      "gas_share": 40.1,
-      "wind_share": 13.0,
-      "solar_share": 3.1,
-      "renewables_share": 17.9
-    },
-    {
-      "date": "2026-08-14",
-      "carbon_intensity_gco2_kwh": 187.0,
-      "gas_share": 37.9,
-      "wind_share": 12.6,
-      "solar_share": 6.4,
-      "renewables_share": 20.7
-    },
     {
       "date": "2026-08-14",
       "carbon_intensity_gco2_kwh": 169.0,
@@ -2334,7 +1950,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 176.0,
+      "carbon_intensity_gco2_kwh": 175.0,
       "gas_share": 36.2,
       "wind_share": 14.9,
       "solar_share": 7.3,
@@ -2358,7 +1974,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 149.0,
+      "carbon_intensity_gco2_kwh": 148.0,
       "gas_share": 28.9,
       "wind_share": 13.0,
       "solar_share": 15.3,
@@ -2366,7 +1982,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 138.0,
+      "carbon_intensity_gco2_kwh": 137.0,
       "gas_share": 26.2,
       "wind_share": 12.2,
       "solar_share": 18.5,
@@ -2374,7 +1990,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 135.0,
+      "carbon_intensity_gco2_kwh": 137.0,
       "gas_share": 24.1,
       "wind_share": 11.2,
       "solar_share": 20.5,
@@ -2382,7 +1998,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 139.0,
+      "carbon_intensity_gco2_kwh": 140.0,
       "gas_share": 24.4,
       "wind_share": 10.0,
       "solar_share": 21.9,
@@ -2398,7 +2014,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 134.0,
+      "carbon_intensity_gco2_kwh": 133.0,
       "gas_share": 23.0,
       "wind_share": 10.0,
       "solar_share": 23.2,
@@ -2422,7 +2038,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 128.0,
+      "carbon_intensity_gco2_kwh": 129.0,
       "gas_share": 23.3,
       "wind_share": 12.5,
       "solar_share": 23.1,
@@ -2430,7 +2046,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 131.0,
+      "carbon_intensity_gco2_kwh": 132.0,
       "gas_share": 24.5,
       "wind_share": 12.1,
       "solar_share": 23.8,
@@ -2454,7 +2070,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 134.0,
+      "carbon_intensity_gco2_kwh": 136.0,
       "gas_share": 28.5,
       "wind_share": 13.2,
       "solar_share": 22.5,
@@ -2462,7 +2078,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 155.0,
+      "carbon_intensity_gco2_kwh": 157.0,
       "gas_share": 34.0,
       "wind_share": 13.1,
       "solar_share": 19.2,
@@ -2470,7 +2086,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 164.0,
+      "carbon_intensity_gco2_kwh": 165.0,
       "gas_share": 36.8,
       "wind_share": 13.2,
       "solar_share": 16.0,
@@ -2486,7 +2102,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 177.0,
+      "carbon_intensity_gco2_kwh": 178.0,
       "gas_share": 40.2,
       "wind_share": 14.4,
       "solar_share": 10.6,
@@ -2566,7 +2182,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 197.0,
+      "carbon_intensity_gco2_kwh": 195.0,
       "gas_share": 45.7,
       "wind_share": 21.1,
       "solar_share": 0.0,
@@ -2574,7 +2190,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 187.0,
+      "carbon_intensity_gco2_kwh": 186.0,
       "gas_share": 42.9,
       "wind_share": 23.5,
       "solar_share": 0.0,
@@ -2590,7 +2206,7 @@
     },
     {
       "date": "2026-08-19",
-      "carbon_intensity_gco2_kwh": 179.0,
+      "carbon_intensity_gco2_kwh": 178.0,
       "gas_share": 42.8,
       "wind_share": 26.2,
       "solar_share": 0.0,
@@ -2614,7 +2230,7 @@
     },
     {
       "date": "2026-08-20",
-      "carbon_intensity_gco2_kwh": 182.0,
+      "carbon_intensity_gco2_kwh": 183.0,
       "gas_share": 43.7,
       "wind_share": 27.3,
       "solar_share": 0.0,
@@ -2646,7 +2262,7 @@
     },
     {
       "date": "2026-08-20",
-      "carbon_intensity_gco2_kwh": 187.0,
+      "carbon_intensity_gco2_kwh": 188.0,
       "gas_share": 43.9,
       "wind_share": 27.2,
       "solar_share": 0.0,
@@ -2662,7 +2278,7 @@
     },
     {
       "date": "2026-08-20",
-      "carbon_intensity_gco2_kwh": 188.0,
+      "carbon_intensity_gco2_kwh": 189.0,
       "gas_share": 43.6,
       "wind_share": 26.6,
       "solar_share": 0.0,
@@ -2678,7 +2294,7 @@
     },
     {
       "date": "2026-08-20",
-      "carbon_intensity_gco2_kwh": 181.0,
+      "carbon_intensity_gco2_kwh": 180.0,
       "gas_share": 42.5,
       "wind_share": 27.8,
       "solar_share": 0.1,
@@ -2702,7 +2318,7 @@
     },
     {
       "date": "2026-08-20",
-      "carbon_intensity_gco2_kwh": 165.0,
+      "carbon_intensity_gco2_kwh": 163.0,
       "gas_share": 34.7,
       "wind_share": 25.0,
       "solar_share": 2.8,
@@ -2710,21 +2326,405 @@
     },
     {
       "date": "2026-08-20",
-      "carbon_intensity_gco2_kwh": 152.0,
-      "gas_share": 30.6,
-      "wind_share": 23.7,
+      "carbon_intensity_gco2_kwh": 147.0,
+      "gas_share": 29.6,
+      "wind_share": 24.2,
       "solar_share": 5.2,
-      "renewables_share": 29.9
+      "renewables_share": 30.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 135.0,
+      "gas_share": 25.7,
+      "wind_share": 25.7,
+      "solar_share": 6.6,
+      "renewables_share": 33.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 114.0,
+      "gas_share": 19.2,
+      "wind_share": 24.7,
+      "solar_share": 9.3,
+      "renewables_share": 34.9
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 99.0,
+      "gas_share": 14.6,
+      "wind_share": 24.8,
+      "solar_share": 11.6,
+      "renewables_share": 37.3
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 93.0,
+      "gas_share": 12.6,
+      "wind_share": 23.9,
+      "solar_share": 14.4,
+      "renewables_share": 39.2
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 92.0,
+      "gas_share": 12.3,
+      "wind_share": 22.7,
+      "solar_share": 16.6,
+      "renewables_share": 40.1
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 90.0,
+      "gas_share": 12.7,
+      "wind_share": 22.5,
+      "solar_share": 18.5,
+      "renewables_share": 41.7
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 90.0,
+      "gas_share": 12.9,
+      "wind_share": 21.3,
+      "solar_share": 20.2,
+      "renewables_share": 42.2
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 88.0,
+      "gas_share": 12.9,
+      "wind_share": 21.5,
+      "solar_share": 21.5,
+      "renewables_share": 43.7
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 83.0,
+      "gas_share": 11.8,
+      "wind_share": 21.7,
+      "solar_share": 22.6,
+      "renewables_share": 45.0
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 80.0,
+      "gas_share": 11.2,
+      "wind_share": 21.7,
+      "solar_share": 23.2,
+      "renewables_share": 45.5
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 79.0,
+      "gas_share": 11.2,
+      "wind_share": 21.7,
+      "solar_share": 24.2,
+      "renewables_share": 46.5
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 80.0,
+      "gas_share": 11.4,
+      "wind_share": 22.0,
+      "solar_share": 23.9,
+      "renewables_share": 46.5
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 84.0,
+      "gas_share": 12.3,
+      "wind_share": 22.3,
+      "solar_share": 22.5,
+      "renewables_share": 45.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 90.0,
+      "gas_share": 13.8,
+      "wind_share": 23.4,
+      "solar_share": 21.4,
+      "renewables_share": 45.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 97.0,
+      "gas_share": 15.7,
+      "wind_share": 23.0,
+      "solar_share": 20.6,
+      "renewables_share": 44.2
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 107.0,
+      "gas_share": 20.7,
+      "wind_share": 23.8,
+      "solar_share": 19.3,
+      "renewables_share": 43.7
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 118.0,
+      "gas_share": 23.3,
+      "wind_share": 23.7,
+      "solar_share": 16.8,
+      "renewables_share": 41.2
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 144.0,
+      "gas_share": 30.0,
+      "wind_share": 22.5,
+      "solar_share": 14.2,
+      "renewables_share": 38.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 152.0,
+      "gas_share": 32.8,
+      "wind_share": 24.7,
+      "solar_share": 11.3,
+      "renewables_share": 37.0
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 156.0,
+      "gas_share": 35.0,
+      "wind_share": 26.5,
+      "solar_share": 9.0,
+      "renewables_share": 36.6
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 163.0,
+      "gas_share": 36.5,
+      "wind_share": 26.9,
+      "solar_share": 6.8,
+      "renewables_share": 34.9
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 167.0,
+      "gas_share": 36.8,
+      "wind_share": 27.1,
+      "solar_share": 4.9,
+      "renewables_share": 35.0
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 174.0,
+      "gas_share": 37.8,
+      "wind_share": 26.7,
+      "solar_share": 2.8,
+      "renewables_share": 32.5
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 181.0,
+      "gas_share": 39.8,
+      "wind_share": 26.4,
+      "solar_share": 1.2,
+      "renewables_share": 30.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 185.0,
+      "gas_share": 40.4,
+      "wind_share": 25.5,
+      "solar_share": 0.4,
+      "renewables_share": 29.3
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 187.0,
+      "gas_share": 42.4,
+      "wind_share": 24.8,
+      "solar_share": 0.1,
+      "renewables_share": 28.9
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 191.0,
+      "gas_share": 44.4,
+      "wind_share": 23.6,
+      "solar_share": 0.0,
+      "renewables_share": 27.7
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 196.0,
+      "gas_share": 46.1,
+      "wind_share": 23.7,
+      "solar_share": 0.0,
+      "renewables_share": 26.8
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 199.0,
+      "gas_share": 47.1,
+      "wind_share": 24.3,
+      "solar_share": 0.0,
+      "renewables_share": 25.8
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 193.0,
+      "gas_share": 45.6,
+      "wind_share": 25.3,
+      "solar_share": 0.0,
+      "renewables_share": 26.5
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 184.0,
+      "gas_share": 43.2,
+      "wind_share": 26.9,
+      "solar_share": 0.0,
+      "renewables_share": 28.0
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 174.0,
+      "gas_share": 40.3,
+      "wind_share": 27.8,
+      "solar_share": 0.0,
+      "renewables_share": 28.8
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 170.0,
+      "gas_share": 39.2,
+      "wind_share": 28.4,
+      "solar_share": 0.0,
+      "renewables_share": 29.4
+    },
+    {
+      "date": "2026-08-20",
+      "carbon_intensity_gco2_kwh": 165.0,
+      "gas_share": 38.3,
+      "wind_share": 28.8,
+      "solar_share": 0.0,
+      "renewables_share": 29.6
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 162.0,
+      "gas_share": 37.2,
+      "wind_share": 29.1,
+      "solar_share": 0.0,
+      "renewables_share": 30.0
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 160.0,
+      "gas_share": 37.2,
+      "wind_share": 28.8,
+      "solar_share": 0.0,
+      "renewables_share": 29.7
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 163.0,
+      "gas_share": 37.6,
+      "wind_share": 27.2,
+      "solar_share": 0.0,
+      "renewables_share": 28.9
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 165.0,
+      "gas_share": 38.3,
+      "wind_share": 27.6,
+      "solar_share": 0.0,
+      "renewables_share": 28.9
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 165.0,
+      "gas_share": 37.9,
+      "wind_share": 27.9,
+      "solar_share": 0.0,
+      "renewables_share": 28.8
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 170.0,
+      "gas_share": 38.7,
+      "wind_share": 27.8,
+      "solar_share": 0.0,
+      "renewables_share": 29.3
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 172.0,
+      "gas_share": 39.0,
+      "wind_share": 27.3,
+      "solar_share": 0.0,
+      "renewables_share": 28.4
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 169.0,
+      "gas_share": 38.6,
+      "wind_share": 26.3,
+      "solar_share": 0.0,
+      "renewables_share": 27.3
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 173.0,
+      "gas_share": 37.6,
+      "wind_share": 25.3,
+      "solar_share": 0.0,
+      "renewables_share": 26.3
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 165.0,
+      "gas_share": 37.1,
+      "wind_share": 25.5,
+      "solar_share": 0.1,
+      "renewables_share": 26.7
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 169.0,
+      "gas_share": 36.1,
+      "wind_share": 24.0,
+      "solar_share": 0.5,
+      "renewables_share": 25.8
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 161.0,
+      "gas_share": 34.2,
+      "wind_share": 22.1,
+      "solar_share": 1.6,
+      "renewables_share": 25.0
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 159.0,
+      "gas_share": 32.8,
+      "wind_share": 21.7,
+      "solar_share": 3.6,
+      "renewables_share": 26.4
+    },
+    {
+      "date": "2026-08-21",
+      "carbon_intensity_gco2_kwh": 151.0,
+      "gas_share": 30.6,
+      "wind_share": 19.8,
+      "solar_share": 6.8,
+      "renewables_share": 27.6
     }
   ],
   "latest_generation_mix": {
     "Gas": 30.6,
-    "Wind": 23.7,
-    "Solar": 5.2,
-    "Nuclear": 15.3,
-    "Biomass": 6.2,
+    "Wind": 19.8,
+    "Solar": 6.8,
+    "Nuclear": 15.1,
+    "Biomass": 5.8,
     "Hydro": 1.0,
-    "Imports": 16.8,
-    "Other": 1.1
+    "Imports": 17.9,
+    "Other": 3.0
   }
 }
