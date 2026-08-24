@@ -4,7 +4,7 @@
 
 This monitor shows why carbon analysis for a renewables supplier is not limited to allowance prices. Auction data provides the compliance carbon-market signal, recent GB power-system data fetched at build time explains the physical emissions backdrop, and REGO reconciliation controls determine whether renewable supply claims can be evidenced against contracts and disclosure periods.
 
-The generated dashboard is operational rather than purely market-facing. The carbon module shows UKA discount broadly stable over the comparison period 2024-10-03 to 2025-05-22. The auction demand signal is neutral. The NESO power pull was fetched at build time and shows carbon intensity below recent average, with the main driver classified as lower renewable output. Those context signals matter, but the main action sits in the customer claim book: 2 representative customer/product claims are not supportable, 1 requires review, and 900 MWh is uncovered.
+The generated dashboard is operational rather than purely market-facing. The carbon module shows UKA discount broadly stable over the comparison period 2024-10-03 to 2025-05-22. The auction demand signal is neutral. The NESO power pull was fetched at build time and shows carbon intensity near recent average, with the main driver classified as lower renewable output. Those context signals matter, but the main action sits in the customer claim book: 2 representative customer/product claims are not supportable, 1 requires review, and 900 MWh is uncovered.
 
 ## 2. Carbon Market Signal
 
@@ -14,7 +14,7 @@ The latest generated comparison shows UKA at GBP 33.8 and EUA at EUR 71.84, equi
 
 ## 3. GB Power Fundamentals
 
-The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of 96.0 g/kWh with a recent average of 148.6 g/kWh, and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
+The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of 144.0 g/kWh with a recent average of 140.4 g/kWh, and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
 
 This matters because carbon-market commentary should be connected to physical system conditions. A higher-carbon generation mix may change the emissions context customers see, even though it is not the same thing as contractual renewable supply. Contractual renewable claims still depend on certificate ownership, eligibility, allocation, retirement, and disclosure evidence.
 
