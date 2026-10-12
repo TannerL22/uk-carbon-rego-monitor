@@ -1,8 +1,8 @@
 {
-  "fetched_at": "2026-10-11T13:42Z",
-  "from": "2026-10-04T12:30Z",
-  "to": "2026-10-11T12:30Z",
-  "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-10-04T13:00Z/2026-10-11T13:00Z",
-  "generation_url": "https://api.carbonintensity.org.uk/generation/2026-10-04T13:00Z/2026-10-11T13:00Z",
+  "fetched_at": "2026-10-12T16:23Z",
+  "from": "2026-10-05T15:30Z",
+  "to": "2026-10-12T15:30Z",
+  "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-10-05T16:00Z/2026-10-12T16:00Z",
+  "generation_url": "https://api.carbonintensity.org.uk/generation/2026-10-05T16:00Z/2026-10-12T16:00Z",
   "record_count": "337"
 }
