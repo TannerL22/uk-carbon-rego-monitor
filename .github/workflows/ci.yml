@@ -33,7 +33,7 @@ jobs:
       # modify tracked files. The network smoke test is skipped unless
       # RUN_NETWORK_TESTS=1 is set.
       - name: Run tests
-        run: python -m unittest discover -s tests -v
+        run: python -m unittest discover -s tests -t . -v
 
       - name: Check dashboard JavaScript syntax
         run: |
