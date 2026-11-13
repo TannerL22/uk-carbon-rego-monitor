@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T17:58:58Z",
+  "generated_at": "2026-11-13T18:02:53Z",
   "data_basis": [
     {
       "label": "Carbon market",
@@ -46,7 +46,7 @@
     {
       "label": "GB power context",
       "headline": "Below recent average",
-      "subline": "197 g/kWh vs 217 g/kWh recent avg",
+      "subline": "192 g/kWh vs 217 g/kWh recent avg",
       "value": "Below recent average"
     },
     {
@@ -107,7 +107,7 @@
       "next_trigger_price_gbp": 142.68,
       "monitoring_window_months": 6,
       "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-      "downloaded_at": "2026-11-13T17:58Z",
+      "downloaded_at": "2026-11-13T18:02Z",
       "published_at": "2026-11-10",
       "note": "Official GOV.UK UK ETS CCM monthly average futures price. latest_month is the calendar month the average covers (the CCM row for the following assessment month); not an auction clearing price and not a live trading feed.",
       "series": [
@@ -508,7 +508,7 @@
       "symbol": "EECXM:IND",
       "source_url": "https://tradingeconomics.com/commodity/carbon",
       "docs_url": "https://docs.tradingeconomics.com/markets/historical/",
-      "downloaded_at": "2026-11-13T17:58:54Z",
+      "downloaded_at": "2026-11-13T18:02:50Z",
       "note": "Trading Economics API key not configured; optional market reference disabled.",
       "limitation": "Optional third-party market reference only. It is separate from official EEX auction, ICE UKA auction, and GOV.UK CCM inputs and is not required for the dashboard.",
       "series": []
@@ -1027,43 +1027,27 @@
   },
   "power": {
     "latest_datetime": "2026-11-13",
-    "latest_timestamp": "2026-11-13T16:30Z",
+    "latest_timestamp": "2026-11-13T17:30Z",
     "recent_window_days": 7.0,
-    "latest_carbon_intensity_gco2_kwh": 197.0,
-    "average_recent_carbon_intensity_gco2_kwh": 217.2,
+    "latest_carbon_intensity_gco2_kwh": 192.0,
+    "average_recent_carbon_intensity_gco2_kwh": 216.9,
     "carbon_signal": "Carbon intensity below recent average",
-    "gas_share": 38.6,
-    "wind_solar_share": 18.5,
-    "renewables_share": 21.8,
-    "low_carbon_share": 40.8,
+    "gas_share": 44.2,
+    "wind_solar_share": 22.2,
+    "renewables_share": 22.2,
+    "low_carbon_share": 44.5,
     "main_driver": "mixed generation effects",
     "source": {
       "name": "NESO Carbon Intensity API",
-      "fetched_at": "2026-11-13T17:58Z",
-      "data_period_start": "2026-11-06T16:30Z",
-      "data_period_end": "2026-11-13T16:30Z",
-      "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-11-06T17:00Z/2026-11-13T17:00Z",
-      "generation_url": "https://api.carbonintensity.org.uk/generation/2026-11-06T17:00Z/2026-11-13T17:00Z",
+      "fetched_at": "2026-11-13T18:02Z",
+      "data_period_start": "2026-11-06T17:30Z",
+      "data_period_end": "2026-11-13T17:30Z",
+      "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-11-06T18:00Z/2026-11-13T18:00Z",
+      "generation_url": "https://api.carbonintensity.org.uk/generation/2026-11-06T18:00Z/2026-11-13T18:00Z",
       "record_count": "337"
     },
     "commentary": "Carbon intensity reflects the physical emissions profile of the GB power system; contractual renewable supply depends on certificate ownership and disclosure rules.",
     "series": [
-      {
-        "date": "2026-11-06T16:30Z",
-        "carbon_intensity_gco2_kwh": 251.0,
-        "gas_share": 54.7,
-        "wind_share": 4.6,
-        "solar_share": 0.1,
-        "renewables_share": 11.0
-      },
-      {
-        "date": "2026-11-06T17:00Z",
-        "carbon_intensity_gco2_kwh": 255.0,
-        "gas_share": 55.2,
-        "wind_share": 4.8,
-        "solar_share": 0.0,
-        "renewables_share": 10.8
-      },
       {
         "date": "2026-11-06T17:30Z",
         "carbon_intensity_gco2_kwh": 255.0,
@@ -3743,17 +3727,33 @@
         "wind_share": 18.5,
         "solar_share": 0.0,
         "renewables_share": 21.8
+      },
+      {
+        "date": "2026-11-13T17:00Z",
+        "carbon_intensity_gco2_kwh": 201.0,
+        "gas_share": 39.4,
+        "wind_share": 18.1,
+        "solar_share": 0.0,
+        "renewables_share": 21.0
+      },
+      {
+        "date": "2026-11-13T17:30Z",
+        "carbon_intensity_gco2_kwh": 192.0,
+        "gas_share": 44.2,
+        "wind_share": 22.2,
+        "solar_share": 0.0,
+        "renewables_share": 22.2
       }
     ],
     "latest_generation_mix": {
-      "Gas": 38.6,
-      "Wind": 18.5,
+      "Gas": 44.2,
+      "Wind": 22.2,
       "Solar": 0.0,
-      "Nuclear": 11.9,
-      "Biomass": 7.1,
-      "Hydro": 3.3,
-      "Imports": 14.8,
-      "Other": 5.8
+      "Nuclear": 13.9,
+      "Biomass": 8.4,
+      "Hydro": 0.0,
+      "Imports": 11.2,
+      "Other": 0.0
     }
   },
   "customer_claim_coverage": [
@@ -4794,7 +4794,7 @@
     "summary_signal": "0 source-register warnings"
   },
   "build_status": {
-    "started_at": "2026-11-13T17:58:47Z",
+    "started_at": "2026-11-13T18:02:41Z",
     "completed": false,
     "failed_steps": []
   },

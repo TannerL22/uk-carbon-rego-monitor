@@ -14,7 +14,7 @@ The latest monthly comparison (2026-10) shows UKA at GBP 63.94 and EUA at EUR 85
 
 ## 3. GB Power Fundamentals
 
-The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of 197.0 g/kWh with a recent average of 217.2 g/kWh, and shows gas share, wind and solar share, and the latest generation mix alongside the carbon-intensity trend.
+The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of 192.0 g/kWh with a recent average of 216.9 g/kWh, and shows gas share, wind and solar share, and the latest generation mix alongside the carbon-intensity trend.
 
 This matters because carbon-market commentary should be connected to physical system conditions. A higher-carbon generation mix may change the emissions context customers see, even though it is not the same thing as contractual renewable supply. Contractual renewable claims still depend on certificate ownership, eligibility, allocation, retirement, and disclosure evidence.
 
