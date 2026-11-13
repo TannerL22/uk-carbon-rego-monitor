@@ -1,13 +1,13 @@
 {
-  "sources_registered": 9,
-  "warning_count": 4,
-  "stale_source_count": 2,
+  "sources_registered": 11,
+  "warning_count": 2,
+  "stale_source_count": 1,
   "manual_sources_requiring_notes": 0,
   "failed_fetch_count": 0,
   "severity_counts": {
     "High": 1,
-    "Medium": 1,
-    "Low": 2
+    "Medium": 0,
+    "Low": 1
   },
   "issues": [
     {
@@ -22,16 +22,6 @@
     },
     {
       "issue_id": "SRC-EX-002",
-      "source_id": "SRC-009",
-      "dataset_name": "GOV.UK Fuel Mix Disclosure data table",
-      "control_id": "SC-004",
-      "severity": "Low",
-      "field": "downloaded_at",
-      "issue": "Source download is stale versus latest registered source.",
-      "suggested_action": "Refresh the sample or note why the older extract remains valid."
-    },
-    {
-      "issue_id": "SRC-EX-003",
       "source_id": "SRC-003",
       "dataset_name": "UKA auction results",
       "control_id": "SC-008",
@@ -39,17 +29,7 @@
       "field": "clearing_price",
       "issue": "11 of 12 UKA auction prices deviate more than 10% from the official GOV.UK monthly average (max 34%).",
       "suggested_action": "Re-curate the UKA auction CSV from ICE Report Centre; UKA price signals use GOV.UK monthly averages meanwhile."
-    },
-    {
-      "issue_id": "SRC-EX-004",
-      "source_id": "SRC-006",
-      "dataset_name": "EUR/GBP FX assumption",
-      "control_id": "SC-009",
-      "severity": "Medium",
-      "field": "valid_from/valid_to",
-      "issue": "Static EUR/GBP assumption is valid 2024-10-01 to 2025-05-31 but is applied to 2024-11 to 2026-10.",
-      "suggested_action": "Review the EUR/GBP rate and validity window in data/raw/carbon/fx_assumptions.csv."
     }
   ],
-  "summary_signal": "4 source-register warnings"
+  "summary_signal": "2 source-register warnings"
 }

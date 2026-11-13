@@ -505,7 +505,7 @@ function renderCarbonMetrics(summary) {
     ? `GBP ${ccm.latest_trigger_price_gbp}`
     : "n/a";
   document.querySelector("#carbon-sample-period").textContent = formatCarbonSampleWindow(carbon.sample_period_label);
-  document.querySelector("#carbon-fx-note").textContent = formatCarbonFxNote(carbon.currency_note);
+  document.querySelector("#carbon-fx-note").textContent = formatCarbonFxNote(carbon);
   const feedNote = document.querySelector("#carbon-feed-note");
   if (feedNote) {
     const marketPhrase = carbon.market_reference && carbon.market_reference.enabled && carbon.market_reference.available
@@ -562,9 +562,14 @@ function formatCarbonSampleWindow(label) {
   return String(label || "").replace(/^Carbon market (sample|comparison) period:\s*/i, "");
 }
 
-function formatCarbonFxNote(note) {
-  const match = String(note || "").match(/EUR\/GBP assumption of ([0-9.]+)/i);
-  return match ? `static EUR/GBP ${match[1]}` : String(note || "");
+function formatCarbonFxNote(carbon) {
+  const fx = carbon.fx || {};
+  if (fx.latest_rate) {
+    const fallback = (fx.fallback_months || []).length ? ` · static fallback for ${fx.fallback_months.join(", ")}` : "";
+    return `ECB monthly EUR/GBP ${fx.latest_rate} (${fx.latest_rate_month})${fallback}`;
+  }
+  const match = String(carbon.currency_note || "").match(/EUR\/GBP assumption of ([0-9.]+)/i);
+  return match ? `static EUR/GBP ${match[1]}` : String(carbon.currency_note || "");
 }
 
 function renderPowerMetrics(summary) {
@@ -602,7 +607,7 @@ function renderChartCaptions(summary) {
     topMix ? `${topMix[0]} is the largest contributor in the fetched generation mix; gas share remains an important emissions driver.` : "Generation mix data are loaded from the build-time power signal output."
   );
   setChartCaption("#carbon-price-caption", "Official GOV.UK UKA monthly average futures prices compared with volume-weighted monthly EEX EUA auction prices.");
-  setChartCaption("#carbon-spread-caption", "Spread is FX-adjusted using the stated static EUR/GBP assumption; the UKA and EUA legs are related but not identical instruments.");
+  setChartCaption("#carbon-spread-caption", "Spread is FX-adjusted using each month's ECB EUR/GBP reference rate; the UKA and EUA legs are related but not identical instruments.");
   const ccm = summary.carbon?.uka_ccm_context || {};
   setChartCaption(
     "#ccm-price-caption",

@@ -64,6 +64,8 @@ jobs:
             data/raw/power/neso_generation_mix_live.csv \
             data/raw/carbon/eua_auction_results.csv \
             data/raw/carbon/uk_ets_ccm_monthly_prices.csv \
+            data/raw/carbon/ecb_eurgbp_monthly.csv \
+            data/raw/fmd \
             data/source_register.csv \
             outputs/analyst_note.md
 

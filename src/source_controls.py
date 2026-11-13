@@ -91,7 +91,7 @@ def uka_cross_check(issues: list[dict[str, object]]) -> None:
 
 
 def fx_validity_check(issues: list[dict[str, object]]) -> None:
-    """SC-009: the static FX assumption should cover the carbon comparison period it is applied to."""
+    """SC-009: months converted with the static FX fallback should fall inside its validity window."""
 
     if not FX_ASSUMPTIONS.exists() or not CARBON_SIGNALS.exists():
         return
@@ -100,11 +100,11 @@ def fx_validity_check(issues: list[dict[str, object]]) -> None:
     if fx.empty:
         return
     carbon = json.loads(CARBON_SIGNALS.read_text(encoding="utf-8"))
-    valid_to = pd.to_datetime(fx.iloc[0]["valid_to"], errors="coerce")
-    valid_from = pd.to_datetime(fx.iloc[0]["valid_from"], errors="coerce")
-    period_start = pd.Period(str(carbon.get("sample_period_start", ""))[:7], freq="M").start_time
-    period_end = pd.Period(str(carbon.get("sample_period_end", ""))[:7], freq="M").end_time
-    if pd.isna(valid_to) or pd.isna(valid_from) or (valid_from <= period_start and valid_to >= period_end.normalize()):
+    fallback_months = carbon.get("fx", {}).get("fallback_months", [])
+    valid_from = pd.Period(str(fx.iloc[0]["valid_from"])[:7], freq="M")
+    valid_to = pd.Period(str(fx.iloc[0]["valid_to"])[:7], freq="M")
+    outside = [month for month in fallback_months if not valid_from <= pd.Period(month, freq="M") <= valid_to]
+    if not outside:
         return
     add_issue(
         issues,
@@ -114,10 +114,10 @@ def fx_validity_check(issues: list[dict[str, object]]) -> None:
         "Medium",
         "valid_from/valid_to",
         (
-            f"Static EUR/GBP assumption is valid {valid_from.date()} to {valid_to.date()} but is applied to "
-            f"{carbon.get('sample_period_start')} to {carbon.get('sample_period_end')}."
+            f"Static EUR/GBP fallback (valid {valid_from} to {valid_to}) was used for {len(outside)} month(s) "
+            f"outside that window ({', '.join(outside)}) because ECB rates were unavailable."
         ),
-        "Review the EUR/GBP rate and validity window in data/raw/carbon/fx_assumptions.csv.",
+        "Check the ECB EUR/GBP fetch (src/fetch_ecb_fx.py) or update data/raw/carbon/fx_assumptions.csv.",
     )
 
 
@@ -162,7 +162,8 @@ def main() -> None:
             add_issue(issues, source_id, dataset_name, "SC-002", "Medium", "downloaded_at", "Missing download timestamp.", "Populate downloaded_at for source lineage.")
         if pd.isna(period_start) or pd.isna(period_end):
             add_issue(issues, source_id, dataset_name, "SC-003", "Medium", "data_period_start/data_period_end", "Missing data period.", "Add the covered data period.")
-        source_exempt_from_freshness = any(token in source_type for token in ["representative demo", "assumption"])
+        # Archived extracts of superseded official tables cannot be refreshed, so they are exempt.
+        source_exempt_from_freshness = any(token in source_type for token in ["representative demo", "assumption", "archived"])
         if downloaded_at and not source_exempt_from_freshness:
             downloaded_dt = pd.to_datetime(downloaded_at, errors="coerce", utc=True, format="mixed")
             if pd.notna(downloaded_dt) and downloaded_dt < stale_cutoff:

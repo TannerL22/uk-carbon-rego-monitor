@@ -16,8 +16,8 @@ UK_ETS_MARKETS_URL = "https://www.gov.uk/government/publications/taking-part-in-
 # UK ETS auction reserve price and its effective date (see UK_ETS_MARKETS_URL).
 AUCTION_RESERVE_PRICE_GBP = 28.0
 AUCTION_RESERVE_PRICE_EFFECTIVE_FROM = "2026-04-08"
-# GOV.UK Fuel Mix Disclosure natural gas emissions factor, used as a gas-fired generation proxy.
-GAS_PROXY_FACTOR_GCO2_PER_KWH = 382.0
+# Fallback only: the gas proxy normally uses the latest GOV.UK FMD natural gas factor.
+GAS_PROXY_FALLBACK_GCO2_PER_KWH = 382.0
 
 
 def read_json(filename: str) -> dict[str, object]:
@@ -31,7 +31,11 @@ def cost_per_mwh(uka_price_gbp_per_tco2: float, factor_gco2_per_kwh: float) -> f
 
 def main() -> None:
     carbon = read_json("carbon_signals.json")
-    fmd = read_json("fmd_context.json")
+    # Current market lens: latest UKA price with the latest published FMD factors.
+    fmd_context = read_json("fmd_context.json")
+    fmd = fmd_context.get("latest_period", fmd_context)
+    gas_factor = fmd.get("natural_gas_factor_gco2_per_kwh") or GAS_PROXY_FALLBACK_GCO2_PER_KWH
+    period = fmd["disclosure_period"]
 
     uka_price = float(carbon["latest_uka_price_gbp"])
     ccm = carbon.get("uka_ccm_context", {})
@@ -44,19 +48,19 @@ def main() -> None:
             "factor_id": "UK_AVERAGE_GENERATION",
             "label": "UK generation average context",
             "emissions_factor_gco2_per_kwh": float(fmd["uk_generation_average_factor_gco2_per_kwh"]),
-            "factor_basis": "GOV.UK FMD UK generation average factor",
+            "factor_basis": f"GOV.UK FMD {period} UK generation average factor",
         },
         {
             "factor_id": "FMD_RESIDUAL_MIX",
             "label": "FMD residual mix context",
             "emissions_factor_gco2_per_kwh": float(fmd["fmd_residual_factor_gco2_per_kwh"]),
-            "factor_basis": "GOV.UK FMD residual mix context factor",
+            "factor_basis": f"GOV.UK FMD {period} residual mix context factor",
         },
         {
             "factor_id": "GAS_PROXY",
             "label": "Natural gas proxy",
-            "emissions_factor_gco2_per_kwh": GAS_PROXY_FACTOR_GCO2_PER_KWH,
-            "factor_basis": "GOV.UK FMD natural gas emissions factor proxy",
+            "emissions_factor_gco2_per_kwh": float(gas_factor),
+            "factor_basis": f"GOV.UK FMD {period} natural gas emissions factor proxy",
         },
     ]
 

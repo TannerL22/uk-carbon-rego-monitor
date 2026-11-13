@@ -117,7 +117,7 @@ function renderDashboardVisuals(summary) {
     summary.carbon?.series || [],
     [
       { key: "uka_price_gbp", label: "UKA GBP", color: "#1f6b58" },
-      { key: "eua_price_gbp", label: "EUA GBP via FX assumption", color: "#496a9e" }
+      { key: "eua_price_gbp", label: "EUA GBP (ECB monthly FX)", color: "#496a9e" }
     ],
     { label: "UKA and EUA auction prices converted to GBP" }
   );

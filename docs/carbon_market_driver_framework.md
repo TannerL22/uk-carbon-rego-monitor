@@ -32,7 +32,7 @@ spread_gbp_z_score < -1.0 -> UKA discount wider (or premium narrower) than recen
 otherwise                 -> broadly stable
 ```
 
-UKA prices are denominated in GBP. EUA prices are denominated in EUR. The pipeline converts EUA prices into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating spread. The spread compares the two markets month by month, using only months where both the GOV.UK UKA average and EEX EUA auctions are published. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread is a transparent context indicator, not a live tradable spread.
+UKA prices are denominated in GBP. EUA prices are denominated in EUR. The pipeline converts EUA prices into GBP using the ECB monthly average EUR/GBP reference rate for each month (fetched from the ECB Data Portal; the static rate in `data/raw/carbon/fx_assumptions.csv` is only a fallback for months the ECB has not yet published) before calculating spread. The spread compares the two markets month by month, using only months where both the GOV.UK UKA average and EEX EUA auctions are published. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread is a transparent context indicator, not a live tradable spread.
 
 Each GOV.UK CCM row is labelled with its assessment month; the final average price in that row belongs to the previous calendar month (the end of the monitoring window). The fetcher records this as `price_month`, and all UKA prices are labelled with the month they actually cover.
 

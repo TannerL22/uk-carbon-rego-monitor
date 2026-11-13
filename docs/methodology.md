@@ -12,7 +12,7 @@ The third question is the core of the project. Carbon and power signals provide 
 
 ## Carbon Market Signals
 
-The carbon module compares the official GOV.UK UK ETS Cost Containment Mechanism (CCM) monthly average UKA futures price with the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated EUR/GBP assumption before calculating the monthly UKA-EUA spread, trailing average spread (previous six months), spread z-score, and spread regime. The auction demand signal uses EEX EUA cover ratios.
+The carbon module compares the official GOV.UK UK ETS Cost Containment Mechanism (CCM) monthly average UKA futures price with the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the ECB monthly average EUR/GBP reference rate for each month before calculating the monthly UKA-EUA spread, trailing average spread (previous six months), spread z-score, and spread regime. The auction demand signal uses EEX EUA cover ratios.
 
 The GOV.UK CCM table also provides the trigger price and triggered status. Each CCM row is labelled with its assessment month, and its final average belongs to the previous calendar month; the pipeline stores that as `price_month` so prices are labelled with the month they cover.
 
@@ -62,7 +62,7 @@ GB power intensity, FMD context, Scope 2 context, and UK ETS prices do not deter
 
 ## FMD And Emissions-Reporting Context
 
-The FMD module reads a curated GOV.UK Fuel Mix Disclosure table for the 2024-25 disclosure period. It calculates context values for representative customer contracts:
+The FMD module reads every GOV.UK Fuel Mix Disclosure table in `data/raw/fmd/` (2024-25 archived extract; 2025-26 fetched by `src/fetch_fmd.py`) and matches each contract to its own disclosure period. It calculates context values for representative customer contracts:
 
 - Location-based emissions proxy using the UK generation-average factor.
 - FMD UK mix attribute context using the disclosed fuel-mix percentages.

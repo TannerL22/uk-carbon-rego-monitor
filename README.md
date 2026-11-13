@@ -28,7 +28,7 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 ## What The Monitor Does
 
 - Compares official GOV.UK UK ETS monthly average UKA prices with volume-weighted monthly EEX EUA auction prices to build carbon-market context.
-- Tracks a monthly GBP-normalised UKA-EUA spread using a stated EUR/GBP FX assumption, plus EUA auction volume and cover-ratio demand signals.
+- Tracks a monthly GBP-normalised UKA-EUA spread using ECB monthly EUR/GBP reference rates, plus EUA auction volume and cover-ratio demand signals.
 - Converts selected emissions factors into indicative UKA carbon-cost context in GBP/MWh, explicitly separate from claim validation and billing.
 - Cross-checks the manually maintained UKA auction CSV against official GOV.UK monthly averages and flags divergence as a source-control issue.
 - Fetches recent NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
@@ -108,6 +108,8 @@ The scheduled refresh is intentionally scoped:
 | `data/raw/power/neso_*` | Refreshed from the NESO Carbon Intensity API and committed |
 | `data/raw/carbon/eua_auction_results.csv` | Refreshed from official EEX public auction workbooks and committed |
 | `data/raw/carbon/uk_ets_ccm_monthly_prices.csv` | Refreshed from the official GOV.UK CCM table and committed |
+| `data/raw/carbon/ecb_eurgbp_monthly.csv` | Refreshed from the ECB Data Portal (monthly EUR/GBP reference rates) and committed |
+| `data/raw/fmd/` | Current GOV.UK Fuel Mix Disclosure table refreshed and committed; earlier periods kept |
 | `data/raw/carbon/trading_economics_eu_carbon_reference.csv` | Optional Trading Economics EU Carbon Permits reference; refreshed only if a repository secret is configured |
 | `data/source_register.csv` | Updated by source-control/fetch scripts and committed |
 | `data/raw/carbon/uka_auction_results.csv` | Manually maintained input (currently an illustrative sample pending ICE curation); validated and cross-checked but not overwritten |
@@ -119,7 +121,7 @@ The workflow can be run manually from GitHub Actions using **Refresh dashboard d
 
 Carbon market data in this project uses official public data rather than licensed live market feeds. The UKA price is the official GOV.UK UK ETS Cost Containment Mechanism (CCM) monthly average futures price; the EUA price is the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices, fetched from EEX's public workbooks during the build. The dashboard shows the monthly comparison period and does not imply these are a live trading feed.
 
-UKA prices are denominated in GBP. EUA prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating the monthly UKA-EUA spread. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread is a transparent context indicator, not a live traded spread. Source control SC-009 flags when the FX assumption's stated validity window does not cover the comparison period.
+UKA prices are denominated in GBP. EUA prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the ECB monthly average EUR/GBP reference rate for each month (fetched from the ECB Data Portal; the static rate in `data/raw/carbon/fx_assumptions.csv` is only a fallback for months the ECB has not yet published) before calculating the monthly UKA-EUA spread. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread is a transparent context indicator, not a live traded spread. Source control SC-009 flags any month converted with the static fallback outside its stated validity window.
 
 **UKA auction CSV status.** `data/raw/carbon/uka_auction_results.csv` is designed to hold manually curated ICE auction results, but the committed rows are an illustrative sample carried over from the demo seed: they deviate 10-34% from the official GOV.UK monthly averages for the same months. The build cross-checks the file (source control SC-008), labels it illustrative in the source register, and does not use it for UKA price or spread signals. See `data/raw/carbon/README_uka_manual_update.md` to replace it with real ICE results.
 
@@ -133,7 +135,7 @@ Replacement REGO prices are assumptions stored in the contract file and are used
 
 The customer renewable claim coverage module is the commercial layer above the certificate controls. It answers whether representative customer/product renewable electricity claims are supported by eligible REGO evidence, what volume is uncovered, what certificate evidence is invalid or excluded, and what the assumed replacement-cover exposure is. Claim status is based on REGO evidence, contract coverage, and contract-scoped controls only; GB grid intensity and carbon-market signals are context layers and do not determine claim validity.
 
-The FMD context module reads a curated GOV.UK Fuel Mix Disclosure data table for the 2024-25 disclosure period. It adds location-based and residual-mix emissions context to contracted and uncovered MWh, but it does not calculate official customer Scope 2 emissions and it does not affect claim status.
+The FMD context module reads every GOV.UK Fuel Mix Disclosure table in `data/raw/fmd/` and matches each contract to the table for its own disclosure period (the demo contracts use 2024-25). `src/fetch_fmd.py` fetches the current table (2025-26, published August 2026) on every build, and the carbon-cost context uses the latest period's factors. It adds location-based and residual-mix emissions context to contracted and uncovered MWh, but it does not calculate official customer Scope 2 emissions and it does not affect claim status.
 
 The future Scope 2 readiness module is separate from current annual claim supportability. It checks whether representative contracts have generation-period data, market-boundary fields, hourly/settlement-period availability, and deliverability flags that would be needed for more granular future reporting analysis. It does not apply final revised Scope 2 rules and it does not perform 24/7 matching.
 
@@ -145,7 +147,7 @@ See `docs/control_framework.md` for the full control register.
 
 ## Carbon Market Signal Methodology
 
-The carbon module calculates monthly UKA (GOV.UK CCM average) and EUA (EEX auction average) prices, converts EUA prices into GBP using the stated FX assumption, and calculates the GBP-normalised UKA-EUA spread, a trailing six-month average spread (excluding the latest month), a spread z-score, and a simple spread regime. It also surfaces the latest CCM trigger price and triggered status as official UKA policy context. GOV.UK labels each CCM row with its assessment month while the final average in that row covers the previous month; the pipeline records that as `price_month` so every UKA price is labelled with the month it actually covers. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
+The carbon module calculates monthly UKA (GOV.UK CCM average) and EUA (EEX auction average) prices, converts EUA prices into GBP using each month's ECB EUR/GBP reference rate, and calculates the GBP-normalised UKA-EUA spread, a trailing six-month average spread (excluding the latest month), a spread z-score, and a simple spread regime. It also surfaces the latest CCM trigger price and triggered status as official UKA policy context. GOV.UK labels each CCM row with its assessment month while the final average in that row covers the previous month; the pipeline records that as `price_month` so every UKA price is labelled with the month it actually covers. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
 
 The dashboard separates carbon inputs into three labelled layers: official monthly price signal, official UKA CCM policy context, and an optional third-party market-reference layer. The optional Trading Economics EU Carbon Permits reference is fetched only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately and should not be read as an official exchange feed.
 
@@ -171,7 +173,7 @@ Run the full pipeline:
 python src/build_all.py
 ```
 
-This command requires internet access for the EEX EUA auction fetch, GOV.UK CCM table fetch, and NESO power module.
+This command requires internet access for the EEX EUA auction, GOV.UK CCM and Fuel Mix Disclosure tables, ECB EUR/GBP rates, and NESO power fetches.
 
 Expected generated outputs include:
 
@@ -251,7 +253,6 @@ This project was built using AI-assisted coding tools for scaffolding, debugging
 ## Future Extensions
 
 - Re-curate `data/raw/carbon/uka_auction_results.csv` from ICE Report Centre so UKA auction-demand fields use real results.
-- Replace the static EUR/GBP assumption with monthly ECB reference rates.
 - Optional automated ICE UKA ingestion if a stable public machine-readable source is confirmed.
 - Optional ICAP Allowance Price Explorer reference, subject to licensing and API-stability review. Phase 7 assessed ICAP as useful context but not suitable for automated MVP ingestion without explicit permission.
 - Optional Trading Economics EU Carbon Permits market-reference display, enabled only when a repository secret is configured and kept separate from official auction/policy inputs.

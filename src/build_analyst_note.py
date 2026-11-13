@@ -88,9 +88,9 @@ The generated dashboard is operational rather than purely market-facing. The car
 
 ## 2. Carbon Market Signal
 
-The carbon-market module compares the official GOV.UK UK ETS Cost Containment Mechanism monthly average UKA futures price with the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices, rather than licensed live price feeds. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated static EUR/GBP assumption before calculating spread.
+The carbon-market module compares the official GOV.UK UK ETS Cost Containment Mechanism monthly average UKA futures price with the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices, rather than licensed live price feeds. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the ECB monthly average EUR/GBP reference rate for each month before calculating spread.
 
-The latest monthly comparison ({carbon['latest_price_month']}) shows UKA at GBP {carbon['latest_uka_price_gbp']} and EUA at EUR {carbon['latest_eua_price_eur']}, equivalent to GBP {carbon['latest_eua_price_gbp']} using the stated FX assumption. The resulting UKA-EUA spread is GBP {carbon['latest_spread_gbp']}. This is a transparent monthly context indicator, not a live traded spread or a replacement for broker marks, exchange feeds, or internal trading data.
+The latest monthly comparison ({carbon['latest_price_month']}) shows UKA at GBP {carbon['latest_uka_price_gbp']} and EUA at EUR {carbon['latest_eua_price_eur']}, equivalent to GBP {carbon['latest_eua_price_gbp']} at the ECB EUR/GBP rate of {carbon['fx']['latest_rate']}. The resulting UKA-EUA spread is GBP {carbon['latest_spread_gbp']}. This is a transparent monthly context indicator, not a live traded spread or a replacement for broker marks, exchange feeds, or internal trading data.
 
 ## 3. GB Power Fundamentals
 
@@ -124,7 +124,7 @@ The carbon-cost layer adds a market-cost lens without changing claim status. Usi
 
 ## 6. Data Limitations
 
-The carbon data are official public monthly averages and auction results, not licensed live UKA/EUA market data. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread compares related but not identical instruments. The carbon spread uses a stated static EUR/GBP assumption and should not be read as a live traded spread. The committed UKA auction CSV is an illustrative sample that does not match official prices and is not used for UKA price or spread signals until it is re-curated from ICE Report Centre.
+The carbon data are official public monthly averages and auction results, not licensed live UKA/EUA market data. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread compares related but not identical instruments. The spread uses monthly average ECB reference rates rather than traded FX and should not be read as a live traded spread. The committed UKA auction CSV is an illustrative sample that does not match official prices and is not used for UKA price or spread signals until it is re-curated from ICE Report Centre.
 
 The power data are fetched from the NESO Carbon Intensity API at build time, served as static dashboard output, and may be revised by the source. The REGO ledger and contracts are representative demo operating data because certificate-level supplier allocations and customer contract mappings are not public datasets. Source controls currently report {source_quality['warning_count']} warnings across {source_quality['sources_registered']} registered sources. Assumed replacement prices are illustrative. The monitor is not trading advice, legal advice, or compliance sign-off.
 """

@@ -20,6 +20,14 @@ class FmdContextTests(IsolatedPipelineTestCase):
         self.assertGreater(self.fmd["fmd_residual_factor_gco2_per_kwh"], 300)
         self.assertIn("not calculate an official customer Scope 2 inventory", self.fmd["methodology_note"])
 
+    def test_contracts_use_their_own_disclosure_period_and_latest_period_is_exposed(self) -> None:
+        self.assertIn("2025-26", self.fmd["periods_available"])
+        self.assertEqual("2025-26", self.fmd["latest_period"]["disclosure_period"])
+        self.assertEqual(147.0, self.fmd["latest_period"]["uk_generation_average_factor_gco2_per_kwh"])
+        for row in self.fmd["contract_context"]:
+            self.assertTrue(row["fmd_period_matched"])
+            self.assertEqual(row["disclosure_period"], row["fmd_table_period"])
+
     def test_contract_context_is_context_only(self) -> None:
         rows = self.fmd["contract_context"]
         self.assertEqual(3, len(rows))

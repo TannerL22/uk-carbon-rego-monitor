@@ -3,7 +3,8 @@
 UKA price: GOV.UK UK ETS Cost Containment Mechanism (CCM) monthly average
 futures price (official, published by DESNZ / UK ETS Authority).
 EUA price: volume-weighted monthly average of official EEX EU ETS1 primary
-auction clearing prices, converted to GBP with the stated static FX assumption.
+auction clearing prices, converted to GBP with the ECB monthly average EUR/GBP
+reference rate for the same month (static assumption only as a fallback).
 
 Both legs are official public data and refresh automatically, so the spread
 stays current without depending on the manually maintained UKA auction CSV.
@@ -21,6 +22,7 @@ from project_paths import ROOT
 
 OUTPUT = ROOT / "data" / "processed" / "carbon_signals.json"
 FX_PATH = ROOT / "data" / "raw" / "carbon" / "fx_assumptions.csv"
+ECB_FX_PATH = ROOT / "data" / "raw" / "carbon" / "ecb_eurgbp_monthly.csv"
 CCM_PATH = ROOT / "data" / "raw" / "carbon" / "uk_ets_ccm_monthly_prices.csv"
 
 TRAILING_MONTHS = 6
@@ -54,6 +56,16 @@ def load_fx_assumption() -> dict[str, object]:
         "source": str(row["source"]),
         "notes": str(row["notes"]),
     }
+
+
+def load_monthly_fx() -> pd.Series:
+    """ECB monthly average EUR/GBP rates (GBP per EUR) keyed by YYYY-MM; empty if not fetched."""
+
+    if not ECB_FX_PATH.exists():
+        return pd.Series(dtype=float)
+    rates = pd.read_csv(ECB_FX_PATH, dtype={"month": str})
+    rates["eur_gbp"] = pd.to_numeric(rates["eur_gbp"], errors="coerce")
+    return rates.dropna(subset=["eur_gbp"]).set_index("month")["eur_gbp"]
 
 
 def load_ccm_table() -> pd.DataFrame:
@@ -94,7 +106,12 @@ def monthly_eua_prices(auctions: pd.DataFrame) -> pd.DataFrame:
     return grouped[["EUA", "eua_auction_count"]].reset_index()
 
 
-def build_monthly_spread(ccm: pd.DataFrame, eua_monthly: pd.DataFrame, fx_rate: float) -> pd.DataFrame:
+def build_monthly_spread(
+    ccm: pd.DataFrame,
+    eua_monthly: pd.DataFrame,
+    fallback_rate: float,
+    fx_rates: pd.Series | None = None,
+) -> pd.DataFrame:
     uka = (
         ccm.dropna(subset=["monthly_average_price"])
         .drop_duplicates("price_month", keep="last")
@@ -103,7 +120,10 @@ def build_monthly_spread(ccm: pd.DataFrame, eua_monthly: pd.DataFrame, fx_rate: 
     merged = uka.merge(eua_monthly, on="price_month", how="inner").sort_values("price_month").reset_index(drop=True)
     if merged.empty:
         raise ValueError("No month has both a GOV.UK UKA monthly average and EEX EUA auction prices.")
-    merged["EUA_GBP"] = merged["EUA"] * fx_rate
+    monthly_rate = merged["price_month"].map(fx_rates) if fx_rates is not None and not fx_rates.empty else pd.Series(float("nan"), index=merged.index)
+    merged["fx_basis"] = monthly_rate.notna().map({True: "ECB monthly average", False: "static fallback"})
+    merged["fx_rate"] = monthly_rate.fillna(fallback_rate).astype(float)
+    merged["EUA_GBP"] = merged["EUA"] * merged["fx_rate"]
     merged["spread_gbp"] = merged["UKA"] - merged["EUA_GBP"]
     # Trailing statistics use the months *before* each row so the latest value is
     # compared against history rather than against a window that includes itself.
@@ -172,7 +192,7 @@ def main() -> None:
     if ccm.empty or ccm["monthly_average_price"].dropna().empty:
         raise FileNotFoundError("GOV.UK CCM monthly prices are missing. Run python src/fetch_uk_ets_ccm.py first.")
 
-    monthly = build_monthly_spread(ccm, monthly_eua_prices(load_auction_data()), float(fx["rate"]))
+    monthly = build_monthly_spread(ccm, monthly_eua_prices(load_auction_data()), float(fx["rate"]), load_monthly_fx())
     latest = monthly.iloc[-1]
     z_score = spread_z_score(latest)
     regime = classify_spread(z_score, float(latest["spread_gbp"]))
@@ -187,6 +207,7 @@ def main() -> None:
             "eua_price_gbp": round(float(row["EUA_GBP"]), 2),
             "spread_gbp": round(float(row["spread_gbp"]), 2),
             "eua_auction_count": int(row["eua_auction_count"]),
+            "eur_gbp": round(float(row["fx_rate"]), 4),
             "trailing_average_spread_gbp": optional_round(row["trailing_average_spread_gbp"]),
         }
         for _, row in window.iterrows()
@@ -206,9 +227,19 @@ def main() -> None:
         "spread_z_score": round(z_score, 2),
         "spread_regime": regime,
         "fx_assumption": fx,
+        "fx": {
+            "basis": "ECB monthly average EUR/GBP reference rate",
+            "latest_rate": round(float(latest["fx_rate"]), 4),
+            "latest_rate_month": str(latest["price_month"]),
+            "latest_rate_basis": str(latest["fx_basis"]),
+            "fallback_months": [str(m) for m in window.loc[window["fx_basis"] == "static fallback", "price_month"]],
+            "static_fallback_rate": float(fx["rate"]),
+        },
         "currency_note": (
-            f"EUA EUR auction prices are converted to GBP using a static EUR/GBP assumption of {float(fx['rate']):.2f}. "
-            "The resulting UKA-EUA spread is shown in GBP and is a transparent monthly context indicator, not a live traded spread."
+            "EUA EUR auction prices are converted to GBP using the ECB monthly average EUR/GBP reference rate for each month "
+            f"({float(latest['fx_rate']):.4f} for {latest['price_month']}"
+            + ("" if latest["fx_basis"] == "ECB monthly average" else f"; static fallback {float(fx['rate']):.2f} used")
+            + "). The resulting UKA-EUA spread is shown in GBP and is a transparent monthly context indicator, not a live traded spread."
         ),
         "basis_note": (
             "UKA = official GOV.UK UK ETS CCM monthly average futures price. EUA = volume-weighted monthly average of "

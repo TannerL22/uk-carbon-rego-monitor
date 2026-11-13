@@ -18,11 +18,13 @@ inputs.
 - `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`: official GOV.UK UK ETS CCM trigger prices and monthly average UKA futures prices parsed during the build; `price_month` is the calendar month each average covers. This is the UKA price source for the spread and carbon-cost context.
 - `data/raw/carbon/trading_economics_eu_carbon_reference.csv`: optional third-party EU Carbon Permits reference parsed during the build only when `TRADING_ECONOMICS_API_KEY` is configured.
 - `data/raw/carbon/eua_auction_results_sample.csv`: fallback curated public-sample EUA auction results retained for demo seeding only.
-- `data/raw/carbon/fx_assumptions.csv`: static EUR/GBP assumption used to convert EUA prices into GBP before calculating spread.
+- `data/raw/carbon/ecb_eurgbp_monthly.csv`: ECB monthly average EUR/GBP reference rates fetched by `src/fetch_ecb_fx.py`; used to convert EUA prices into GBP.
+- `data/raw/carbon/fx_assumptions.csv`: static EUR/GBP fallback for months the ECB has not yet published.
 - `data/raw/power/neso_generation_mix_live.csv`: normalized NESO Carbon Intensity API extract generated during the build.
 - `data/raw/power/neso_carbon_intensity_api_raw.json`: raw NESO intensity and generation API responses.
 - `data/raw/power/neso_fetch_metadata.json`: fetch timestamp, API URLs, data period, and record count.
-- `data/raw/fmd/fmd_2024_2025.csv`: curated GOV.UK Fuel Mix Disclosure table used for reporting-context factors only.
+- `data/raw/fmd/fmd_2025_2026.csv`: current GOV.UK Fuel Mix Disclosure table fetched by `src/fetch_fmd.py` (a new `fmd_<start>_<end>.csv` file is added when GOV.UK publishes the next period).
+- `data/raw/fmd/fmd_2024_2025.csv`: archived extract of the 2024-25 table, kept because the demo contracts disclose against 2024-25. Reporting-context factors only.
 - `data/raw/rego/synthetic_contracts.csv`: representative demo contracts with eligibility rules and assumed replacement REGO prices.
 - `data/raw/rego/demo_customer_contracts.csv`: representative demo customer/product claim contracts used for renewable claim coverage, cover-risk assessment, and future Scope 2 data-readiness flags.
 - `data/raw/rego/synthetic_rego_ledger.csv`: representative demo certificate-level operating ledger with intentional control failures.
@@ -49,6 +51,8 @@ extracts:
 - `data/raw/power/neso_generation_mix_live.csv`
 - `data/raw/carbon/eua_auction_results.csv`
 - `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`
+- `data/raw/carbon/ecb_eurgbp_monthly.csv`
+- `data/raw/fmd/`
 - `data/raw/carbon/trading_economics_eu_carbon_reference.csv` when the optional Trading Economics secret is configured
 - `data/source_register.csv`
 - `outputs/analyst_note.md`

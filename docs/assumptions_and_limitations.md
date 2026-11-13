@@ -10,9 +10,9 @@
 - The dashboard displays the carbon market comparison period.
 - Normal scheduled builds validate the UKA CSV, fetch EEX EUA data and GOV.UK CCM data, then read UKA CSVs as raw inputs; they do not regenerate representative demo data.
 - UKA prices are GBP and EUA prices are EUR.
-- EUA prices are converted to GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before spread is calculated.
+- EUA prices are converted to GBP using the ECB monthly average EUR/GBP reference rate for each month (official, indicative rates; not traded FX).
 - The UKA-EUA spread is calculated monthly: GOV.UK UKA monthly average futures price versus the volume-weighted monthly average of EEX EUA auction clearing prices. The two legs are related but not identical instruments, so the spread is a GBP-normalised context indicator, not a live tradable spread.
-- The static EUR/GBP assumption has a stated validity window; source control SC-009 flags when the comparison period runs beyond it.
+- The static EUR/GBP rate in `data/raw/carbon/fx_assumptions.csv` is only a fallback for months the ECB has not yet published; source control SC-009 flags fallback use outside its stated validity window.
 - Auction cover ratio is used only where data are available.
 - The UKA CSV is not an automated ICE feed and must be re-curated from ICE Report Centre before any UKA auction values are used analytically.
 - The dashboard is not a trading tool.

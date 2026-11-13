@@ -25,6 +25,8 @@ SRC = Path(__file__).resolve().parent
 BUILD_STATUS = ROOT / "data" / "processed" / "build_status.json"
 
 FETCH_DATASETS = {
+    "SRC-009": "GOV.UK Fuel Mix Disclosure table",
+    "SRC-011": "ECB EUR/GBP reference rates",
     "SRC-004": "EEX EUA auction results",
     "SRC-005": "NESO Carbon Intensity API",
     "SRC-007": "GOV.UK UK ETS CCM monthly prices",
@@ -36,10 +38,12 @@ STEPS: list[tuple[str, str | None]] = [
     ("customer_claim_coverage.py", None),
     ("scope2_readiness.py", None),
     ("claim_evidence_register.py", None),
+    ("fetch_fmd.py", "SRC-009"),
     ("fmd_context.py", None),
     ("validate_uka_auction_input.py", None),
     ("fetch_eex_eua_auctions.py", "SRC-004"),
     ("fetch_uk_ets_ccm.py", "SRC-007"),
+    ("fetch_ecb_fx.py", "SRC-011"),
     ("carbon_signals.py", None),
     ("carbon_cost_context.py", None),
     ("fetch_tradingeconomics_reference.py", None),

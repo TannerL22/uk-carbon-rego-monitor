@@ -6,11 +6,11 @@
   "sample_period_label": "Carbon market comparison period: 2024-11 to 2026-10 (monthly averages)",
   "latest_uka_price_gbp": 63.94,
   "latest_eua_price_eur": 85.96,
-  "latest_eua_price_gbp": 73.92,
-  "latest_spread_gbp": -9.98,
-  "trailing_average_spread_gbp": -11.85,
-  "spread_z_score": 0.87,
-  "spread_regime": "UKA discount broadly stable",
+  "latest_eua_price_gbp": 72.45,
+  "latest_spread_gbp": -8.51,
+  "trailing_average_spread_gbp": -11.92,
+  "spread_z_score": 1.4,
+  "spread_regime": "UKA discount narrower than recent average",
   "fx_assumption": {
     "currency_pair": "EURGBP",
     "rate": 0.86,
@@ -20,7 +20,15 @@
     "source": "Project assumption",
     "notes": "Used for public demo only; not a live FX feed"
   },
-  "currency_note": "EUA EUR auction prices are converted to GBP using a static EUR/GBP assumption of 0.86. The resulting UKA-EUA spread is shown in GBP and is a transparent monthly context indicator, not a live traded spread.",
+  "fx": {
+    "basis": "ECB monthly average EUR/GBP reference rate",
+    "latest_rate": 0.8428,
+    "latest_rate_month": "2026-10",
+    "latest_rate_basis": "ECB monthly average",
+    "fallback_months": [],
+    "static_fallback_rate": 0.86
+  },
+  "currency_note": "EUA EUR auction prices are converted to GBP using the ECB monthly average EUR/GBP reference rate for each month (0.8428 for 2026-10). The resulting UKA-EUA spread is shown in GBP and is a transparent monthly context indicator, not a live traded spread.",
   "basis_note": "UKA = official GOV.UK UK ETS CCM monthly average futures price. EUA = volume-weighted monthly average of official EEX EU ETS1 primary auction clearing prices. Months are compared only when both are published.",
   "uka_ccm_context": {
     "available": true,
@@ -33,7 +41,7 @@
     "next_trigger_price_gbp": 142.68,
     "monitoring_window_months": 6,
     "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-    "downloaded_at": "2026-11-13T17:40Z",
+    "downloaded_at": "2026-11-13T17:51Z",
     "published_at": "2026-11-10",
     "note": "Official GOV.UK UK ETS CCM monthly average futures price. latest_month is the calendar month the average covers (the CCM row for the following assessment month); not an auction clearing price and not a live trading feed.",
     "series": [
@@ -189,217 +197,241 @@
       "date": "2024-11",
       "uka_price_gbp": 37.67,
       "eua_price_eur": 67.04,
-      "eua_price_gbp": 57.65,
-      "spread_gbp": -19.98,
+      "eua_price_gbp": 55.9,
+      "spread_gbp": -18.23,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -16.54
+      "eur_gbp": 0.8338,
+      "trailing_average_spread_gbp": -15.57
     },
     {
       "date": "2024-12",
       "uka_price_gbp": 35.84,
       "eua_price_eur": 67.28,
-      "eua_price_gbp": 57.86,
-      "spread_gbp": -22.02,
+      "eua_price_gbp": 55.71,
+      "spread_gbp": -19.87,
       "eua_auction_count": 11,
-      "trailing_average_spread_gbp": -16.57
+      "eur_gbp": 0.828,
+      "trailing_average_spread_gbp": -15.36
     },
     {
       "date": "2025-01",
       "uka_price_gbp": 35.84,
       "eua_price_eur": 75.86,
-      "eua_price_gbp": 65.24,
-      "spread_gbp": -29.4,
+      "eua_price_gbp": 63.65,
+      "spread_gbp": -27.81,
       "eua_auction_count": 17,
-      "trailing_average_spread_gbp": -18.3
+      "eur_gbp": 0.8391,
+      "trailing_average_spread_gbp": -16.89
     },
     {
       "date": "2025-02",
       "uka_price_gbp": 44.31,
       "eua_price_eur": 75.82,
-      "eua_price_gbp": 65.21,
-      "spread_gbp": -20.9,
+      "eua_price_gbp": 62.99,
+      "spread_gbp": -18.68,
       "eua_auction_count": 18,
-      "trailing_average_spread_gbp": -20.59
+      "eur_gbp": 0.8307,
+      "trailing_average_spread_gbp": -19.09
     },
     {
       "date": "2025-03",
       "uka_price_gbp": 43.27,
       "eua_price_eur": 68.71,
-      "eua_price_gbp": 59.09,
-      "spread_gbp": -15.82,
+      "eua_price_gbp": 57.51,
+      "spread_gbp": -14.24,
       "eua_auction_count": 19,
-      "trailing_average_spread_gbp": -20.69
+      "eur_gbp": 0.837,
+      "trailing_average_spread_gbp": -18.92
     },
     {
       "date": "2025-04",
       "uka_price_gbp": 45.78,
       "eua_price_eur": 64.11,
-      "eua_price_gbp": 55.14,
-      "spread_gbp": -9.36,
+      "eua_price_gbp": 54.74,
+      "spread_gbp": -8.96,
       "eua_auction_count": 18,
-      "trailing_average_spread_gbp": -20.73
+      "eur_gbp": 0.8538,
+      "trailing_average_spread_gbp": -18.92
     },
     {
       "date": "2025-05",
       "uka_price_gbp": 51.34,
       "eua_price_eur": 70.37,
-      "eua_price_gbp": 60.52,
-      "spread_gbp": -9.18,
+      "eua_price_gbp": 59.36,
+      "spread_gbp": -8.02,
       "eua_auction_count": 15,
-      "trailing_average_spread_gbp": -19.58
+      "eur_gbp": 0.8435,
+      "trailing_average_spread_gbp": -17.97
     },
     {
       "date": "2025-06",
       "uka_price_gbp": 51.12,
       "eua_price_eur": 72.08,
-      "eua_price_gbp": 61.99,
-      "spread_gbp": -10.87,
+      "eua_price_gbp": 61.26,
+      "spread_gbp": -10.14,
       "eua_auction_count": 18,
-      "trailing_average_spread_gbp": -17.78
+      "eur_gbp": 0.8498,
+      "trailing_average_spread_gbp": -16.26
     },
     {
       "date": "2025-07",
       "uka_price_gbp": 49.17,
       "eua_price_eur": 70.01,
-      "eua_price_gbp": 60.21,
-      "spread_gbp": -11.04,
+      "eua_price_gbp": 60.54,
+      "spread_gbp": -11.37,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -15.92
+      "eur_gbp": 0.8647,
+      "trailing_average_spread_gbp": -14.64
     },
     {
       "date": "2025-08",
       "uka_price_gbp": 51.43,
       "eua_price_eur": 70.92,
-      "eua_price_gbp": 60.99,
-      "spread_gbp": -9.56,
+      "eua_price_gbp": 61.36,
+      "spread_gbp": -9.93,
       "eua_auction_count": 19,
-      "trailing_average_spread_gbp": -12.86
+      "eur_gbp": 0.8653,
+      "trailing_average_spread_gbp": -11.9
     },
     {
       "date": "2025-09",
       "uka_price_gbp": 56.19,
       "eua_price_eur": 75.45,
-      "eua_price_gbp": 64.89,
-      "spread_gbp": -8.7,
+      "eua_price_gbp": 65.56,
+      "spread_gbp": -9.37,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -10.97
+      "eur_gbp": 0.8689,
+      "trailing_average_spread_gbp": -10.44
     },
     {
       "date": "2025-10",
       "uka_price_gbp": 55.54,
       "eua_price_eur": 77.96,
-      "eua_price_gbp": 67.04,
-      "spread_gbp": -11.5,
+      "eua_price_gbp": 67.94,
+      "spread_gbp": -12.4,
       "eua_auction_count": 21,
-      "trailing_average_spread_gbp": -9.78
+      "eur_gbp": 0.8716,
+      "trailing_average_spread_gbp": -9.63
     },
     {
       "date": "2025-11",
       "uka_price_gbp": 57.41,
       "eua_price_eur": 80.64,
-      "eua_price_gbp": 69.35,
-      "spread_gbp": -11.94,
+      "eua_price_gbp": 70.96,
+      "spread_gbp": -13.55,
       "eua_auction_count": 18,
-      "trailing_average_spread_gbp": -10.14
+      "eur_gbp": 0.88,
+      "trailing_average_spread_gbp": -10.21
     },
     {
       "date": "2025-12",
       "uka_price_gbp": 62.13,
       "eua_price_eur": 82.74,
-      "eua_price_gbp": 71.16,
-      "spread_gbp": -9.03,
+      "eua_price_gbp": 72.4,
+      "spread_gbp": -10.27,
       "eua_auction_count": 10,
-      "trailing_average_spread_gbp": -10.6
+      "eur_gbp": 0.875,
+      "trailing_average_spread_gbp": -11.13
     },
     {
       "date": "2026-01",
       "uka_price_gbp": 68.26,
       "eua_price_eur": 86.55,
-      "eua_price_gbp": 74.43,
-      "spread_gbp": -6.17,
+      "eua_price_gbp": 75.15,
+      "spread_gbp": -6.89,
       "eua_auction_count": 16,
-      "trailing_average_spread_gbp": -10.29
+      "eur_gbp": 0.8683,
+      "trailing_average_spread_gbp": -11.15
     },
     {
       "date": "2026-02",
       "uka_price_gbp": 50.83,
       "eua_price_eur": 73.91,
-      "eua_price_gbp": 63.56,
-      "spread_gbp": -12.73,
+      "eua_price_gbp": 64.33,
+      "spread_gbp": -13.5,
       "eua_auction_count": 18,
-      "trailing_average_spread_gbp": -9.48
+      "eur_gbp": 0.8703,
+      "trailing_average_spread_gbp": -10.4
     },
     {
       "date": "2026-03",
       "uka_price_gbp": 39.46,
       "eua_price_eur": 68.14,
-      "eua_price_gbp": 58.6,
-      "spread_gbp": -19.14,
+      "eua_price_gbp": 59.03,
+      "spread_gbp": -19.57,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -10.01
+      "eur_gbp": 0.8663,
+      "trailing_average_spread_gbp": -11.0
     },
     {
       "date": "2026-04",
       "uka_price_gbp": 46.82,
       "eua_price_eur": 72.65,
-      "eua_price_gbp": 62.48,
-      "spread_gbp": -15.66,
+      "eua_price_gbp": 63.16,
+      "spread_gbp": -16.34,
       "eua_auction_count": 18,
-      "trailing_average_spread_gbp": -11.75
+      "eur_gbp": 0.8693,
+      "trailing_average_spread_gbp": -12.7
     },
     {
       "date": "2026-05",
       "uka_price_gbp": 52.41,
       "eua_price_eur": 74.75,
-      "eua_price_gbp": 64.29,
-      "spread_gbp": -11.88,
+      "eua_price_gbp": 64.71,
+      "spread_gbp": -12.3,
       "eua_auction_count": 15,
-      "trailing_average_spread_gbp": -12.44
+      "eur_gbp": 0.8656,
+      "trailing_average_spread_gbp": -13.35
     },
     {
       "date": "2026-06",
       "uka_price_gbp": 57.02,
       "eua_price_eur": 77.75,
-      "eua_price_gbp": 66.86,
-      "spread_gbp": -9.84,
+      "eua_price_gbp": 67.15,
+      "spread_gbp": -10.13,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -12.43
+      "eur_gbp": 0.8637,
+      "trailing_average_spread_gbp": -13.14
     },
     {
       "date": "2026-07",
       "uka_price_gbp": 58.68,
       "eua_price_eur": 80.19,
-      "eua_price_gbp": 68.96,
-      "spread_gbp": -10.28,
+      "eua_price_gbp": 68.47,
+      "spread_gbp": -9.79,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -12.57
+      "eur_gbp": 0.8539,
+      "trailing_average_spread_gbp": -13.12
     },
     {
       "date": "2026-08",
       "uka_price_gbp": 59.34,
       "eua_price_eur": 81.55,
-      "eua_price_gbp": 70.14,
-      "spread_gbp": -10.8,
+      "eua_price_gbp": 69.81,
+      "spread_gbp": -10.47,
       "eua_auction_count": 19,
-      "trailing_average_spread_gbp": -13.26
+      "eur_gbp": 0.8561,
+      "trailing_average_spread_gbp": -13.6
     },
     {
       "date": "2026-09",
       "uka_price_gbp": 60.17,
       "eua_price_eur": 84.64,
-      "eua_price_gbp": 72.79,
-      "spread_gbp": -12.62,
+      "eua_price_gbp": 72.63,
+      "spread_gbp": -12.46,
       "eua_auction_count": 20,
-      "trailing_average_spread_gbp": -12.93
+      "eur_gbp": 0.8581,
+      "trailing_average_spread_gbp": -13.1
     },
     {
       "date": "2026-10",
       "uka_price_gbp": 63.94,
       "eua_price_eur": 85.96,
-      "eua_price_gbp": 73.92,
-      "spread_gbp": -9.98,
+      "eua_price_gbp": 72.45,
+      "spread_gbp": -8.51,
       "eua_auction_count": 21,
-      "trailing_average_spread_gbp": -11.85
+      "eur_gbp": 0.8428,
+      "trailing_average_spread_gbp": -11.92
     }
   ]
 }
