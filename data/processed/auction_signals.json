@@ -1,59 +1,566 @@
 {
-  "latest_auction_date": "2025-05-22",
-  "latest_uka_volume": 2615000,
-  "latest_uka_cover_ratio": 1.22,
-  "trailing_uka_cover_ratio": 1.27,
-  "demand_signal": "Latest auction demand: neutral",
-  "volume_signal": "Auction supply above recent average",
-  "next_auction_date": "2025-06-12",
+  "basis": "EEX EU ETS1 primary auctions (official)",
+  "latest_auction_date": "2026-11-13",
+  "latest_cover_ratio": 1.79,
+  "trailing_cover_ratio": 1.55,
+  "demand_signal": "Latest EUA auction demand stronger than recent average",
+  "volume_signal": "Auction supply below recent average",
   "series": [
     {
-      "date": "2024-10-03",
-      "auction_volume": 2450000
+      "date": "2026-08-17",
+      "auction_volume": 2246500
     },
     {
-      "date": "2024-10-24",
-      "auction_volume": 2465000
+      "date": "2026-08-18",
+      "auction_volume": 2246500
     },
     {
-      "date": "2024-11-14",
-      "auction_volume": 2480000
+      "date": "2026-08-19",
+      "auction_volume": 1381000
     },
     {
-      "date": "2024-12-05",
-      "auction_volume": 2495000
+      "date": "2026-08-20",
+      "auction_volume": 2246500
     },
     {
-      "date": "2024-12-26",
-      "auction_volume": 2510000
+      "date": "2026-08-21",
+      "auction_volume": 1000000
     },
     {
-      "date": "2025-01-16",
-      "auction_volume": 2525000
+      "date": "2026-08-24",
+      "auction_volume": 2246500
     },
     {
-      "date": "2025-02-06",
-      "auction_volume": 2540000
+      "date": "2026-08-25",
+      "auction_volume": 2246500
     },
     {
-      "date": "2025-02-27",
-      "auction_volume": 2555000
+      "date": "2026-08-27",
+      "auction_volume": 2246500
     },
     {
-      "date": "2025-03-20",
-      "auction_volume": 2570000
+      "date": "2026-08-28",
+      "auction_volume": 717500
     },
     {
-      "date": "2025-04-10",
-      "auction_volume": 2585000
+      "date": "2026-08-31",
+      "auction_volume": 2296500
     },
     {
-      "date": "2025-05-01",
-      "auction_volume": 2600000
+      "date": "2026-09-01",
+      "auction_volume": 2791500
     },
     {
-      "date": "2025-05-22",
-      "auction_volume": 2615000
+      "date": "2026-09-02",
+      "auction_volume": 1945000
+    },
+    {
+      "date": "2026-09-03",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-04",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-09-07",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-08",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-10",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-11",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-09-14",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-15",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-16",
+      "auction_volume": 1945000
+    },
+    {
+      "date": "2026-09-17",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-18",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-09-21",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-22",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-24",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-25",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-09-28",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-09-29",
+      "auction_volume": 2792000
+    },
+    {
+      "date": "2026-09-30",
+      "auction_volume": 1945000
+    },
+    {
+      "date": "2026-10-01",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-02",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-10-05",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-06",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-07",
+      "auction_volume": 584000
+    },
+    {
+      "date": "2026-10-08",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-09",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-10-12",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-13",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-14",
+      "auction_volume": 1945000
+    },
+    {
+      "date": "2026-10-15",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-16",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-10-19",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-20",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-22",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-23",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-10-26",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-27",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-28",
+      "auction_volume": 1945000
+    },
+    {
+      "date": "2026-10-29",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-10-30",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-11-02",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-03",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-05",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-06",
+      "auction_volume": 1548000
+    },
+    {
+      "date": "2026-11-09",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-10",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-11",
+      "auction_volume": 1945000
+    },
+    {
+      "date": "2026-11-12",
+      "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-13",
+      "auction_volume": 1548000
     }
-  ]
+  ],
+  "eua": {
+    "available": true,
+    "latest_auction_date": "2026-11-13",
+    "latest_volume": 1548000,
+    "latest_cover_ratio": 1.79,
+    "trailing_cover_ratio": 1.55,
+    "demand_signal": "Latest EUA auction demand stronger than recent average",
+    "volume_signal": "Auction supply below recent average",
+    "input_file": "eua_auction_results.csv",
+    "source": "EEX EUA Primary Market Auction Report",
+    "series": [
+      {
+        "date": "2026-08-17",
+        "auction_volume": 2246500
+      },
+      {
+        "date": "2026-08-18",
+        "auction_volume": 2246500
+      },
+      {
+        "date": "2026-08-19",
+        "auction_volume": 1381000
+      },
+      {
+        "date": "2026-08-20",
+        "auction_volume": 2246500
+      },
+      {
+        "date": "2026-08-21",
+        "auction_volume": 1000000
+      },
+      {
+        "date": "2026-08-24",
+        "auction_volume": 2246500
+      },
+      {
+        "date": "2026-08-25",
+        "auction_volume": 2246500
+      },
+      {
+        "date": "2026-08-27",
+        "auction_volume": 2246500
+      },
+      {
+        "date": "2026-08-28",
+        "auction_volume": 717500
+      },
+      {
+        "date": "2026-08-31",
+        "auction_volume": 2296500
+      },
+      {
+        "date": "2026-09-01",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-02",
+        "auction_volume": 1945000
+      },
+      {
+        "date": "2026-09-03",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-04",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-09-07",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-08",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-10",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-11",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-09-14",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-15",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-16",
+        "auction_volume": 1945000
+      },
+      {
+        "date": "2026-09-17",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-18",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-09-21",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-22",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-24",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-25",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-09-28",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-09-29",
+        "auction_volume": 2792000
+      },
+      {
+        "date": "2026-09-30",
+        "auction_volume": 1945000
+      },
+      {
+        "date": "2026-10-01",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-02",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-10-05",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-06",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-07",
+        "auction_volume": 584000
+      },
+      {
+        "date": "2026-10-08",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-09",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-10-12",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-13",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-14",
+        "auction_volume": 1945000
+      },
+      {
+        "date": "2026-10-15",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-16",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-10-19",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-20",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-22",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-23",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-10-26",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-27",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-28",
+        "auction_volume": 1945000
+      },
+      {
+        "date": "2026-10-29",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-10-30",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-11-02",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-03",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-05",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-06",
+        "auction_volume": 1548000
+      },
+      {
+        "date": "2026-11-09",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-10",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-11",
+        "auction_volume": 1945000
+      },
+      {
+        "date": "2026-11-12",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-13",
+        "auction_volume": 1548000
+      }
+    ]
+  },
+  "uka": {
+    "available": true,
+    "latest_auction_date": "2025-05-22",
+    "latest_volume": 2615000,
+    "latest_cover_ratio": 1.22,
+    "trailing_cover_ratio": 1.32,
+    "demand_signal": "Latest UKA auction demand: neutral",
+    "volume_signal": "Auction supply near recent average",
+    "input_file": "uka_auction_results.csv",
+    "source": "Illustrative UKA auction sample - not verified against ICE",
+    "series": [
+      {
+        "date": "2024-10-03",
+        "auction_volume": 2450000
+      },
+      {
+        "date": "2024-10-24",
+        "auction_volume": 2465000
+      },
+      {
+        "date": "2024-11-14",
+        "auction_volume": 2480000
+      },
+      {
+        "date": "2024-12-05",
+        "auction_volume": 2495000
+      },
+      {
+        "date": "2024-12-26",
+        "auction_volume": 2510000
+      },
+      {
+        "date": "2025-01-16",
+        "auction_volume": 2525000
+      },
+      {
+        "date": "2025-02-06",
+        "auction_volume": 2540000
+      },
+      {
+        "date": "2025-02-27",
+        "auction_volume": 2555000
+      },
+      {
+        "date": "2025-03-20",
+        "auction_volume": 2570000
+      },
+      {
+        "date": "2025-04-10",
+        "auction_volume": 2585000
+      },
+      {
+        "date": "2025-05-01",
+        "auction_volume": 2600000
+      },
+      {
+        "date": "2025-05-22",
+        "auction_volume": 2615000
+      }
+    ],
+    "provenance": "Illustrative sample (not ICE-verified)"
+  },
+  "note": "Headline demand compares the latest EUA cover ratio with the previous 10 auctions (+/-0.15 band). UKA auction demand is shown separately; provenance: Illustrative sample (not ICE-verified)."
 }
