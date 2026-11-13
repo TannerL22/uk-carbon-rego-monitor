@@ -1,26 +1,19 @@
-import json
-import subprocess
-import sys
 import unittest
-from pathlib import Path
+
+from tests.support import IsolatedPipelineTestCase
 
 
-ROOT = Path(__file__).resolve().parents[1]
-READINESS_PATH = ROOT / "data" / "processed" / "scope2_readiness.json"
-SUMMARY_PATH = ROOT / "data" / "processed" / "scope2_readiness_summary.json"
-
-
-class Scope2ReadinessTests(unittest.TestCase):
+class Scope2ReadinessTests(IsolatedPipelineTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run([sys.executable, str(ROOT / "src" / "rego_controls.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "customer_claim_coverage.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "scope2_readiness.py")], check=True)
-        cls.rows = {
-            row["contract_id"]: row
-            for row in json.loads(READINESS_PATH.read_text(encoding="utf-8"))
-        }
-        cls.summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
+        super().setUpClass()
+        cls.run_script(
+            "rego_controls.py",
+            "customer_claim_coverage.py",
+            "scope2_readiness.py",
+        )
+        cls.rows = {row["contract_id"]: row for row in cls.read_processed("scope2_readiness.json")}
+        cls.summary = cls.read_processed("scope2_readiness_summary.json")
 
     def test_every_customer_contract_receives_readiness_status(self) -> None:
         self.assertEqual({"C-001", "C-002", "C-003"}, set(self.rows))

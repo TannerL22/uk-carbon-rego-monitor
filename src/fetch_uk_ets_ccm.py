@@ -18,9 +18,11 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
+from source_register import upsert_source
+
+
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
-SOURCE_REGISTER = ROOT / "data" / "source_register.csv"
 OUTPUT = CARBON_RAW / "uk_ets_ccm_monthly_prices.csv"
 
 SOURCE_URL = (
@@ -32,6 +34,7 @@ SOURCE_ID = "SRC-007"
 
 OUTPUT_COLUMNS = [
     "month",
+    "price_month",
     "monitoring_window_months",
     "reference_period",
     "monitoring_period",
@@ -121,6 +124,19 @@ def parse_month(value: str) -> str:
         raise UkEtsCcmFetchError(f"Could not parse CCM month value '{value}'.") from exc
 
 
+def previous_month(month: str) -> str:
+    """Return the YYYY-MM before ``month``.
+
+    A GOV.UK CCM row is labelled with its assessment month; its monitoring window
+    ends the month before, so the final average price in the row is that earlier
+    month's average (e.g. the Oct-26 row's last average is September 2026).
+    """
+
+    year, month_number = (int(part) for part in month.split("-"))
+    year, month_number = (year - 1, 12) if month_number == 1 else (year, month_number - 1)
+    return f"{year:04d}-{month_number:02d}"
+
+
 def parse_published_at(html: str) -> str:
     match = re.search(r"Updated\s+([0-9]{1,2}\s+[A-Za-z]+\s+[0-9]{4})", html)
     if not match:
@@ -144,12 +160,12 @@ def parse_tables(html: str, downloaded_at: str, published_at: str) -> list[dict[
             continue
 
         month_idx = header.index("month")
-        reference_idx = header.index("2-year reference period")
         trigger_idx = header.index("trigger price")
+        reference_idx = next((idx for idx, value in enumerate(header) if "reference period" in value), None)
         triggered_idx = next((idx for idx, value in enumerate(header) if "triggered" in value), None)
         monitoring_idx = next((idx for idx, value in enumerate(header) if "monitoring period" in value), None)
         average_indices = [idx for idx, value in enumerate(header) if "average price" in value]
-        if triggered_idx is None or monitoring_idx is None or not average_indices:
+        if reference_idx is None or triggered_idx is None or monitoring_idx is None or not average_indices:
             continue
 
         monitoring_window_months = len(average_indices)
@@ -158,9 +174,11 @@ def parse_tables(html: str, downloaded_at: str, published_at: str) -> list[dict[
             if len(source_row) <= max(triggered_idx, latest_average_idx, monitoring_idx, reference_idx):
                 continue
             monthly_average = parse_money(source_row[latest_average_idx])
+            month = parse_month(source_row[month_idx])
             rows.append(
                 {
-                    "month": parse_month(source_row[month_idx]),
+                    "month": month,
+                    "price_month": previous_month(month),
                     "monitoring_window_months": monitoring_window_months,
                     "reference_period": source_row[reference_idx],
                     "monitoring_period": source_row[monitoring_idx],
@@ -174,8 +192,9 @@ def parse_tables(html: str, downloaded_at: str, published_at: str) -> list[dict[
                     "downloaded_at": downloaded_at,
                     "published_at": published_at,
                     "notes": (
-                        "Official GOV.UK CCM table. Monthly average price is the final monthly average in "
-                        f"the {monitoring_window_months}-month monitoring period; blank values indicate GOV.UK TBD rows."
+                        "Official GOV.UK CCM table. monthly_average_price is the final monthly average in "
+                        f"the {monitoring_window_months}-month monitoring period, i.e. the average for price_month; "
+                        "blank values indicate GOV.UK TBD rows."
                     ),
                 }
             )
@@ -197,45 +216,22 @@ def write_csv_atomically(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 def update_source_register(rows: list[dict[str, object]], downloaded_at: str, published_at: str) -> None:
-    if not SOURCE_REGISTER.exists():
-        return
-
-    with SOURCE_REGISTER.open(newline="", encoding="utf-8") as handle:
-        reader = csv.DictReader(handle)
-        register_rows = list(reader)
-        fieldnames = reader.fieldnames or []
-
-    if not fieldnames:
-        return
-
-    source_row = {
-        "source_id": SOURCE_ID,
-        "dataset_name": "GOV.UK UK ETS CCM monthly prices",
-        "source_owner": "Department for Energy Security and Net Zero / UK ETS Authority",
-        "source_type": "official public policy table",
-        "source_url": SOURCE_URL,
-        "manual_or_api": "public file",
-        "downloaded_at": downloaded_at,
-        "published_at": published_at or str(rows[-1]["month"]),
-        "data_period_start": str(rows[0]["month"]),
-        "data_period_end": str(rows[-1]["month"]),
-        "used_for": "UKA monthly futures-average and CCM context",
-        "known_limitations": "Official GOV.UK CCM table; monthly average futures price context, not auction clearing price and not a live trading feed.",
-    }
-
-    replaced = False
-    for index, row in enumerate(register_rows):
-        if row.get("source_id") == SOURCE_ID:
-            register_rows[index] = source_row
-            replaced = True
-            break
-    if not replaced:
-        register_rows.append(source_row)
-
-    with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(register_rows)
+    upsert_source(
+        {
+            "source_id": SOURCE_ID,
+            "dataset_name": "GOV.UK UK ETS CCM monthly prices",
+            "source_owner": "Department for Energy Security and Net Zero / UK ETS Authority",
+            "source_type": "official public policy table",
+            "source_url": SOURCE_URL,
+            "manual_or_api": "public file",
+            "downloaded_at": downloaded_at,
+            "published_at": published_at or str(rows[-1]["month"]),
+            "data_period_start": str(rows[0]["price_month"]),
+            "data_period_end": max(str(row["price_month"]) for row in rows if row["monthly_average_price"] != ""),
+            "used_for": "Official UKA monthly average futures price, UKA-EUA spread and CCM context",
+            "known_limitations": "Official GOV.UK CCM table; monthly average futures price context, not auction clearing price and not a live trading feed.",
+        }
+    )
 
 
 def main() -> None:
@@ -250,7 +246,7 @@ def main() -> None:
     print(
         "Fetched GOV.UK UK ETS CCM table: "
         f"{len(rows)} rows from {rows[0]['month']} to {rows[-1]['month']}; "
-        f"latest completed average {latest['month']}."
+        f"latest completed monthly average is for {latest['price_month']}."
     )
 
 

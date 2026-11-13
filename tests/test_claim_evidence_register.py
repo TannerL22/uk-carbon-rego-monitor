@@ -1,23 +1,19 @@
-import json
-import subprocess
-import sys
 import unittest
-from pathlib import Path
+
+from tests.support import IsolatedPipelineTestCase
 
 
-ROOT = Path(__file__).resolve().parents[1]
-REGISTER_PATH = ROOT / "data" / "processed" / "claim_evidence_register.json"
-SUMMARY_PATH = ROOT / "data" / "processed" / "claim_evidence_summary.json"
-
-
-class ClaimEvidenceRegisterTests(unittest.TestCase):
+class ClaimEvidenceRegisterTests(IsolatedPipelineTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run([sys.executable, str(ROOT / "src" / "rego_controls.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "customer_claim_coverage.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "claim_evidence_register.py")], check=True)
-        cls.rows = json.loads(REGISTER_PATH.read_text(encoding="utf-8"))
-        cls.summary = json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
+        super().setUpClass()
+        cls.run_script(
+            "rego_controls.py",
+            "customer_claim_coverage.py",
+            "claim_evidence_register.py",
+        )
+        cls.rows = cls.read_processed("claim_evidence_register.json")
+        cls.summary = cls.read_processed("claim_evidence_summary.json")
 
     def test_register_covers_exception_register(self) -> None:
         self.assertGreaterEqual(len(self.rows), 10)

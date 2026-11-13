@@ -3,16 +3,21 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
+from decimal import ROUND_HALF_UP, Decimal
+import re
+
+from project_paths import ROOT
 
 
-ROOT = Path(__file__).resolve().parents[1]
 SUMMARY_PATH = ROOT / "data" / "processed" / "dashboard_summary.json"
 OUTPUT_PATH = ROOT / "outputs" / "analyst_note.md"
 
 
 def money(value: object) -> str:
-    return f"GBP {float(value):,.0f}"
+    # Round half up so GBP 6,412.50 reads "GBP 6,413" here and in the browser (Python's
+    # default round-half-to-even format would print "GBP 6,412").
+    rounded = Decimal(str(value)).quantize(Decimal("1"), rounding=ROUND_HALF_UP)
+    return f"GBP {rounded:,}"
 
 
 def first_shortfalls(contracts: list[dict[str, object]]) -> list[dict[str, object]]:
@@ -35,7 +40,7 @@ def join_shortfall_sentence(shortfalls: list[dict[str, object]]) -> str:
 
 def clean_sentence_fragment(value: object) -> str:
     text = str(value).strip().rstrip(".")
-    if text.lower().startswith("latest auction demand:"):
+    if re.match(r"latest (\w+ )?auction demand:", text, flags=re.IGNORECASE):
         text = text.split(":", 1)[1].strip()
     return text[:1].upper() + text[1:] if text else text
 
@@ -77,19 +82,19 @@ def main() -> None:
 
 ## 1. Executive Summary
 
-This monitor shows why carbon analysis for a renewables supplier is not limited to allowance prices. Auction data provides the compliance carbon-market signal, recent GB power-system data fetched at build time explains the physical emissions backdrop, and REGO reconciliation controls determine whether renewable supply claims can be evidenced against contracts and disclosure periods.
+This monitor shows why carbon analysis for a renewables supplier is not limited to allowance prices. Official UKA and EUA price data provide the compliance carbon-market signal, recent GB power-system data fetched at build time explains the physical emissions backdrop, and REGO reconciliation controls determine whether renewable supply claims can be evidenced against contracts and disclosure periods.
 
-The generated dashboard is operational rather than purely market-facing. The carbon module shows {carbon_regime} over the comparison period {carbon['sample_period_start']} to {carbon['sample_period_end']}. The auction demand signal is {auction_signal.lower()}. The NESO power pull was fetched at build time and shows {power_signal.lower()}, with the main driver classified as {power['main_driver']}. Those context signals matter, but the main action sits in the customer claim book: {customer_claim_summary['contracts_not_supportable']} representative customer/product {pluralize(customer_claim_summary['contracts_not_supportable'], 'claim')} {present_verb(customer_claim_summary['contracts_not_supportable'], 'is', 'are')} not supportable, {customer_claim_summary['contracts_review']} {present_verb(customer_claim_summary['contracts_review'], 'requires', 'require')} review, and {customer_claim_summary['uncovered_mwh']:,.0f} MWh is uncovered.
+The generated dashboard is operational rather than purely market-facing. The carbon module's spread regime for {carbon['latest_price_month']} reads "{carbon_regime}" (monthly comparison period {carbon['sample_period_start']} to {carbon['sample_period_end']}), and the official EEX auction demand signal reads "{auction_signal}". The NESO power pull was fetched at build time and shows {power_signal.lower()}, with the main driver classified as {power['main_driver']}. Those context signals matter, but the main action sits in the customer claim book: {customer_claim_summary['contracts_not_supportable']} representative customer/product {pluralize(customer_claim_summary['contracts_not_supportable'], 'claim')} {present_verb(customer_claim_summary['contracts_not_supportable'], 'is', 'are')} not supportable, {customer_claim_summary['contracts_review']} {present_verb(customer_claim_summary['contracts_review'], 'requires', 'require')} review, and {customer_claim_summary['uncovered_mwh']:,.0f} MWh is uncovered.
 
 ## 2. Carbon Market Signal
 
-The carbon-market module uses official EEX EUA primary-auction data, manually curated ICE UKA auction inputs, and the official GOV.UK UK ETS Cost Containment Mechanism monthly price table rather than licensed live price feeds. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated static EUR/GBP assumption before calculating spread.
+The carbon-market module compares the official GOV.UK UK ETS Cost Containment Mechanism monthly average UKA futures price with the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices, rather than licensed live price feeds. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the ECB monthly average EUR/GBP reference rate for each month before calculating spread.
 
-The latest generated comparison shows UKA at GBP {carbon['latest_uka_price_gbp']} and EUA at EUR {carbon['latest_eua_price_eur']}, equivalent to GBP {carbon['latest_eua_price_gbp']} using the stated FX assumption. The resulting UKA-EUA spread is GBP {carbon['latest_spread_gbp']}. This is a transparent auction-context indicator, not a live traded spread or a replacement for broker marks, exchange feeds, or internal trading data.
+The latest monthly comparison ({carbon['latest_price_month']}) shows UKA at GBP {carbon['latest_uka_price_gbp']} and EUA at EUR {carbon['latest_eua_price_eur']}, equivalent to GBP {carbon['latest_eua_price_gbp']} at the ECB EUR/GBP rate of {carbon['fx']['latest_rate']}. The resulting UKA-EUA spread is GBP {carbon['latest_spread_gbp']}. This is a transparent monthly context indicator, not a live traded spread or a replacement for broker marks, exchange feeds, or internal trading data.
 
 ## 3. GB Power Fundamentals
 
-The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of {power['latest_carbon_intensity_gco2_kwh']} g/kWh with a recent average of {power['average_recent_carbon_intensity_gco2_kwh']} g/kWh, and shows gas share, wind and solar share, low-carbon share, and scatter views linking generation mix to carbon intensity.
+The power-system module fetches recent data from the NESO Carbon Intensity API during the Python build. The dashboard compares the latest fetched carbon intensity of {power['latest_carbon_intensity_gco2_kwh']} g/kWh with a recent average of {power['average_recent_carbon_intensity_gco2_kwh']} g/kWh, and shows gas share, wind and solar share, and the latest generation mix alongside the carbon-intensity trend.
 
 This matters because carbon-market commentary should be connected to physical system conditions. A higher-carbon generation mix may change the emissions context customers see, even though it is not the same thing as contractual renewable supply. Contractual renewable claims still depend on certificate ownership, eligibility, allocation, retirement, and disclosure evidence.
 
@@ -115,11 +120,11 @@ The FMD layer adds disclosure-period context for {fmd_context['disclosure_period
 
 The future Scope 2 readiness layer is a data-preparedness view, not a compliance result. It separates current annual REGO claim supportability from possible future expectations around hourly matching and deliverability. The current output classifies {scope2_readiness_summary['high_readiness']} contracts as high readiness, {scope2_readiness_summary['medium_readiness']} as medium readiness, and {scope2_readiness_summary['low_readiness']} as low readiness. It does not apply final revised Scope 2 rules and it does not perform 24/7 matching.
 
-The carbon-cost layer adds a market-cost lens without changing claim status. Using the latest generated UKA auction price of GBP {carbon_cost_context['latest_uka_price_gbp_per_tco2']} per tCO2, it converts selected emissions factors into indicative GBP/MWh values. For example, the FMD residual-mix context row is GBP {next(row['indicative_carbon_cost_gbp_per_mwh'] for row in carbon_cost_context['rows'] if row['factor_id'] == 'FMD_RESIDUAL_MIX')} per MWh. This is not a bill calculation, power-price forecast, or REGO claim validation input.
+The carbon-cost layer adds a market-cost lens without changing claim status. Using the latest official GOV.UK monthly average UKA price of GBP {carbon_cost_context['latest_uka_price_gbp_per_tco2']} per tCO2 ({carbon_cost_context.get('uka_price_month', 'latest month')}), it converts selected emissions factors into indicative GBP/MWh values. For example, the FMD residual-mix context row is GBP {next(row['indicative_carbon_cost_gbp_per_mwh'] for row in carbon_cost_context['rows'] if row['factor_id'] == 'FMD_RESIDUAL_MIX')} per MWh. This is not a bill calculation, power-price forecast, or REGO claim validation input.
 
 ## 6. Data Limitations
 
-The carbon data are official public or manually curated inputs, not licensed live UKA/EUA market data. The UKA auction CSV is not an automated ICE feed and should be checked against ICE Report Centre before external analytical use. The carbon spread uses a stated static EUR/GBP assumption and should not be read as a live traded spread. GOV.UK CCM monthly averages are policy and market context, not auction clearing prices.
+The carbon data are official public monthly averages and auction results, not licensed live UKA/EUA market data. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread compares related but not identical instruments. The spread uses monthly average ECB reference rates rather than traded FX and should not be read as a live traded spread. UKA auction results are curated manually from ICE Report Centre; the UKA auction CSV is currently empty, and it is never used for UKA price or spread signals.
 
 The power data are fetched from the NESO Carbon Intensity API at build time, served as static dashboard output, and may be revised by the source. The REGO ledger and contracts are representative demo operating data because certificate-level supplier allocations and customer contract mappings are not public datasets. Source controls currently report {source_quality['warning_count']} warnings across {source_quality['sources_registered']} registered sources. Assumed replacement prices are illustrative. The monitor is not trading advice, legal advice, or compliance sign-off.
 """

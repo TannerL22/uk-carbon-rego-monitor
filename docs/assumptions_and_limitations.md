@@ -5,16 +5,16 @@
 - No licensed live carbon market price feed is used.
 - EUA values are fetched from official EEX public primary-auction workbooks.
 - UK ETS CCM monthly average futures-price context is fetched from the official GOV.UK CCM table.
-- UKA values are manually curated from ICE UKA auction references and validated during the build.
+- UKA prices for the spread and carbon-cost context come from the official GOV.UK CCM monthly average futures price.
+- The UKA auction CSV is header-only until real results are curated from ICE Report Centre (no public machine-readable ICE source is used). Curated rows feed only the separately labelled UKA auction-demand fields and are cross-checked against official GOV.UK monthly averages (source control SC-008).
 - The dashboard displays the carbon market comparison period.
-- Normal scheduled builds validate the manually curated UKA CSV, fetch EEX EUA data and GOV.UK CCM data, then read UKA CSVs as raw inputs; they do not regenerate representative demo data.
+- Normal scheduled builds validate the UKA CSV, fetch EEX EUA data and GOV.UK CCM data, then read UKA CSVs as raw inputs; they do not regenerate representative demo data.
 - UKA prices are GBP and EUA prices are EUR.
-- EUA prices are converted to GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before spread is calculated.
-- UKA auction dates are aligned to the nearest EUA auction date within 14 days because official auction calendars differ.
-- The UKA-EUA spread is a simplified GBP-normalised auction-context indicator, not a live tradable spread.
-- GOV.UK CCM monthly average futures prices are not auction clearing prices and should not be mixed with the UKA/EUA auction spread.
+- EUA prices are converted to GBP using the ECB monthly average EUR/GBP reference rate for each month (official, indicative rates; not traded FX).
+- The UKA-EUA spread is calculated monthly: GOV.UK UKA monthly average futures price versus the volume-weighted monthly average of EEX EUA auction clearing prices. The two legs are related but not identical instruments, so the spread is a GBP-normalised context indicator, not a live tradable spread.
+- The static EUR/GBP rate in `data/raw/carbon/fx_assumptions.csv` is only a fallback for months the ECB has not yet published; source control SC-009 flags fallback use outside its stated validity window.
 - Auction cover ratio is used only where data are available.
-- The UKA CSV is not an automated ICE feed and should be checked against ICE Report Centre before external analytical use.
+- The UKA CSV is not an automated ICE feed and must be re-curated from ICE Report Centre before any UKA auction values are used analytically.
 - The dashboard is not a trading tool.
 
 ## Power Data
@@ -22,7 +22,7 @@
 - The MVP fetches recent data from the NESO Carbon Intensity API during the Python build.
 - No API key is required.
 - The dashboard is static after the build; it does not fetch live data in the browser.
-- If the NESO API or local network is unavailable, the build fails clearly.
+- If the NESO API (or the EEX or GOV.UK source) is unavailable, the build keeps the previous extract, records the failure in `data/processed/build_status.json`, flags it on the dashboard (source control SC-010), and exits non-zero. It never substitutes fake data.
 - The power module is a fundamentals context layer, not a dispatch forecast.
 - Carbon intensity is physical grid emissions context and is not equivalent to contractual renewable supply.
 

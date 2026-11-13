@@ -11,8 +11,10 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
+# Markets whose input file may contain only a header (UKA results are curated manually from ICE).
+OPTIONAL_MARKETS = {"UKA"}
 AUCTION_INPUTS = {
     "UKA": ["uka_auction_results.csv"],
     "EUA": ["eua_auction_results.csv", "eua_auction_results_sample.csv"],
@@ -31,14 +33,14 @@ REQUIRED_COLUMNS = {
 }
 
 
-def read_auction_csv(path: Path) -> pd.DataFrame:
+def read_auction_csv(path: Path, allow_empty: bool = False) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(
             f"Missing carbon auction input {path}. "
             "Run python src/seed_demo_data.py to create demo inputs, or add a curated official CSV."
         )
     frame = pd.read_csv(path)
-    if frame.empty:
+    if frame.empty and not allow_empty:
         raise ValueError(f"Carbon auction input {path} is empty.")
     missing = REQUIRED_COLUMNS.difference(frame.columns)
     if missing:
@@ -50,11 +52,15 @@ def load_auction_data() -> pd.DataFrame:
     frames = []
     for market, candidates in AUCTION_INPUTS.items():
         path = next((CARBON_RAW / filename for filename in candidates if (CARBON_RAW / filename).exists()), None)
+        if path is None and market in OPTIONAL_MARKETS:
+            continue
         if path is None:
             raise FileNotFoundError(
                 f"Missing {market} carbon auction input. Expected one of: {', '.join(candidates)}."
             )
-        frame = read_auction_csv(path)
+        frame = read_auction_csv(path, allow_empty=market in OPTIONAL_MARKETS)
+        if frame.empty:
+            continue
         frame["input_file"] = path.name
         frames.append(frame)
 

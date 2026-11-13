@@ -3,19 +3,24 @@
 The UKA auction CSV is intentionally manual for this MVP. ICE is the official
 auction platform, but the build does not scrape ICE. This validator makes the
 manual input explicit and fails fast if the file is missing, empty, or malformed.
+
+The committed file contains only the header row: the earlier illustrative values
+diverged from official GOV.UK monthly averages and were removed. A header-only file
+is valid; UKA price signals use the GOV.UK monthly averages either way. Once rows
+are added they are validated here and cross-checked by source control SC-008. Rows
+whose provenance text says "illustrative", "sample" or "not verified" are labelled
+as illustrative in the source register.
 """
 
 from __future__ import annotations
 
-import csv
-from pathlib import Path
-
 import pandas as pd
 
+from project_paths import ROOT
+from source_register import remove_source, upsert_source
 
-ROOT = Path(__file__).resolve().parents[1]
+
 INPUT = ROOT / "data" / "raw" / "carbon" / "uka_auction_results.csv"
-SOURCE_REGISTER = ROOT / "data" / "source_register.csv"
 SOURCE_ID = "SRC-003"
 
 REQUIRED_COLUMNS = {
@@ -42,12 +47,15 @@ def main() -> None:
         )
 
     data = pd.read_csv(INPUT, dtype=str).fillna("")
-    if data.empty:
-        raise ValueError("data/raw/carbon/uka_auction_results.csv is empty.")
-
     missing = REQUIRED_COLUMNS.difference(data.columns)
     if missing:
         raise ValueError(f"UKA auction CSV is missing required columns: {', '.join(sorted(missing))}")
+
+    if data.empty:
+        # No curated rows yet: UKA auction fields show "not loaded"; price signals use GOV.UK averages.
+        remove_source(SOURCE_ID)
+        print("No UKA auction rows loaded (header only); add curated ICE results to enable UKA auction-demand fields.")
+        return
 
     if set(data["market"].str.upper()) != {"UKA"}:
         raise ValueError("UKA auction CSV must contain only market=UKA rows.")
@@ -76,51 +84,41 @@ def main() -> None:
         raise ValueError("UKA auction CSV requires manual_update_note on every row.")
 
     update_source_register(data, parsed_dates)
-    print(f"Validated {len(data)} manually curated UKA auction rows from {parsed_dates.min().date()} to {parsed_dates.max().date()}.")
+    label = "illustrative (not ICE-verified)" if is_illustrative(data) else "manually curated"
+    print(f"Validated {len(data)} {label} UKA auction rows from {parsed_dates.min().date()} to {parsed_dates.max().date()}.")
+
+
+def is_illustrative(data: pd.DataFrame) -> bool:
+    """True when any row's provenance text marks it as an illustrative/sample value."""
+
+    provenance = (data["source"] + " " + data["manual_update_note"]).str.lower()
+    return bool(provenance.str.contains("illustrative|sample|not verified", regex=True).any())
 
 
 def update_source_register(data: pd.DataFrame, parsed_dates: pd.Series) -> None:
-    if not SOURCE_REGISTER.exists():
-        return
-
-    with SOURCE_REGISTER.open(newline="", encoding="utf-8") as handle:
-        reader = csv.DictReader(handle)
-        rows = list(reader)
-        fieldnames = reader.fieldnames or []
-
-    if not fieldnames:
-        return
-
     update_date = str(data["downloaded_at"].dropna().astype(str).max())
-    source_url = str(data["source_url"].dropna().astype(str).iloc[0])
-    source_row = {
-        "source_id": SOURCE_ID,
-        "dataset_name": "ICE UKA auction results",
-        "source_owner": "ICE Futures Europe",
-        "source_type": "official source / manually curated CSV",
-        "source_url": source_url,
-        "manual_or_api": "manual",
-        "downloaded_at": update_date,
-        "published_at": update_date,
-        "data_period_start": parsed_dates.min().date().isoformat(),
-        "data_period_end": parsed_dates.max().date().isoformat(),
-        "used_for": "UKA primary auction signal",
-        "known_limitations": "Manually curated CSV from ICE UKA auction result references; not automatically scraped and not a live secondary-market feed.",
-    }
-
-    replaced = False
-    for index, row in enumerate(rows):
-        if row.get("source_id") == SOURCE_ID:
-            rows[index] = source_row
-            replaced = True
-            break
-    if not replaced:
-        rows.append(source_row)
-
-    with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames)
-        writer.writeheader()
-        writer.writerows(rows)
+    illustrative = is_illustrative(data)
+    upsert_source(
+        {
+            "source_id": SOURCE_ID,
+            "dataset_name": "UKA auction results (illustrative sample)" if illustrative else "ICE UKA auction results",
+            "source_owner": "Project illustrative sample" if illustrative else "ICE Futures Europe",
+            "source_type": "illustrative sample / pending ICE curation" if illustrative else "official source / manually curated CSV",
+            "source_url": str(data["source_url"].iloc[0]),
+            "manual_or_api": "manual",
+            "downloaded_at": update_date,
+            "published_at": update_date,
+            "data_period_start": parsed_dates.min().date().isoformat(),
+            "data_period_end": parsed_dates.max().date().isoformat(),
+            "used_for": "UKA auction demand (cover ratio) context only; UKA price signals use GOV.UK monthly averages",
+            "known_limitations": (
+                "Illustrative UKA auction values, not verified against ICE Report Centre; cross-checked against official "
+                "GOV.UK monthly averages by source control SC-008. Replace with curated ICE results before analytical use."
+                if illustrative
+                else "Manually curated CSV from ICE UKA auction result references; not automatically scraped and not a live secondary-market feed."
+            ),
+        }
+    )
 
 
 if __name__ == "__main__":

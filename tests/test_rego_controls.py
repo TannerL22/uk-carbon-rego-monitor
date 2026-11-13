@@ -1,24 +1,17 @@
-import json
-import subprocess
-import sys
 import unittest
-from pathlib import Path
+
+from tests.support import IsolatedPipelineTestCase
 
 
-ROOT = Path(__file__).resolve().parents[1]
-EXCEPTIONS_PATH = ROOT / "data" / "processed" / "rego_exceptions.json"
-SUMMARY_PATH = ROOT / "data" / "processed" / "rego_contract_summary.json"
-
-
-class RegoControlTests(unittest.TestCase):
+class RegoControlTests(IsolatedPipelineTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run([sys.executable, str(ROOT / "src" / "rego_controls.py")], check=True)
-        cls.exceptions = json.loads(EXCEPTIONS_PATH.read_text(encoding="utf-8"))
-        cls.summary = {
-            row["contract_id"]: row
-            for row in json.loads(SUMMARY_PATH.read_text(encoding="utf-8"))
-        }
+        super().setUpClass()
+        cls.run_script(
+            "rego_controls.py",
+        )
+        cls.exceptions = cls.read_processed("rego_exceptions.json")
+        cls.summary = {row["contract_id"]: row for row in cls.read_processed("rego_contract_summary.json")}
 
     def test_expected_exception_register_shape(self) -> None:
         self.assertEqual(17, len(self.exceptions))

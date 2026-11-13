@@ -28,6 +28,9 @@ explicitly documented and validated.
 | SC-005 | Manual entry without note | Medium | manual_or_api is manual and known_limitations blank |
 | SC-006 | Missing source owner | Low | source_owner blank |
 | SC-007 | Data period mismatch | Medium | data period does not overlap analysis period |
+| SC-008 | UKA input fails official cross-check | High | UKA auction clearing prices deviate more than 10% from the official GOV.UK monthly average for the same month |
+| SC-009 | FX fallback outside validity window | Medium | a month was converted with the static EUR/GBP fallback outside its stated validity window |
+| SC-010 | Public-source fetch failed | High | an EEX, GOV.UK or NESO fetch failed in the latest build and the previous extract was retained |
 
 ## Output
 

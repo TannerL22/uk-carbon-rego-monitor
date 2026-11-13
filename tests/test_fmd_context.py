@@ -1,27 +1,32 @@
-import json
-import subprocess
-import sys
 import unittest
-from pathlib import Path
+
+from tests.support import IsolatedPipelineTestCase
 
 
-ROOT = Path(__file__).resolve().parents[1]
-FMD_PATH = ROOT / "data" / "processed" / "fmd_context.json"
-
-
-class FmdContextTests(unittest.TestCase):
+class FmdContextTests(IsolatedPipelineTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run([sys.executable, str(ROOT / "src" / "rego_controls.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "customer_claim_coverage.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "fmd_context.py")], check=True)
-        cls.fmd = json.loads(FMD_PATH.read_text(encoding="utf-8"))
+        super().setUpClass()
+        cls.run_script(
+            "rego_controls.py",
+            "customer_claim_coverage.py",
+            "fmd_context.py",
+        )
+        cls.fmd = cls.read_processed("fmd_context.json")
 
     def test_fmd_summary_shape(self) -> None:
         self.assertEqual("2024-25", self.fmd["disclosure_period"])
         self.assertEqual(154.0, self.fmd["uk_generation_average_factor_gco2_per_kwh"])
         self.assertGreater(self.fmd["fmd_residual_factor_gco2_per_kwh"], 300)
         self.assertIn("not calculate an official customer Scope 2 inventory", self.fmd["methodology_note"])
+
+    def test_contracts_use_their_own_disclosure_period_and_latest_period_is_exposed(self) -> None:
+        self.assertIn("2025-26", self.fmd["periods_available"])
+        self.assertEqual("2025-26", self.fmd["latest_period"]["disclosure_period"])
+        self.assertEqual(147.0, self.fmd["latest_period"]["uk_generation_average_factor_gco2_per_kwh"])
+        for row in self.fmd["contract_context"]:
+            self.assertTrue(row["fmd_period_matched"])
+            self.assertEqual(row["disclosure_period"], row["fmd_table_period"])
 
     def test_contract_context_is_context_only(self) -> None:
         rows = self.fmd["contract_context"]

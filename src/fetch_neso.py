@@ -11,9 +11,11 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
+from source_register import update_source_fields
+
+
 RAW_POWER = ROOT / "data" / "raw" / "power"
-SOURCE_REGISTER = ROOT / "data" / "source_register.csv"
 NORMALIZED_CSV = RAW_POWER / "neso_generation_mix_live.csv"
 RAW_JSON = RAW_POWER / "neso_carbon_intensity_api_raw.json"
 METADATA_JSON = RAW_POWER / "neso_fetch_metadata.json"
@@ -118,28 +120,18 @@ def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 def update_source_register(metadata: dict[str, str]) -> None:
-    if not SOURCE_REGISTER.exists():
-        return
-
-    with SOURCE_REGISTER.open(newline="", encoding="utf-8") as handle:
-        reader = csv.DictReader(handle)
-        rows = list(reader)
-        fieldnames = reader.fieldnames or []
-
-    for row in rows:
-        if row.get("source_id") == "SRC-005":
-            row["downloaded_at"] = metadata["fetched_at"]
-            row["published_at"] = metadata["to"]
-            row["data_period_start"] = metadata["from"]
-            row["data_period_end"] = metadata["to"]
-            row["source_url"] = BASE_URL
-            row["manual_or_api"] = "api"
-            row["known_limitations"] = "Public API fetch at build time; values may be revised by NESO."
-
-    with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(rows)
+    update_source_fields(
+        "SRC-005",
+        {
+            "downloaded_at": metadata["fetched_at"],
+            "published_at": metadata["to"],
+            "data_period_start": metadata["from"],
+            "data_period_end": metadata["to"],
+            "source_url": BASE_URL,
+            "manual_or_api": "api",
+            "known_limitations": "Public API fetch at build time; values may be revised by NESO.",
+        },
+    )
 
 
 def main() -> None:

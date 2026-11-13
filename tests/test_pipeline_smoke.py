@@ -1,26 +1,23 @@
 import json
-import subprocess
-import sys
+import os
 import unittest
-from pathlib import Path
+
+from tests.support import IsolatedPipelineTestCase, REPO_ROOT
 
 
-ROOT = Path(__file__).resolve().parents[1]
-PROCESSED = ROOT / "data" / "processed"
-
-
-class PipelineSmokeTests(unittest.TestCase):
+@unittest.skipUnless(
+    os.environ.get("RUN_NETWORK_TESTS") == "1",
+    "Network smoke test: set RUN_NETWORK_TESTS=1 to fetch EEX, GOV.UK and NESO data.",
+)
+class PipelineSmokeTests(IsolatedPipelineTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run(
-            [sys.executable, str(ROOT / "src" / "build_all.py")],
-            cwd=ROOT,
-            check=True,
-            timeout=240,
-        )
+        super().setUpClass()
+        # Strict mode: any failed public-source fetch fails the smoke test.
+        cls.run_script("build_all.py")
 
     def read_json(self, relative_path: str):
-        path = ROOT / relative_path
+        path = self.root / relative_path
         self.assertTrue(path.exists(), f"Missing expected output: {relative_path}")
         with path.open(encoding="utf-8") as handle:
             return json.load(handle)
@@ -86,8 +83,15 @@ class PipelineSmokeTests(unittest.TestCase):
         self.assertIn("latest_spread_gbp", carbon)
         self.assertIn("sample_period_start", carbon)
         self.assertIn("sample_period_end", carbon)
+        self.assertEqual("monthly", carbon["price_basis"])
+        self.assertTrue(carbon["series"], "Carbon spread series should not be empty.")
         self.assertEqual("EURGBP", carbon["fx_assumption"]["currency_pair"])
         self.assertIn("not a live traded spread", carbon["currency_note"])
+
+    def test_build_status_reports_no_failed_fetches(self) -> None:
+        status = self.read_json("data/processed/build_status.json")
+        self.assertTrue(status["completed"])
+        self.assertEqual([], status["failed_steps"])
 
     def test_rego_outputs_keep_expected_operating_shape(self) -> None:
         exceptions = self.read_json("data/processed/rego_exceptions.json")
@@ -98,8 +102,8 @@ class PipelineSmokeTests(unittest.TestCase):
         self.assertTrue(any(float(row["estimated_replacement_exposure_gbp"]) > 0 for row in contracts))
 
     def test_static_project_outputs_are_present(self) -> None:
-        index = ROOT / "index.html"
-        analyst_note = ROOT / "outputs" / "analyst_note.md"
+        index = REPO_ROOT / "index.html"
+        analyst_note = self.root / "outputs" / "analyst_note.md"
         self.assertTrue(index.exists(), "Missing dashboard entrypoint.")
         self.assertTrue(analyst_note.exists(), "Missing analyst note output.")
         self.assertIn("UK Carbon", index.read_text(encoding="utf-8"))

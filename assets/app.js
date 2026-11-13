@@ -56,7 +56,7 @@ const emptyDashboard = {
   rego_exceptions: [],
   source_quality: { issues: [], sources_registered: 0, warning_count: 0, stale_source_count: 0, manual_sources_requiring_notes: 0 },
   data_basis: [
-    { label: "Carbon market", value: "EEX/GOV.UK + manual ICE UKA" },
+    { label: "Carbon market", value: "GOV.UK UKA monthly averages + EEX EUA auctions" },
     { label: "Power", value: "NESO Carbon Intensity API" },
     { label: "REGO controls", value: "Representative demo supplier-style ledger" },
     { label: "Contracts", value: "Representative demo contracts" }
@@ -451,7 +451,7 @@ function renderCarbonConcepts(summary) {
     ? `${carbon.sample_period_start} to ${carbon.sample_period_end}`
     : "n/a";
   const ccmLine = ccm.available
-    ? `${ccm.latest_month || "n/a"} monthly average ${ccm.latest_monthly_average_price_gbp !== null && ccm.latest_monthly_average_price_gbp !== undefined ? `GBP ${ccm.latest_monthly_average_price_gbp}` : "n/a"}; trigger ${ccm.latest_trigger_price_gbp !== null && ccm.latest_trigger_price_gbp !== undefined ? `GBP ${ccm.latest_trigger_price_gbp}` : "n/a"}`
+    ? `${ccm.latest_month || "n/a"} monthly average ${ccm.latest_monthly_average_price_gbp !== null && ccm.latest_monthly_average_price_gbp !== undefined ? `GBP ${ccm.latest_monthly_average_price_gbp}` : "n/a"}; ${ccm.latest_assessment_month || ""} CCM trigger ${ccm.latest_trigger_price_gbp !== null && ccm.latest_trigger_price_gbp !== undefined ? `GBP ${ccm.latest_trigger_price_gbp}` : "n/a"}`
     : "GOV.UK CCM data not loaded.";
   const marketTitle = marketReference.enabled && marketReference.available
     ? "Trading Economics EU Carbon"
@@ -465,16 +465,16 @@ function renderCarbonConcepts(summary) {
 
   const concepts = [
     {
-      label: "Official auction signal",
-      title: "UKA/EUA primary auctions",
-      detail: `EEX EUA auction data + manually curated ICE UKA input. Comparison window: ${auctionPeriod}.`,
-      status: "Used for spread and auction demand",
+      label: "Official price signal",
+      title: "UKA vs EUA monthly prices",
+      detail: `GOV.UK UKA monthly average vs EEX EUA monthly auction average. Comparison window: ${auctionPeriod}.`,
+      status: "Used for spread and carbon-cost context",
     },
     {
       label: "Official UKA context",
       title: "GOV.UK CCM table",
       detail: ccmLine,
-      status: "Monthly futures-average and trigger context",
+      status: "Monthly futures-average vs CCM trigger",
     },
     {
       label: "Optional market reference",
@@ -505,25 +505,25 @@ function renderCarbonMetrics(summary) {
     ? `GBP ${ccm.latest_trigger_price_gbp}`
     : "n/a";
   document.querySelector("#carbon-sample-period").textContent = formatCarbonSampleWindow(carbon.sample_period_label);
-  document.querySelector("#carbon-fx-note").textContent = formatCarbonFxNote(carbon.currency_note);
+  document.querySelector("#carbon-fx-note").textContent = formatCarbonFxNote(carbon);
   const feedNote = document.querySelector("#carbon-feed-note");
   if (feedNote) {
     const marketPhrase = carbon.market_reference && carbon.market_reference.enabled && carbon.market_reference.available
       ? `Optional third-party reference: Trading Economics ${carbon.market_reference.latest_date || "latest date n/a"} at EUR ${carbon.market_reference.latest_price_eur ?? "n/a"}; not an official exchange feed.`
       : "Optional third-party market reference not configured.";
     feedNote.textContent = ccm.available
-      ? `Auction signal: official EEX EUA + manually curated ICE UKA. UKA context: GOV.UK CCM monthly table. ${marketPhrase} Latest CCM month: ${ccm.latest_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
-      : `Auction signal: EEX/ICE auction inputs. UKA CCM context not loaded. ${marketPhrase}`;
+      ? `Price signal: GOV.UK UK ETS CCM monthly UKA average vs EEX EU ETS1 monthly auction average. ${marketPhrase} Latest CCM assessment: ${ccm.latest_assessment_month || "n/a"}; triggered: ${ccm.latest_ccm_triggered || "n/a"}.`
+      : `Price signal unavailable: GOV.UK CCM monthly table not loaded. ${marketPhrase}`;
   }
   renderFactRow("#carbon-metrics", [
-    { label: "Latest UKA", value: carbon.latest_uka_price_gbp ? `GBP ${carbon.latest_uka_price_gbp}` : "n/a" },
+    { label: `UKA ${carbon.latest_price_month || ""}`.trim(), value: carbon.latest_uka_price_gbp ? `GBP ${carbon.latest_uka_price_gbp}` : "n/a" },
     { label: "Latest EUA", value: carbon.latest_eua_price_eur ? `EUR ${carbon.latest_eua_price_eur}` : "n/a" },
     { label: "EUA in GBP", value: carbon.latest_eua_price_gbp ? `GBP ${carbon.latest_eua_price_gbp}` : "n/a" },
     { label: "Spread in GBP", value: carbon.latest_spread_gbp !== undefined ? `GBP ${carbon.latest_spread_gbp}` : "n/a" },
     { label: "UKA CCM avg", value: ccmAverage },
     { label: "CCM trigger", value: ccmTrigger },
     { label: "Regime", value: carbon.spread_regime ?? "n/a" },
-    { label: "Auction demand", value: auction.demand_signal ?? "n/a" }
+    { label: "EUA auction demand", value: auction.demand_signal ?? "n/a" }
   ]);
 }
 
@@ -543,7 +543,7 @@ function renderCarbonCostContext(summary) {
         <p>Context only</p>
         <h3>Indicative carbon-cost market context</h3>
       </div>
-      <span>UKA GBP ${escapeHtml(context.latest_uka_price_gbp_per_tco2)} / tCO2 · ARP GBP ${escapeHtml(context.auction_reserve_price_gbp_per_tco2)} from ${escapeHtml(context.auction_reserve_price_effective_from)}</span>
+      <span>UKA GBP ${escapeHtml(context.latest_uka_price_gbp_per_tco2)} / tCO2 (${escapeHtml(context.uka_price_month || "latest")} avg) · ARP GBP ${escapeHtml(context.auction_reserve_price_gbp_per_tco2)} from ${escapeHtml(context.auction_reserve_price_effective_from)}</span>
     </div>
     <p class="carbon-cost-note">${escapeHtml(context.methodology_note)}</p>
     <div class="carbon-cost-grid">
@@ -562,9 +562,14 @@ function formatCarbonSampleWindow(label) {
   return String(label || "").replace(/^Carbon market (sample|comparison) period:\s*/i, "");
 }
 
-function formatCarbonFxNote(note) {
-  const match = String(note || "").match(/EUR\/GBP assumption of ([0-9.]+)/i);
-  return match ? `static EUR/GBP ${match[1]}` : String(note || "");
+function formatCarbonFxNote(carbon) {
+  const fx = carbon.fx || {};
+  if (fx.latest_rate) {
+    const fallback = (fx.fallback_months || []).length ? ` · static fallback for ${fx.fallback_months.join(", ")}` : "";
+    return `ECB monthly EUR/GBP ${fx.latest_rate} (${fx.latest_rate_month})${fallback}`;
+  }
+  const match = String(carbon.currency_note || "").match(/EUR\/GBP assumption of ([0-9.]+)/i);
+  return match ? `static EUR/GBP ${match[1]}` : String(carbon.currency_note || "");
 }
 
 function renderPowerMetrics(summary) {
@@ -601,8 +606,8 @@ function renderChartCaptions(summary) {
     "#generation-bars-caption",
     topMix ? `${topMix[0]} is the largest contributor in the fetched generation mix; gas share remains an important emissions driver.` : "Generation mix data are loaded from the build-time power signal output."
   );
-  setChartCaption("#carbon-price-caption", "Official EEX EUA auction data are compared with manually curated ICE UKA auction inputs over the displayed period.");
-  setChartCaption("#carbon-spread-caption", "Spread is FX-adjusted using the stated EUR/GBP assumption; GOV.UK CCM context is separate from auction clearing prices.");
+  setChartCaption("#carbon-price-caption", "Official GOV.UK UKA monthly average futures prices compared with volume-weighted monthly EEX EUA auction prices.");
+  setChartCaption("#carbon-spread-caption", "Spread is FX-adjusted using each month's ECB EUR/GBP reference rate; the UKA and EUA legs are related but not identical instruments.");
   const ccm = summary.carbon?.uka_ccm_context || {};
   setChartCaption(
     "#ccm-price-caption",

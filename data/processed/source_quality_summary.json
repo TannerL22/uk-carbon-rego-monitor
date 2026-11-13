@@ -1,8 +1,9 @@
 {
-  "sources_registered": 9,
+  "sources_registered": 10,
   "warning_count": 0,
   "stale_source_count": 0,
   "manual_sources_requiring_notes": 0,
+  "failed_fetch_count": 0,
   "severity_counts": {
     "High": 0,
     "Medium": 0,
