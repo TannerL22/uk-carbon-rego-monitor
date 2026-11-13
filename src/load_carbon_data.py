@@ -11,7 +11,7 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
 AUCTION_INPUTS = {
     "UKA": ["uka_auction_results.csv"],

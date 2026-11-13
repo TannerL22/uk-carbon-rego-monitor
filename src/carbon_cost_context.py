@@ -4,15 +4,20 @@ from __future__ import annotations
 
 import csv
 import json
-from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
 PROCESSED = ROOT / "data" / "processed"
 OUTPUT_JSON = PROCESSED / "carbon_cost_context.json"
 OUTPUT_CSV = PROCESSED / "carbon_cost_context.csv"
 
 UK_ETS_MARKETS_URL = "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/taking-part-in-the-uk-emissions-trading-scheme-markets"
+
+# UK ETS auction reserve price and its effective date (see UK_ETS_MARKETS_URL).
+AUCTION_RESERVE_PRICE_GBP = 28.0
+AUCTION_RESERVE_PRICE_EFFECTIVE_FROM = "2026-04-08"
+# GOV.UK Fuel Mix Disclosure natural gas emissions factor, used as a gas-fired generation proxy.
+GAS_PROXY_FACTOR_GCO2_PER_KWH = 382.0
 
 
 def read_json(filename: str) -> dict[str, object]:
@@ -32,7 +37,7 @@ def main() -> None:
     ccm = carbon.get("uka_ccm_context", {})
     ccm_trigger = ccm.get("latest_trigger_price_gbp")
     ccm_trigger_value = None if ccm_trigger is None else float(ccm_trigger)
-    auction_reserve_price = 28.0
+    auction_reserve_price = AUCTION_RESERVE_PRICE_GBP
 
     factor_rows = [
         {
@@ -50,7 +55,7 @@ def main() -> None:
         {
             "factor_id": "GAS_PROXY",
             "label": "Natural gas proxy",
-            "emissions_factor_gco2_per_kwh": 382.0,
+            "emissions_factor_gco2_per_kwh": GAS_PROXY_FACTOR_GCO2_PER_KWH,
             "factor_basis": "GOV.UK FMD natural gas emissions factor proxy",
         },
     ]
@@ -75,16 +80,17 @@ def main() -> None:
     summary = {
         "label": "Indicative carbon-cost context",
         "latest_uka_price_gbp_per_tco2": round(uka_price, 2),
-        "latest_uka_auction_date": carbon["latest_auction_date"],
+        "uka_price_month": carbon.get("latest_price_month"),
+        "uka_price_basis": "GOV.UK UK ETS CCM monthly average futures price",
         "auction_reserve_price_gbp_per_tco2": auction_reserve_price,
-        "auction_reserve_price_effective_from": "2026-04-08",
+        "auction_reserve_price_effective_from": AUCTION_RESERVE_PRICE_EFFECTIVE_FROM,
         "auction_reserve_price_source_url": UK_ETS_MARKETS_URL,
         "ccm_latest_month": ccm.get("latest_month"),
         "ccm_trigger_price_gbp_per_tco2": None if ccm_trigger_value is None else round(ccm_trigger_value, 2),
         "fmd_disclosure_period": fmd["disclosure_period"],
         "rows": rows,
         "methodology_note": (
-            "Indicative carbon cost per MWh = UKA GBP/tCO2 * emissions factor tCO2/MWh. "
+            "Indicative carbon cost per MWh = UKA GBP/tCO2 (latest official GOV.UK monthly average) * emissions factor tCO2/MWh. "
             "This is market and fossil/residual exposure context only: not a bill calculation, not a power-price forecast, "
             "not a REGO claim validation input, and not an official customer emissions result."
         ),
@@ -95,7 +101,7 @@ def main() -> None:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0].keys()))
         writer.writeheader()
         writer.writerows(rows)
-    print(f"Carbon-cost context built using UKA GBP {uka_price:.2f}/tCO2.")
+    print(f"Carbon-cost context built using UKA GBP {uka_price:.2f}/tCO2 ({carbon.get('latest_price_month')} monthly average).")
 
 
 if __name__ == "__main__":

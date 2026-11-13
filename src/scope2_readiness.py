@@ -9,7 +9,7 @@ from pathlib import Path
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
 RAW = ROOT / "data" / "raw" / "rego"
 PROCESSED = ROOT / "data" / "processed"
 

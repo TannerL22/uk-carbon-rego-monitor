@@ -3,31 +3,29 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[1]
-INPUT = ROOT / "data" / "raw" / "power" / "neso_generation_mix_sample.csv"
+from project_paths import ROOT
 LIVE_INPUT = ROOT / "data" / "raw" / "power" / "neso_generation_mix_live.csv"
 METADATA_INPUT = ROOT / "data" / "raw" / "power" / "neso_fetch_metadata.json"
 OUTPUT = ROOT / "data" / "processed" / "power_signals.json"
 
 
 def main() -> None:
-    input_path = LIVE_INPUT if LIVE_INPUT.exists() else INPUT
-    if input_path == INPUT:
+    if not LIVE_INPUT.exists():
         raise FileNotFoundError("Live NESO power data is missing. Run python src/fetch_neso.py before power_signals.py.")
 
-    power = pd.read_csv(input_path)
+    power = pd.read_csv(LIVE_INPUT)
     if power.empty:
         raise ValueError("Live NESO power data is empty.")
-    power["datetime"] = pd.to_datetime(power["datetime"], errors="coerce")
+    power["datetime"] = pd.to_datetime(power["datetime"], errors="coerce", utc=True)
     numeric_columns = [column for column in power.columns if column != "datetime"]
     for column in numeric_columns:
         power[column] = pd.to_numeric(power[column], errors="coerce")
-    power = power.sort_values("datetime")
+    power = power.dropna(subset=["datetime"]).sort_values("datetime")
+    window_days = round((power["datetime"].iloc[-1] - power["datetime"].iloc[0]).total_seconds() / 86400, 1)
 
     latest = power.iloc[-1]
     metadata = json.loads(METADATA_INPUT.read_text(encoding="utf-8")) if METADATA_INPUT.exists() else {}
@@ -56,9 +54,10 @@ def main() -> None:
 
     output = {
         "latest_datetime": latest["datetime"].date().isoformat(),
+        "latest_timestamp": latest["datetime"].strftime("%Y-%m-%dT%H:%MZ"),
+        "recent_window_days": window_days,
         "latest_carbon_intensity_gco2_kwh": round(latest_ci, 1),
         "average_recent_carbon_intensity_gco2_kwh": round(avg_ci, 1),
-        "average_30d_carbon_intensity_gco2_kwh": round(avg_ci, 1),
         "carbon_signal": carbon_signal,
         "gas_share": round(latest_gas, 1),
         "wind_solar_share": round(float(latest["wind_share"] + latest["solar_share"]), 1),
@@ -77,7 +76,7 @@ def main() -> None:
         "commentary": "Carbon intensity reflects the physical emissions profile of the GB power system; contractual renewable supply depends on certificate ownership and disclosure rules.",
         "series": [
             {
-                "date": row["datetime"].date().isoformat(),
+                "date": row["datetime"].strftime("%Y-%m-%dT%H:%MZ"),
                 "carbon_intensity_gco2_kwh": round(float(row["carbon_intensity_gco2_kwh"]), 1),
                 "gas_share": round(float(row["gas_share"]), 1),
                 "wind_share": round(float(row["wind_share"]), 1),

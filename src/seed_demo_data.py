@@ -15,7 +15,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
 RAW = ROOT / "data" / "raw"
 PROCESSED = ROOT / "data" / "processed"
 SOURCE_REGISTER = ROOT / "data" / "source_register.csv"

@@ -1,23 +1,20 @@
-import json
-import subprocess
-import sys
 import unittest
-from pathlib import Path
+
+from tests.support import IsolatedPipelineTestCase
 
 
-ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "data" / "processed" / "carbon_cost_context.json"
-
-
-class CarbonCostContextTests(unittest.TestCase):
+class CarbonCostContextTests(IsolatedPipelineTestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        subprocess.run([sys.executable, str(ROOT / "src" / "rego_controls.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "customer_claim_coverage.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "fmd_context.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "carbon_signals.py")], check=True)
-        subprocess.run([sys.executable, str(ROOT / "src" / "carbon_cost_context.py")], check=True)
-        cls.context = json.loads(OUTPUT.read_text(encoding="utf-8"))
+        super().setUpClass()
+        cls.run_script(
+            "rego_controls.py",
+            "customer_claim_coverage.py",
+            "fmd_context.py",
+            "carbon_signals.py",
+            "carbon_cost_context.py",
+        )
+        cls.context = cls.read_processed("carbon_cost_context.json")
 
     def test_carbon_cost_context_shape(self) -> None:
         self.assertEqual("Indicative carbon-cost context", self.context["label"])

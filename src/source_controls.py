@@ -3,14 +3,22 @@
 from __future__ import annotations
 
 import json
-from pathlib import Path
 
 import pandas as pd
 
+from project_paths import ROOT
 
-ROOT = Path(__file__).resolve().parents[1]
+
 INPUT = ROOT / "data" / "source_register.csv"
 OUTPUT = ROOT / "data" / "processed" / "source_quality_summary.json"
+CARBON_RAW = ROOT / "data" / "raw" / "carbon"
+UKA_AUCTIONS = CARBON_RAW / "uka_auction_results.csv"
+CCM_PRICES = CARBON_RAW / "uk_ets_ccm_monthly_prices.csv"
+FX_ASSUMPTIONS = CARBON_RAW / "fx_assumptions.csv"
+CARBON_SIGNALS = ROOT / "data" / "processed" / "carbon_signals.json"
+BUILD_STATUS = ROOT / "data" / "processed" / "build_status.json"
+# UKA auction clearing prices normally sit close to the same month's futures average.
+UKA_CROSS_CHECK_TOLERANCE_PCT = 10.0
 ANALYSIS_START = pd.Timestamp("2024-04-01", tz="UTC")
 ANALYSIS_END = pd.Timestamp("2025-03-31", tz="UTC")
 
@@ -39,10 +47,103 @@ def add_issue(
     )
 
 
+def uka_cross_check(issues: list[dict[str, object]]) -> None:
+    """SC-008: compare UKA auction prices with the official GOV.UK monthly average for the same month."""
+
+    if not UKA_AUCTIONS.exists() or not CCM_PRICES.exists():
+        return
+    uka = pd.read_csv(UKA_AUCTIONS)
+    ccm = pd.read_csv(CCM_PRICES, dtype={"month": str})
+    if "price_month" not in ccm.columns:
+        ccm["price_month"] = (pd.PeriodIndex(ccm["month"], freq="M") - 1).astype(str)
+    reference = (
+        ccm.assign(official=pd.to_numeric(ccm["monthly_average_price"], errors="coerce"))
+        .dropna(subset=["official"])
+        .drop_duplicates("price_month", keep="last")
+        .set_index("price_month")["official"]
+    )
+    uka = uka.assign(
+        price_month=pd.to_datetime(uka["auction_date"], errors="coerce").dt.to_period("M").astype(str),
+        clearing_price=pd.to_numeric(uka["clearing_price"], errors="coerce"),
+    )
+    uka["official"] = uka["price_month"].map(reference)
+    checked = uka.dropna(subset=["clearing_price", "official"])
+    if checked.empty:
+        return
+    deviation = (checked["clearing_price"] / checked["official"] - 1) * 100
+    breaches = checked[deviation.abs() > UKA_CROSS_CHECK_TOLERANCE_PCT]
+    if breaches.empty:
+        return
+    worst = deviation.abs().max()
+    add_issue(
+        issues,
+        "SRC-003",
+        "UKA auction results",
+        "SC-008",
+        "High",
+        "clearing_price",
+        (
+            f"{len(breaches)} of {len(checked)} UKA auction prices deviate more than {UKA_CROSS_CHECK_TOLERANCE_PCT:.0f}% "
+            f"from the official GOV.UK monthly average (max {worst:.0f}%)."
+        ),
+        "Re-curate the UKA auction CSV from ICE Report Centre; UKA price signals use GOV.UK monthly averages meanwhile.",
+    )
+
+
+def fx_validity_check(issues: list[dict[str, object]]) -> None:
+    """SC-009: the static FX assumption should cover the carbon comparison period it is applied to."""
+
+    if not FX_ASSUMPTIONS.exists() or not CARBON_SIGNALS.exists():
+        return
+    fx = pd.read_csv(FX_ASSUMPTIONS)
+    fx = fx[fx["currency_pair"] == "EURGBP"]
+    if fx.empty:
+        return
+    carbon = json.loads(CARBON_SIGNALS.read_text(encoding="utf-8"))
+    valid_to = pd.to_datetime(fx.iloc[0]["valid_to"], errors="coerce")
+    valid_from = pd.to_datetime(fx.iloc[0]["valid_from"], errors="coerce")
+    period_start = pd.Period(str(carbon.get("sample_period_start", ""))[:7], freq="M").start_time
+    period_end = pd.Period(str(carbon.get("sample_period_end", ""))[:7], freq="M").end_time
+    if pd.isna(valid_to) or pd.isna(valid_from) or (valid_from <= period_start and valid_to >= period_end.normalize()):
+        return
+    add_issue(
+        issues,
+        "SRC-006",
+        "EUR/GBP FX assumption",
+        "SC-009",
+        "Medium",
+        "valid_from/valid_to",
+        (
+            f"Static EUR/GBP assumption is valid {valid_from.date()} to {valid_to.date()} but is applied to "
+            f"{carbon.get('sample_period_start')} to {carbon.get('sample_period_end')}."
+        ),
+        "Review the EUR/GBP rate and validity window in data/raw/carbon/fx_assumptions.csv.",
+    )
+
+
+def build_status_check(issues: list[dict[str, object]]) -> None:
+    """SC-010: surface fetch steps that failed during this build (previous extract retained)."""
+
+    if not BUILD_STATUS.exists():
+        return
+    status = json.loads(BUILD_STATUS.read_text(encoding="utf-8"))
+    for failure in status.get("failed_steps", []):
+        add_issue(
+            issues,
+            str(failure.get("source_id", "")),
+            str(failure.get("dataset") or failure.get("step", "")),
+            "SC-010",
+            "High",
+            "fetch",
+            f"Public-source fetch failed during the latest build; the previous extract was retained. {failure.get('error', '')}".strip(),
+            "Check the GitHub Actions refresh log and fix the fetch script before relying on this source's freshness.",
+        )
+
+
 def main() -> None:
     register = pd.read_csv(INPUT, dtype=str).fillna("")
     issues: list[dict[str, object]] = []
-    latest_download = pd.to_datetime(register["downloaded_at"], errors="coerce", utc=True).max()
+    latest_download = pd.to_datetime(register["downloaded_at"], errors="coerce", utc=True, format="mixed").max()
     stale_cutoff = latest_download - pd.Timedelta(days=120) if pd.notna(latest_download) else pd.Timestamp("2025-03-31", tz="UTC")
 
     for _, row in register.iterrows():
@@ -51,8 +152,8 @@ def main() -> None:
         source_type = row["source_type"].lower()
         source_url = row["source_url"].strip()
         downloaded_at = row["downloaded_at"].strip()
-        period_start = pd.to_datetime(row["data_period_start"], errors="coerce", utc=True)
-        period_end = pd.to_datetime(row["data_period_end"], errors="coerce", utc=True)
+        period_start = pd.to_datetime(row["data_period_start"], errors="coerce", utc=True, format="mixed")
+        period_end = pd.to_datetime(row["data_period_end"], errors="coerce", utc=True, format="mixed")
 
         source_exempt_from_url = any(token in source_type for token in ["synthetic", "representative demo", "assumption"])
         if not source_url and not source_exempt_from_url:
@@ -63,7 +164,7 @@ def main() -> None:
             add_issue(issues, source_id, dataset_name, "SC-003", "Medium", "data_period_start/data_period_end", "Missing data period.", "Add the covered data period.")
         source_exempt_from_freshness = any(token in source_type for token in ["representative demo", "assumption"])
         if downloaded_at and not source_exempt_from_freshness:
-            downloaded_dt = pd.to_datetime(downloaded_at, errors="coerce", utc=True)
+            downloaded_dt = pd.to_datetime(downloaded_at, errors="coerce", utc=True, format="mixed")
             if pd.notna(downloaded_dt) and downloaded_dt < stale_cutoff:
                 add_issue(issues, source_id, dataset_name, "SC-004", "Low", "downloaded_at", "Source download is stale versus latest registered source.", "Refresh the sample or note why the older extract remains valid.")
         if row["manual_or_api"].strip().lower() == "manual" and not row["known_limitations"].strip():
@@ -84,6 +185,10 @@ def main() -> None:
                 "Confirm whether this source is intended as market context or update period coverage.",
             )
 
+    uka_cross_check(issues)
+    fx_validity_check(issues)
+    build_status_check(issues)
+
     counts = register.shape[0]
     severity_counts = {severity: sum(1 for issue in issues if issue["severity"] == severity) for severity in ["High", "Medium", "Low"]}
     output = {
@@ -91,6 +196,7 @@ def main() -> None:
         "warning_count": len(issues),
         "stale_source_count": sum(1 for issue in issues if issue["control_id"] == "SC-004"),
         "manual_sources_requiring_notes": sum(1 for issue in issues if issue["control_id"] == "SC-005"),
+        "failed_fetch_count": sum(1 for issue in issues if issue["control_id"] == "SC-010"),
         "severity_counts": severity_counts,
         "issues": issues,
         "summary_signal": f"{len(issues)} source-register warnings",

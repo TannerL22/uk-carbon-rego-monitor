@@ -8,6 +8,7 @@ carbon-auction schema and replaces the output CSV only after a successful parse.
 from __future__ import annotations
 
 import csv
+import warnings
 from collections import defaultdict
 from datetime import UTC, date, datetime
 from io import BytesIO
@@ -19,15 +20,23 @@ from urllib.request import Request, urlopen
 
 from openpyxl import load_workbook
 
+from project_paths import ROOT
+from source_register import upsert_source
 
-ROOT = Path(__file__).resolve().parents[1]
+
 CARBON_RAW = ROOT / "data" / "raw" / "carbon"
-SOURCE_REGISTER = ROOT / "data" / "source_register.csv"
 OUTPUT = CARBON_RAW / "eua_auction_results.csv"
 
 BASE_URL = "https://public.eex-group.com/eex/eua-auction-report"
 FILE_PATTERN = "emission-spot-primary-market-auction-report-{year}-data.xlsx"
 TIMEOUT_SECONDS = 45
+SOURCE_ID = "SRC-004"
+PRICE_HEADER = "auction_price_€/tco2"
+VOLUME_HEADER = "auction_volume_tco2"
+# EEX renamed the 2026 worksheet from "Primary Market Auction" to "EU ETS1". EU ETS2
+# (buildings/road transport) is a separate market and must never be mixed into EUA prices.
+PREFERRED_SHEETS = ("EU ETS1", "Primary Market Auction")
+EXCLUDED_SHEET_TOKENS = ("ets2", "ets 2")
 
 OUTPUT_COLUMNS = [
     "market",
@@ -48,6 +57,10 @@ class EexFetchError(RuntimeError):
     """Raised when official EEX auction data cannot be fetched or parsed."""
 
 
+class EexReportNotPublished(EexFetchError):
+    """Raised when a yearly EEX workbook does not exist yet (HTTP 404)."""
+
+
 def iso_z(value: datetime) -> str:
     return value.replace(second=0, microsecond=0).strftime("%Y-%m-%dT%H:%MZ")
 
@@ -61,7 +74,11 @@ def fetch_workbook(url: str) -> bytes:
     try:
         with urlopen(request, timeout=TIMEOUT_SECONDS) as response:
             return response.read()
-    except (HTTPError, URLError, TimeoutError) as exc:
+    except HTTPError as exc:
+        if exc.code == 404:
+            raise EexReportNotPublished(f"EEX auction report not published yet at {url}.") from exc
+        raise EexFetchError(f"EEX auction report request failed for {url}: {exc}") from exc
+    except (URLError, TimeoutError) as exc:
         raise EexFetchError(f"EEX auction report request failed for {url}: {exc}") from exc
 
 
@@ -87,24 +104,44 @@ def as_float(value: Any) -> float | None:
 
 
 def find_header_row(rows: list[tuple[Any, ...]]) -> tuple[int, dict[str, int]]:
-    for index, row in enumerate(rows):
+    for index, row in enumerate(rows[:50]):
         headers = {normalize_header(value): position for position, value in enumerate(row)}
-        if "date" in headers and "auction_price_€/tco2" in headers and "auction_volume_tco2" in headers:
+        if "date" in headers and PRICE_HEADER in headers and VOLUME_HEADER in headers:
             return index, headers
     raise EexFetchError("EEX workbook did not include the expected primary-auction header row.")
 
 
+def candidate_sheet_names(sheetnames: list[str]) -> list[str]:
+    """Order sheets so known EU ETS1 names come first; drop any EU ETS2 sheet."""
+
+    eligible = [name for name in sheetnames if not any(token in name.lower() for token in EXCLUDED_SHEET_TOKENS)]
+    preferred = [name for name in PREFERRED_SHEETS if name in eligible]
+    return preferred + [name for name in eligible if name not in preferred]
+
+
+def select_auction_sheet(workbook: Any) -> tuple[str, list[tuple[Any, ...]], int, dict[str, int]]:
+    for name in candidate_sheet_names(workbook.sheetnames):
+        rows = list(workbook[name].iter_rows(values_only=True))
+        try:
+            header_row, headers = find_header_row(rows)
+        except EexFetchError:
+            continue
+        return name, rows, header_row, headers
+    raise EexFetchError(
+        "EEX workbook did not include an EU ETS1 primary-auction worksheet with the expected header row "
+        f"(sheets found: {', '.join(workbook.sheetnames)})."
+    )
+
+
 def parse_workbook(payload: bytes, url: str) -> list[dict[str, object]]:
-    workbook = load_workbook(BytesIO(payload), read_only=True, data_only=True)
-    if "Primary Market Auction" not in workbook.sheetnames:
-        raise EexFetchError("EEX workbook did not include a 'Primary Market Auction' worksheet.")
+    with warnings.catch_warnings():
+        # EEX workbooks have no default style; openpyxl warns on every load.
+        warnings.filterwarnings("ignore", message="Workbook contains no default style")
+        workbook = load_workbook(BytesIO(payload), read_only=True, data_only=True)
+    _, rows, header_row, headers = select_auction_sheet(workbook)
 
-    worksheet = workbook["Primary Market Auction"]
-    rows = list(worksheet.iter_rows(values_only=True))
-    header_row, headers = find_header_row(rows)
-
-    price_col = headers["auction_price_€/tco2"]
-    volume_col = headers["auction_volume_tco2"]
+    price_col = headers[PRICE_HEADER]
+    volume_col = headers[VOLUME_HEADER]
     cover_col = headers.get("cover_ratio")
     status_col = headers.get("status")
     country_col = headers.get("country")
@@ -189,57 +226,23 @@ def write_csv_atomically(path: Path, rows: list[dict[str, object]]) -> None:
 
 
 def update_source_register(rows: list[dict[str, object]], downloaded_at: str) -> None:
-    if not SOURCE_REGISTER.exists():
-        return
-
-    with SOURCE_REGISTER.open(newline="", encoding="utf-8") as handle:
-        reader = csv.DictReader(handle)
-        register_rows = list(reader)
-        fieldnames = reader.fieldnames or []
-
-    if not fieldnames:
-        return
-
-    start = str(rows[0]["auction_date"])
     end = str(rows[-1]["auction_date"])
-    row_found = False
-    for row in register_rows:
-        if row.get("source_id") == "SRC-004":
-            row_found = True
-            row["dataset_name"] = "EEX EUA auction results"
-            row["source_owner"] = "EEX"
-            row["source_type"] = "official public auction report"
-            row["source_url"] = BASE_URL
-            row["manual_or_api"] = "public file"
-            row["downloaded_at"] = downloaded_at
-            row["published_at"] = end
-            row["data_period_start"] = start
-            row["data_period_end"] = end
-            row["used_for"] = "EUA primary auction signal"
-            row["known_limitations"] = "Official EEX primary auction report parsed from public Excel workbooks; not a live secondary-market feed."
-
-    if not row_found:
-        register_rows.append(
-            {
-                "source_id": "SRC-004",
-                "dataset_name": "EEX EUA auction results",
-                "source_owner": "EEX",
-                "source_type": "official public auction report",
-                "source_url": BASE_URL,
-                "manual_or_api": "public file",
-                "downloaded_at": downloaded_at,
-                "published_at": end,
-                "data_period_start": start,
-                "data_period_end": end,
-                "used_for": "EUA primary auction signal",
-                "known_limitations": "Official EEX primary auction report parsed from public Excel workbooks; not a live secondary-market feed.",
-            }
-        )
-
-    with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(register_rows)
+    upsert_source(
+        {
+            "source_id": SOURCE_ID,
+            "dataset_name": "EEX EUA auction results",
+            "source_owner": "EEX",
+            "source_type": "official public auction report",
+            "source_url": BASE_URL,
+            "manual_or_api": "public file",
+            "downloaded_at": downloaded_at,
+            "published_at": end,
+            "data_period_start": str(rows[0]["auction_date"]),
+            "data_period_end": end,
+            "used_for": "EUA primary auction signal",
+            "known_limitations": "Official EEX EU ETS1 primary auction report parsed from public Excel workbooks; not a live secondary-market feed.",
+        }
+    )
 
 
 def main() -> None:
@@ -252,6 +255,12 @@ def main() -> None:
         url = report_url(year)
         try:
             all_rows.extend(parse_workbook(fetch_workbook(url), url))
+        except EexReportNotPublished as exc:
+            # Early in January the new year's workbook may not exist yet; prior years are still required.
+            if year == current_year:
+                print(f"Skipping {year}: {exc}")
+                continue
+            errors.append(str(exc))
         except EexFetchError as exc:
             errors.append(str(exc))
 
@@ -259,7 +268,7 @@ def main() -> None:
         raise EexFetchError("One or more EEX EUA auction reports could not be fetched. Existing CSV was left unchanged. " + " | ".join(errors))
 
     if not all_rows:
-        raise EexFetchError("No EEX EUA auction rows could be fetched. Existing CSV was left unchanged. " + " | ".join(errors))
+        raise EexFetchError("No EEX EUA auction rows could be fetched. Existing CSV was left unchanged.")
 
     downloaded_at = iso_z(datetime.now(UTC))
     rows = aggregate_daily(all_rows, downloaded_at)

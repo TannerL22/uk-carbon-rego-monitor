@@ -12,17 +12,20 @@ import csv
 import json
 import os
 from datetime import UTC, datetime, timedelta
-from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 
-ROOT = Path(__file__).resolve().parents[1]
+from project_paths import ROOT
+from source_register import upsert_source
+
+
 RAW_OUTPUT = ROOT / "data" / "raw" / "carbon" / "trading_economics_eu_carbon_reference.csv"
 PROCESSED_OUTPUT = ROOT / "data" / "processed" / "carbon_market_reference.json"
-SOURCE_REGISTER = ROOT / "data" / "source_register.csv"
 
+# SRC-008 is the demo customer-contract register row; this optional source uses SRC-010.
+SOURCE_ID = "SRC-010"
 SYMBOL = os.getenv("TRADING_ECONOMICS_CARBON_SYMBOL", "EECXM:IND")
 SOURCE_URL = "https://tradingeconomics.com/commodity/carbon"
 DOCS_URL = "https://docs.tradingeconomics.com/markets/historical/"
@@ -126,48 +129,25 @@ def write_raw_csv(rows: list[dict[str, object]]) -> None:
 
 
 def update_source_register(start_date: str, end_date: str, downloaded_at: str) -> None:
-    fieldnames = [
-        "source_id",
-        "dataset_name",
-        "source_owner",
-        "source_type",
-        "source_url",
-        "manual_or_api",
-        "downloaded_at",
-        "published_at",
-        "data_period_start",
-        "data_period_end",
-        "used_for",
-        "known_limitations",
-    ]
-    rows: list[dict[str, str]] = []
-    if SOURCE_REGISTER.exists():
-        with SOURCE_REGISTER.open(encoding="utf-8", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-
-    source_row = {
-        "source_id": "SRC-008",
-        "dataset_name": "Trading Economics EU Carbon Permits reference",
-        "source_owner": "Trading Economics",
-        "source_type": "third-party market reference",
-        "source_url": SOURCE_URL,
-        "manual_or_api": "api",
-        "downloaded_at": downloaded_at,
-        "published_at": downloaded_at,
-        "data_period_start": start_date,
-        "data_period_end": end_date,
-        "used_for": "Optional EU carbon third-party market reference",
-        "known_limitations": (
-            "Third-party market reference fetched with API secret during build; not an official exchange feed, "
-            "not a licensed live trading terminal, and separate from official auction/CCM inputs."
-        ),
-    }
-    rows = [row for row in rows if row.get("source_id") != "SRC-008"]
-    rows.append(source_row)
-    with SOURCE_REGISTER.open("w", newline="", encoding="utf-8") as handle:
-        writer = csv.DictWriter(handle, fieldnames=fieldnames, lineterminator="\n")
-        writer.writeheader()
-        writer.writerows(rows)
+    upsert_source(
+        {
+            "source_id": SOURCE_ID,
+            "dataset_name": "Trading Economics EU Carbon Permits reference",
+            "source_owner": "Trading Economics",
+            "source_type": "third-party market reference",
+            "source_url": SOURCE_URL,
+            "manual_or_api": "api",
+            "downloaded_at": downloaded_at,
+            "published_at": downloaded_at,
+            "data_period_start": start_date,
+            "data_period_end": end_date,
+            "used_for": "Optional EU carbon third-party market reference",
+            "known_limitations": (
+                "Third-party market reference fetched with API secret during build; not an official exchange feed, "
+                "not a licensed live trading terminal, and separate from official auction/CCM inputs."
+            ),
+        }
+    )
 
 
 def build_payload(rows: list[dict[str, object]], downloaded_at: str) -> dict[str, object]:

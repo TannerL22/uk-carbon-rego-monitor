@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 import json
+from decimal import ROUND_HALF_UP, Decimal
 from datetime import UTC, datetime
-from pathlib import Path
+
+from project_paths import ROOT
 
 
-ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
 OUTPUT = PROCESSED / "dashboard_summary.json"
+MAX_ATTENTION_ITEMS = 7
 
 
 def read_json(filename: str) -> object:
@@ -25,8 +27,11 @@ def read_optional_json(filename: str, default: object) -> object:
         return json.load(handle)
 
 
-def money(value: float) -> str:
-    return f"GBP {value:,.0f}"
+def money(value: object) -> str:
+    # Round half up so GBP 6,412.50 reads "GBP 6,413" here and in the browser (Python's
+    # default round-half-to-even format would print "GBP 6,412").
+    rounded = Decimal(str(value)).quantize(Decimal("1"), rounding=ROUND_HALF_UP)
+    return f"GBP {rounded:,}"
 
 
 def card(label: str, headline: str, subline: str) -> dict[str, str]:
@@ -59,12 +64,9 @@ def build_claim_attention(claims: list[dict[str, object]], claim_summary: dict[s
         )
     review = [claim for claim in claims if claim["claim_status"] == "Review"]
     if review:
-        items.append(f"{len(review)} customer renewable claim requires review before disclosure close.")
-    if float(claim_summary.get("uncovered_mwh", 0)) > 0:
-        items.append(
-            f"Customer claim coverage shows {float(claim_summary['uncovered_mwh']):,.0f} MWh uncovered "
-            f"and {money(float(claim_summary['estimated_cover_cost_gbp']))} estimated cover cost."
-        )
+        noun = "claim requires" if len(review) == 1 else "claims require"
+        items.append(f"{len(review)} customer renewable {noun} review before disclosure close.")
+    # Total uncovered MWh and cover cost already appear on the summary cards.
     return items
 
 
@@ -78,8 +80,19 @@ def build_attention(
     claims: list[dict[str, object]],
     claim_summary: dict[str, object],
 ) -> list[str]:
-    items: list[str] = build_claim_attention(claims, claim_summary)
-    shortfalls = [contract for contract in contracts if float(contract["shortfall_mwh"]) > 0]
+    items: list[str] = []
+    failed_sources = [issue["dataset_name"] for issue in source_quality.get("issues", []) if issue.get("control_id") == "SC-010"]
+    if failed_sources:
+        items.append(
+            f"Data refresh: {', '.join(failed_sources)} could not be fetched in the latest build; "
+            "previous extracts retained, so these sections may be stale."
+        )
+    items += build_claim_attention(claims, claim_summary)
+    claimed_contracts = {str(claim["contract_id"]) for claim in claims if claim["claim_status"] == "Not supportable"}
+    shortfalls = [
+        contract for contract in contracts
+        if float(contract["shortfall_mwh"]) > 0 and str(contract["contract_id"]) not in claimed_contracts
+    ]
     shortfalls.sort(key=lambda item: float(item["estimated_replacement_exposure_gbp"]), reverse=True)
     for contract in shortfalls[:2]:
         items.append(
@@ -90,9 +103,13 @@ def build_attention(
     high_exceptions = [item for item in exceptions if item["severity"] == "High"]
     if high_exceptions:
         items.append(f"{len(high_exceptions)} high-severity certificate exceptions require review before disclosure close.")
-    if source_quality["warning_count"]:
-        items.append(f"{source_quality['warning_count']} source-register warnings require documentation clean-up.")
-    items.append(str(carbon["spread_regime"]) + ".")
+    uka_check = next((issue for issue in source_quality.get("issues", []) if issue.get("control_id") == "SC-008"), None)
+    if uka_check:
+        items.append(f"UKA auction input failed the official-price cross-check: {uka_check['issue']}")
+    elif source_quality["warning_count"]:
+        noun = "warning requires" if source_quality["warning_count"] == 1 else "warnings require"
+        items.append(f"{source_quality['warning_count']} source-register {noun} documentation clean-up.")
+    items.append(f"{carbon['spread_regime']} ({carbon.get('latest_price_month', 'latest month')} monthly average).")
     if str(auction["demand_signal"]).lower().endswith("insufficient"):
         items.append("Auction demand data are insufficient for a firm demand signal.")
     power_item = power_context_attention(power)
@@ -101,7 +118,7 @@ def build_attention(
     for item in items:
         if item not in deduped:
             deduped.append(item)
-    return deduped[:6]
+    return deduped[:MAX_ATTENTION_ITEMS]
 
 
 def main() -> None:
@@ -140,7 +157,7 @@ def main() -> None:
     summary = {
         "generated_at": datetime.now(UTC).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
         "data_basis": [
-            {"label": "Carbon market", "value": "EEX/GOV.UK + manual ICE UKA"},
+            {"label": "Carbon market", "value": "GOV.UK UKA monthly averages + EEX EUA auctions"},
             {"label": "Power", "value": "NESO Carbon Intensity API"},
             {"label": "REGO controls", "value": "Representative demo supplier-style ledger"},
             {"label": "Contracts", "value": "Representative demo contracts"},
@@ -151,7 +168,7 @@ def main() -> None:
             card("Cover cost", money(float(customer_claim_summary["estimated_cover_cost_gbp"])), "Assumed REGO replacement-price exposure"),
             card("REGO controls", f"{len(exceptions)} exceptions", f"{high_count} high severity; review before disclosure close"),
             card("GB power context", str(power["carbon_signal"]).replace("Carbon intensity ", "").capitalize(), f"{latest_ci:.0f} g/kWh vs {recent_ci:.0f} g/kWh recent avg"),
-            card("Carbon context", short_carbon_headline(str(carbon["spread_regime"])), f"UKA-EUA spread GBP {carbon['latest_spread_gbp']}; not a claim input"),
+            card("Carbon context", short_carbon_headline(str(carbon["spread_regime"])), f"UKA-EUA spread GBP {carbon['latest_spread_gbp']} ({carbon.get('latest_price_month', 'n/a')}); not a claim input"),
         ],
         "analyst_attention": build_attention(
             carbon,
@@ -177,6 +194,7 @@ def main() -> None:
         "rego_contract_summary": contracts,
         "rego_exceptions": exceptions,
         "source_quality": source_quality,
+        "build_status": read_optional_json("build_status.json", {"failed_steps": []}),
         "analyst_note_path": "outputs/analyst_note.md",
     }
 
