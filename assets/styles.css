@@ -414,7 +414,7 @@ dd, td, .bar-value, .summary-item dd, .fact dd, .strip-item dd {
   position: relative;
   min-width: 0;
   display: grid;
-  grid-template-columns: minmax(112px, 0.42fr) minmax(92px, 0.34fr) minmax(150px, 1fr);
+  grid-template-columns: minmax(112px, 0.42fr) minmax(124px, 0.4fr) minmax(150px, 1fr);
   gap: var(--space-3);
   align-items: baseline;
   padding: 9px 0 10px 12px;
@@ -471,7 +471,8 @@ dd {
   font-weight: 650;
   line-height: 1.18;
   letter-spacing: -0.005em;
-  overflow-wrap: anywhere;
+  /* Break only words that cannot fit on their own line (avoid "supportabl-e"). */
+  overflow-wrap: break-word;
 }
 
 .summary-item p {

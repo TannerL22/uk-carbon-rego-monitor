@@ -10,13 +10,14 @@ The aim is not to build a trading terminal. The aim is to show how a carbon / re
 git clone https://github.com/TannerL22/uk-carbon-rego-monitor.git
 cd uk-carbon-rego-monitor
 python -m venv .venv
+source .venv/bin/activate        # Windows PowerShell: .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+python -m unittest discover -s tests -t .
 python src/build_all.py
-python -m unittest tests.test_rego_controls
 python -m http.server 8000
 ```
 
-On Windows PowerShell, activate the virtual environment with `.\.venv\Scripts\Activate.ps1`. On macOS/Linux, use `source .venv/bin/activate`.
+Python 3.11+ is required (CI uses 3.12).
 
 Then open `http://localhost:8000`. The full build requires internet access for public EEX, GOV.UK, and NESO data fetches. GitHub Pages serves static outputs; Python runs locally or in GitHub Actions, not in the browser.
 
@@ -26,9 +27,10 @@ Carbon analysis for a renewables supplier is not limited to allowance prices. It
 
 ## What The Monitor Does
 
-- Uses official EEX EUA auction results, manually curated ICE UKA auction inputs, and GOV.UK UK ETS CCM monthly price context to build carbon-market context.
-- Tracks UKA/EUA auction prices, a GBP-normalised spread using a stated EUR/GBP FX assumption, auction volume, and demand signals.
+- Compares official GOV.UK UK ETS monthly average UKA prices with volume-weighted monthly EEX EUA auction prices to build carbon-market context.
+- Tracks a monthly GBP-normalised UKA-EUA spread using a stated EUR/GBP FX assumption, plus EUA auction volume and cover-ratio demand signals.
 - Converts selected emissions factors into indicative UKA carbon-cost context in GBP/MWh, explicitly separate from claim validation and billing.
+- Cross-checks the manually maintained UKA auction CSV against official GOV.UK monthly averages and flags divergence as a source-control issue.
 - Fetches recent NESO Carbon Intensity API data during the Python build to analyse GB carbon intensity, gas share, renewable output, and physical emissions drivers.
 - Assesses representative customer/product renewable claim coverage using eligible matched REGOs, contract-scoped exceptions, uncovered MWh, and assumed replacement prices.
 - Builds a claim evidence register that assigns remediation actions, owners, status, target dates, and customer/FMD impact labels to certificate-control issues.
@@ -80,7 +82,7 @@ outputs/
 
 The browser reads processed JSON files from `data/processed/`. Business logic lives in Python, not JavaScript.
 
-Normal dashboard builds fetch public EEX, GOV.UK, and NESO inputs where automated sources are available, validate the manually curated ICE UKA CSV, then read the remaining raw input files already present under `data/raw/`. They do not regenerate representative demo data or overwrite curated UKA auction CSVs.
+Normal dashboard builds fetch public EEX, GOV.UK, and NESO inputs where automated sources are available, validate the manually maintained UKA auction CSV, then read the remaining raw input files already present under `data/raw/`. They do not regenerate representative demo data or overwrite curated UKA auction CSVs.
 
 To intentionally reset the representative demo inputs, run:
 
@@ -94,7 +96,9 @@ That seed command recreates the representative REGO ledger, representative contr
 
 GitHub Pages serves this project as static HTML, CSS, JavaScript, CSV, and JSON files. Python does not run in the visitor's browser.
 
-Generated dashboard data is refreshed by GitHub Actions. The scheduled workflow runs `python src/build_all.py`, regenerates processed JSON outputs, refreshes public-source extracts, and commits changed generated files back to the repository so GitHub Pages can serve the latest static data.
+Generated dashboard data is refreshed by GitHub Actions. The scheduled workflow runs `python src/build_all.py --allow-fetch-failures`, regenerates processed JSON outputs, refreshes public-source extracts, and commits changed generated files back to the repository so GitHub Pages can serve the latest static data.
+
+Public-source fetches are resilient: if EEX, GOV.UK, or NESO is unavailable or changes its file layout, the build keeps the previous extract, records the failure in `data/processed/build_status.json`, shows it in the dashboard's attention list (source control SC-010), commits the rest of the refresh, and then marks the workflow run as failed so the breakage is noticed. Run locally without the flag, `build_all.py` exits non-zero on any fetch failure.
 
 The scheduled refresh is intentionally scoped:
 
@@ -106,18 +110,20 @@ The scheduled refresh is intentionally scoped:
 | `data/raw/carbon/uk_ets_ccm_monthly_prices.csv` | Refreshed from the official GOV.UK CCM table and committed |
 | `data/raw/carbon/trading_economics_eu_carbon_reference.csv` | Optional Trading Economics EU Carbon Permits reference; refreshed only if a repository secret is configured |
 | `data/source_register.csv` | Updated by source-control/fetch scripts and committed |
-| `data/raw/carbon/uka_auction_results.csv` | Manually curated ICE-source input; validated but not overwritten |
+| `data/raw/carbon/uka_auction_results.csv` | Manually maintained input (currently an illustrative sample pending ICE curation); validated and cross-checked but not overwritten |
 | `data/raw/rego/` | Representative demo operating data; not regenerated by scheduled refresh |
 
 The workflow can be run manually from GitHub Actions using **Refresh dashboard data** -> **Run workflow**. It does not require secrets or API keys for the core dashboard. If the optional `TRADING_ECONOMICS_API_KEY` repository secret is configured, the build also refreshes a separate third-party EU Carbon Permits reference. That reference is never called from browser JavaScript.
 
 ## Data Sources And Limitations
 
-Carbon market data in this project uses official/public or curated inputs rather than licensed live market feeds. EUA auction results are fetched from official EEX public primary-auction workbooks during the build. GOV.UK UK ETS Cost Containment Mechanism tables provide official monthly average futures-price and trigger-price context. UKA auction inputs are held in a manually curated ICE-source CSV and validated during the build. The dashboard shows the carbon market comparison period and does not imply the auction inputs are a live trading feed.
+Carbon market data in this project uses official public data rather than licensed live market feeds. The UKA price is the official GOV.UK UK ETS Cost Containment Mechanism (CCM) monthly average futures price; the EUA price is the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices, fetched from EEX's public workbooks during the build. The dashboard shows the monthly comparison period and does not imply these are a live trading feed.
 
-UKA auction prices are denominated in GBP. EUA auction prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating the UKA-EUA spread. Because official EEX and UKA auction calendars differ, UKA dates are aligned to the nearest EUA auction date within 14 days. GOV.UK CCM monthly prices are shown separately from auction clearing prices. The spread is therefore labelled as a GBP spread and should be treated as a transparent auction-context indicator, not a live traded spread.
+UKA prices are denominated in GBP. EUA prices are denominated in EUR, so the Python pipeline converts EUA values into GBP using the static EUR/GBP assumption in `data/raw/carbon/fx_assumptions.csv` before calculating the monthly UKA-EUA spread. The UKA leg is a futures monthly average and the EUA leg is an auction-clearing monthly average, so the spread is a transparent context indicator, not a live traded spread. Source control SC-009 flags when the FX assumption's stated validity window does not cover the comparison period.
 
-GB power data is fetched from the official NESO Carbon Intensity API during `python src/build_all.py`. No API key is required. If the API or network is unavailable, the build fails clearly instead of silently substituting fake power data. The published site displays the most recent static output committed by the build, not a browser-side live feed.
+**UKA auction CSV status.** `data/raw/carbon/uka_auction_results.csv` is designed to hold manually curated ICE auction results, but the committed rows are an illustrative sample carried over from the demo seed: they deviate 10-34% from the official GOV.UK monthly averages for the same months. The build cross-checks the file (source control SC-008), labels it illustrative in the source register, and does not use it for UKA price or spread signals. See `data/raw/carbon/README_uka_manual_update.md` to replace it with real ICE results.
+
+GB power data is fetched from the official NESO Carbon Intensity API during `python src/build_all.py`. No API key is required. If the API or network is unavailable, the previous extract is kept and flagged as stale; fake power data is never substituted. The published site displays the most recent static output committed by the build, not a browser-side live feed.
 
 The carbon and power sections use public data, official public files, or curated public extracts. The REGO reconciliation module uses a representative demo ledger because certificate-level supplier allocations and customer contract mappings are internal operating data, not a public dataset.
 
@@ -139,11 +145,11 @@ See `docs/control_framework.md` for the full control register.
 
 ## Carbon Market Signal Methodology
 
-The carbon module calculates latest UKA/EUA auction prices, converts EUA prices into GBP using the stated FX assumption, aligns UKA auction dates to nearby EUA auction dates where calendars differ, calculates the GBP-normalised UKA-EUA spread, trailing spread average, spread z-score, and a simple spread regime. It also surfaces the latest GOV.UK CCM monthly average futures price, trigger price, and triggered status as official UKA policy context. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
+The carbon module calculates monthly UKA (GOV.UK CCM average) and EUA (EEX auction average) prices, converts EUA prices into GBP using the stated FX assumption, and calculates the GBP-normalised UKA-EUA spread, a trailing six-month average spread (excluding the latest month), a spread z-score, and a simple spread regime. It also surfaces the latest CCM trigger price and triggered status as official UKA policy context. GOV.UK labels each CCM row with its assessment month while the final average in that row covers the previous month; the pipeline records that as `price_month` so every UKA price is labelled with the month it actually covers. The method is deliberately transparent and avoids pretending to replicate a licensed live market terminal.
 
-The dashboard separates carbon inputs into three labelled layers: official auction signal, official UKA CCM monthly context, and an optional third-party market-reference layer. The optional Trading Economics EU Carbon Permits reference is fetched only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately and should not be read as an official exchange feed.
+The dashboard separates carbon inputs into three labelled layers: official monthly price signal, official UKA CCM policy context, and an optional third-party market-reference layer. The optional Trading Economics EU Carbon Permits reference is fetched only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately and should not be read as an official exchange feed.
 
-The carbon-cost context module multiplies the latest generated UKA auction price by selected emissions-factor assumptions to produce indicative GBP/MWh context. This is not a bill calculation, power-price forecast, REGO claim validation input, or official customer emissions result.
+The carbon-cost context module multiplies the latest official GOV.UK monthly average UKA price by selected emissions-factor assumptions to produce indicative GBP/MWh context. This is not a bill calculation, power-price forecast, REGO claim validation input, or official customer emissions result.
 
 See `docs/carbon_market_driver_framework.md`.
 
@@ -191,12 +197,13 @@ data/processed/rego_contract_summary.json
 data/processed/rego_exceptions.json
 data/processed/source_quality_summary.json
 data/processed/carbon_market_reference.json
+data/processed/build_status.json
 outputs/analyst_note.md
 ```
 
 The analyst note is generated from the current processed dashboard outputs so metric-sensitive text stays aligned with the refreshed static data.
 
-Validate the manually curated ICE UKA auction input:
+Validate the manually maintained UKA auction input:
 
 ```bash
 python src/validate_uka_auction_input.py
@@ -204,26 +211,26 @@ python src/validate_uka_auction_input.py
 
 See `data/raw/carbon/README_uka_manual_update.md` for the UKA update process.
 
-Verify the REGO reconciliation business logic:
+Run the offline test suite:
 
 ```bash
-python -m unittest tests.test_rego_controls
+python -m unittest discover -s tests -t .
 ```
 
-The tests regenerate the representative demo REGO inputs, run the control engine, and assert the expected exception register, contract coverage, shortfall, surplus, and exposure values.
+The tests run the real pipeline scripts against a temporary copy of `data/` and `outputs/` (via the `UK_CARBON_MONITOR_ROOT` environment variable), so they never modify tracked files. They assert the expected REGO exception register, contract coverage, shortfall, surplus, and exposure values, plus the EEX/GOV.UK parsers, the monthly spread calculation, and the source controls.
 
-Run the full end-to-end pipeline smoke test:
+Run the full end-to-end pipeline smoke test (network required):
 
 ```bash
-python -m unittest tests.test_pipeline_smoke
+RUN_NETWORK_TESTS=1 python -m unittest tests.test_pipeline_smoke
 ```
 
-This smoke test runs `python src/build_all.py`, so it requires internet access for the public EEX, GOV.UK, and NESO fetches. It verifies that the processed dashboard JSON files parse and expose the expected dashboard contract. Because it runs the normal build, it may refresh generated CSV/JSON outputs in the working tree.
+This runs `python src/build_all.py` in strict mode against a temporary copy of the data, so it requires internet access for the public EEX, GOV.UK, and NESO fetches and fails if any fetch fails. It is skipped unless `RUN_NETWORK_TESTS=1` is set.
 
 Serve the static dashboard locally:
 
 ```bash
-cd "c:\Users\tanne\Desktop\Energy Project\uk-carbon-rego-monitor"
+cd uk-carbon-rego-monitor   # the project root, not src/
 python -m http.server 8000
 ```
 
@@ -243,10 +250,10 @@ This project was built using AI-assisted coding tools for scaffolding, debugging
 
 ## Future Extensions
 
+- Re-curate `data/raw/carbon/uka_auction_results.csv` from ICE Report Centre so UKA auction-demand fields use real results.
+- Replace the static EUR/GBP assumption with monthly ECB reference rates.
 - Optional automated ICE UKA ingestion if a stable public machine-readable source is confirmed.
-- Optional charting of GOV.UK CCM monthly average price versus trigger price.
 - Optional ICAP Allowance Price Explorer reference, subject to licensing and API-stability review. Phase 7 assessed ICAP as useful context but not suitable for automated MVP ingestion without explicit permission.
 - Optional Trading Economics EU Carbon Permits market-reference display, enabled only when a repository secret is configured and kept separate from official auction/policy inputs.
-- Exportable exception report and control-owner fields.
-- Dashboard screenshots in the README.
+- Exportable exception report.
 - Separate future projects for grid constraints, supplier screening, or firm-level ETS analysis.

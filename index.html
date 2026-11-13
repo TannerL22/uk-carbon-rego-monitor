@@ -161,18 +161,18 @@
       <section id="carbon" class="section section--context" aria-labelledby="carbon-heading">
         <div class="section-heading">
           <h2 id="carbon-heading">Carbon Market Signals</h2>
-          <p>Carbon context is split into official auction results, official UKA policy/price context, and an optional third-party market-reference layer. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
+          <p>Carbon context is split into an official monthly UKA/EUA price comparison, official UKA policy (CCM) context, and an optional third-party market-reference layer. EUA prices are converted to GBP using a stated FX assumption before spread metrics are calculated.</p>
         </div>
         <div class="section-meta" role="note">
           <p id="carbon-sample-period" class="sample-period"></p>
           <p id="carbon-fx-note" class="method-note"></p>
-          <p id="carbon-feed-note" class="method-note">EEX official auction data, manually curated ICE UKA inputs, and GOV.UK CCM monthly context; not a licensed live trading feed.</p>
+          <p id="carbon-feed-note" class="method-note">Official GOV.UK UKA monthly averages and EEX EUA auction results; not a licensed live trading feed.</p>
         </div>
         <div id="carbon-concepts" class="carbon-concepts" aria-label="Carbon data concepts"></div>
         <dl id="carbon-metrics" class="fact-row"></dl>
         <div class="visual-grid carbon-visual-grid">
           <div>
-            <h3>UKA and EUA auction prices <span class="muted">GBP</span></h3>
+            <h3>UKA and EUA monthly prices <span class="muted">GBP</span></h3>
             <div id="carbon-price-line" class="svg-chart"></div>
             <p id="carbon-price-caption" class="chart-caption"></p>
           </div>
@@ -208,7 +208,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>Uses official/curated carbon market inputs, recent NESO power data fetched at build time, and representative demo REGO operating data. Not trading, legal, or compliance advice.</p>
+      <p>Uses official public carbon market data, recent NESO power data fetched at build time, and representative demo REGO operating data. Not trading, legal, or compliance advice.</p>
     </footer>
 
     <script src="assets/charts.js"></script>

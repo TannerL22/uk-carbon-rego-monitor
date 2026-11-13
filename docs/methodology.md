@@ -12,15 +12,17 @@ The third question is the core of the project. Carbon and power signals provide 
 
 ## Carbon Market Signals
 
-The carbon module uses official EEX EUA primary-auction data, manually curated ICE UKA auction inputs, and official GOV.UK UK ETS Cost Containment Mechanism tables. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated EUR/GBP assumption before calculating the UKA-EUA spread. Because official EEX and UKA auction calendars differ, UKA auction dates are aligned to the nearest EUA auction date within 14 days. It calculates latest auction prices, GBP-normalised spread, trailing average spread, spread z-score, auction volume, and a basic auction demand signal using cover ratio where available.
+The carbon module compares the official GOV.UK UK ETS Cost Containment Mechanism (CCM) monthly average UKA futures price with the volume-weighted monthly average of official EEX EU ETS1 primary-auction clearing prices. UKA prices are denominated in GBP and EUA prices are denominated in EUR, so the pipeline converts EUA prices into GBP using the stated EUR/GBP assumption before calculating the monthly UKA-EUA spread, trailing average spread (previous six months), spread z-score, and spread regime. The auction demand signal uses EEX EUA cover ratios.
 
-The GOV.UK CCM parser adds official monthly average UKA futures-price context, trigger price, and triggered status. This is shown separately from auction clearing prices because it is a policy/market-context table, not an auction result.
+The GOV.UK CCM table also provides the trigger price and triggered status. Each CCM row is labelled with its assessment month, and its final average belongs to the previous calendar month; the pipeline stores that as `price_month` so prices are labelled with the month they cover.
 
-The dashboard presents carbon data in three distinct layers: official auction signal, official UKA CCM monthly context, and an optional third-party market reference. The optional Trading Economics reference is populated only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately so the project does not imply that official auction data, policy-context tables, and third-party market references are equivalent.
+The UKA auction CSV in `data/raw/carbon/` is validated and cross-checked against the official monthly averages (source control SC-008). The committed file is an illustrative sample that fails the cross-check, so it is not used for price or spread signals.
 
-The dashboard deliberately avoids live trading language. Auction and CCM data are used as transparent market-context proxies, not as substitutes for licensed price feeds, internal trading marks, or live FX-adjusted market data. The dashboard displays the carbon market comparison period.
+The dashboard presents carbon data in three distinct layers: official monthly price signal, official UKA CCM policy context, and an optional third-party market reference. The optional Trading Economics reference is populated only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately so the project does not imply that official auction data, policy-context tables, and third-party market references are equivalent.
 
-Normal dashboard builds validate the manually curated ICE UKA auction CSV, fetch official EEX EUA public auction data and official GOV.UK CCM tables, then read the UKA auction CSV in `data/raw/carbon/` as a controlled source input. The separate `python src/seed_demo_data.py` command is only for intentionally resetting representative demo inputs.
+The dashboard deliberately avoids live trading language. Monthly CCM averages and auction data are used as transparent market-context proxies, not as substitutes for licensed price feeds, internal trading marks, or live FX-adjusted market data. The dashboard displays the carbon market comparison period.
+
+Normal dashboard builds validate the UKA auction CSV, fetch official EEX EUA public auction data and official GOV.UK CCM tables, then read the UKA auction CSV in `data/raw/carbon/` as a controlled source input. The separate `python src/seed_demo_data.py` command is only for intentionally resetting representative demo inputs.
 
 ## GB Power Fundamentals
 
@@ -70,7 +72,7 @@ These values are reporting context only. They do not calculate official customer
 
 ## Carbon-Cost Context
 
-The carbon-cost layer reuses the latest generated UKA auction price and selected emissions-factor assumptions to produce indicative GBP/MWh context:
+The carbon-cost layer reuses the latest official GOV.UK monthly average UKA price and selected emissions-factor assumptions to produce indicative GBP/MWh context:
 
 ```text
 indicative carbon cost GBP/MWh = UKA GBP/tCO2 * emissions factor tCO2/MWh
