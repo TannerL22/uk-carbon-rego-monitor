@@ -3,12 +3,13 @@
 `uka_auction_results.csv` is a manually maintained source input. The normal
 dashboard build validates it, but does not fetch or overwrite it.
 
-> **Current status: illustrative sample.** The committed rows (Oct 2024 - May
-> 2025) were carried over from the demo seed. They deviate 10-34% from the
-> official GOV.UK UK ETS monthly average prices for the same months, and the
-> build flags this as a High source-control issue (SC-008). UKA price and spread
-> signals therefore use the official GOV.UK monthly averages instead. Replace the
-> rows with real ICE results using the process below.
+> **Current status: header only.** The file previously held illustrative rows
+> carried over from the demo seed; they deviated 10-34% from the official GOV.UK
+> UK ETS monthly average prices and were removed in November 2026. A header-only
+> file is valid: UKA price and spread signals use the official GOV.UK monthly
+> averages, and the dashboard's UKA auction-demand fields show "not loaded".
+> ICE publishes results in its Report Centre (browser), not as a documented
+> machine-readable feed, so rows must be added manually using the process below.
 
 ## Source
 

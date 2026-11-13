@@ -11,7 +11,7 @@ inputs.
 
 ## Raw Inputs
 
-- `data/raw/carbon/uka_auction_results.csv`: manually maintained UKA auction input, validated and cross-checked against official GOV.UK monthly averages during the build. The committed values are an illustrative sample pending ICE curation and are not used for price or spread signals.
+- `data/raw/carbon/uka_auction_results.csv`: manually maintained UKA auction input, validated and cross-checked against official GOV.UK monthly averages during the build. Currently header-only pending ICE curation; never used for price or spread signals.
 - `data/raw/carbon/README_uka_manual_update.md`: manual UKA update process and limitations.
 - `data/raw/carbon/uka_auction_results_sample.csv`: fallback seed/demo sample retained for reset workflows only; normal builds do not use it.
 - `data/raw/carbon/eua_auction_results.csv`: official EEX EUA primary auction results parsed from public Excel workbooks during the build.
@@ -69,4 +69,4 @@ run is marked failed after committing the rest of the refresh.
 
 ## Limitations
 
-Carbon market data uses official/public or curated inputs rather than licensed live price feeds. EUA auction results are fetched from official EEX public primary-auction workbooks; GOV.UK UK ETS CCM tables provide official monthly average futures-price and trigger-price context; the UKA auction CSV is an illustrative sample pending ICE curation, so UKA prices come from the GOV.UK monthly averages. Trading Economics is optional and, when configured, is treated as a separate third-party market reference rather than an official exchange feed. Power data is fetched from the NESO Carbon Intensity API during the Python build and served as static output. REGO data is representative demo operating data because certificate-level supplier allocations and customer contract mappings are not public datasets.
+Carbon market data uses official/public or curated inputs rather than licensed live price feeds. EUA auction results are fetched from official EEX public primary-auction workbooks; GOV.UK UK ETS CCM tables provide official monthly average futures-price and trigger-price context; the UKA auction CSV is header-only pending ICE curation, and UKA prices come from the GOV.UK monthly averages. Trading Economics is optional and, when configured, is treated as a separate third-party market reference rather than an official exchange feed. Power data is fetched from the NESO Carbon Intensity API during the Python build and served as static output. REGO data is representative demo operating data because certificate-level supplier allocations and customer contract mappings are not public datasets.

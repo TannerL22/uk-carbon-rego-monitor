@@ -6,7 +6,7 @@ The carbon module is a market-intelligence context layer. It is not a trading te
 
 - `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`: official GOV.UK UK ETS CCM table (UKA monthly average futures price, trigger price, triggered status).
 - `data/raw/carbon/eua_auction_results.csv`: official EEX EU ETS1 primary auction results.
-- `data/raw/carbon/uka_auction_results.csv`: UKA auction input. The committed file is an illustrative sample (it fails the SC-008 cross-check against official GOV.UK averages) and is used only for the separately labelled UKA auction-demand fields until it is re-curated from ICE.
+- `data/raw/carbon/uka_auction_results.csv`: UKA auction input. Currently header-only pending ICE curation; once populated it feeds only the separately labelled UKA auction-demand fields and is cross-checked against official GOV.UK averages (SC-008).
 - `data/raw/carbon/eua_auction_results_sample.csv` as a fallback demo-seed input only
 
 The normal dashboard build validates the UKA CSV, fetches official EEX EUA public auction workbooks into `data/raw/carbon/eua_auction_results.csv`, and fetches GOV.UK UK ETS CCM monthly tables into `data/raw/carbon/uk_ets_ccm_monthly_prices.csv`. EEX renamed its 2026 worksheet from "Primary Market Auction" to "EU ETS1"; the parser locates the auction sheet by its header row and always skips EU ETS2 sheets, which are a separate market. It does not regenerate representative demo records. Use `python src/seed_demo_data.py` only when intentionally resetting the demo/sample input files.

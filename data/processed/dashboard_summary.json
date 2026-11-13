@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T17:51:20Z",
+  "generated_at": "2026-11-13T17:58:58Z",
   "data_basis": [
     {
       "label": "Carbon market",
@@ -61,7 +61,6 @@
     "Corporate Buyer A Wind-backed renewable electricity is not supportable: RC-002 Duplicate certificate ID; 150 MWh uncovered.",
     "1 customer renewable claim requires review before disclosure close.",
     "12 high-severity certificate exceptions require review before disclosure close.",
-    "UKA auction input failed the official-price cross-check: 11 of 12 UKA auction prices deviate more than 10% from the official GOV.UK monthly average (max 34%).",
     "UKA discount narrower than recent average (2026-10 monthly average).",
     "GB power context: carbon intensity is below recent average, reducing near-term emissions-pressure signal."
   ],
@@ -108,7 +107,7 @@
       "next_trigger_price_gbp": 142.68,
       "monitoring_window_months": 6,
       "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-      "downloaded_at": "2026-11-13T17:51Z",
+      "downloaded_at": "2026-11-13T17:58Z",
       "published_at": "2026-11-10",
       "note": "Official GOV.UK UK ETS CCM monthly average futures price. latest_month is the calendar month the average covers (the CCM row for the following assessment month); not an auction clearing price and not a live trading feed.",
       "series": [
@@ -509,7 +508,7 @@
       "symbol": "EECXM:IND",
       "source_url": "https://tradingeconomics.com/commodity/carbon",
       "docs_url": "https://docs.tradingeconomics.com/markets/historical/",
-      "downloaded_at": "2026-11-13T17:51:17Z",
+      "downloaded_at": "2026-11-13T17:58:54Z",
       "note": "Trading Economics API key not configured; optional market reference disabled.",
       "limitation": "Optional third-party market reference only. It is separate from official EEX auction, ICE UKA auction, and GOV.UK CCM inputs and is not required for the dashboard.",
       "series": []
@@ -1018,68 +1017,13 @@
       ]
     },
     "uka": {
-      "available": true,
-      "latest_auction_date": "2025-05-22",
-      "latest_volume": 2615000,
-      "latest_cover_ratio": 1.22,
-      "trailing_cover_ratio": 1.32,
-      "demand_signal": "Latest UKA auction demand: neutral",
-      "volume_signal": "Auction supply near recent average",
-      "input_file": "uka_auction_results.csv",
-      "source": "Illustrative UKA auction sample - not verified against ICE",
-      "series": [
-        {
-          "date": "2024-10-03",
-          "auction_volume": 2450000
-        },
-        {
-          "date": "2024-10-24",
-          "auction_volume": 2465000
-        },
-        {
-          "date": "2024-11-14",
-          "auction_volume": 2480000
-        },
-        {
-          "date": "2024-12-05",
-          "auction_volume": 2495000
-        },
-        {
-          "date": "2024-12-26",
-          "auction_volume": 2510000
-        },
-        {
-          "date": "2025-01-16",
-          "auction_volume": 2525000
-        },
-        {
-          "date": "2025-02-06",
-          "auction_volume": 2540000
-        },
-        {
-          "date": "2025-02-27",
-          "auction_volume": 2555000
-        },
-        {
-          "date": "2025-03-20",
-          "auction_volume": 2570000
-        },
-        {
-          "date": "2025-04-10",
-          "auction_volume": 2585000
-        },
-        {
-          "date": "2025-05-01",
-          "auction_volume": 2600000
-        },
-        {
-          "date": "2025-05-22",
-          "auction_volume": 2615000
-        }
-      ],
-      "provenance": "Illustrative sample (not ICE-verified)"
+      "available": false,
+      "demand_signal": "UKA auction data not loaded",
+      "source": "",
+      "series": [],
+      "provenance": "Not loaded (pending ICE curation)"
     },
-    "note": "Headline demand compares the latest EUA cover ratio with the previous 10 auctions (+/-0.15 band). UKA auction demand is shown separately; provenance: Illustrative sample (not ICE-verified)."
+    "note": "Headline demand compares the latest EUA cover ratio with the previous 10 auctions (+/-0.15 band). UKA auction demand is shown separately; provenance: Not loaded (pending ICE curation)."
   },
   "power": {
     "latest_datetime": "2026-11-13",
@@ -1095,7 +1039,7 @@
     "main_driver": "mixed generation effects",
     "source": {
       "name": "NESO Carbon Intensity API",
-      "fetched_at": "2026-11-13T17:51Z",
+      "fetched_at": "2026-11-13T17:58Z",
       "data_period_start": "2026-11-06T16:30Z",
       "data_period_end": "2026-11-13T16:30Z",
       "intensity_url": "https://api.carbonintensity.org.uk/intensity/2026-11-06T17:00Z/2026-11-13T17:00Z",
@@ -4836,42 +4780,21 @@
     }
   ],
   "source_quality": {
-    "sources_registered": 11,
-    "warning_count": 2,
-    "stale_source_count": 1,
+    "sources_registered": 10,
+    "warning_count": 0,
+    "stale_source_count": 0,
     "manual_sources_requiring_notes": 0,
     "failed_fetch_count": 0,
     "severity_counts": {
-      "High": 1,
+      "High": 0,
       "Medium": 0,
-      "Low": 1
+      "Low": 0
     },
-    "issues": [
-      {
-        "issue_id": "SRC-EX-001",
-        "source_id": "SRC-003",
-        "dataset_name": "UKA auction results (illustrative sample)",
-        "control_id": "SC-004",
-        "severity": "Low",
-        "field": "downloaded_at",
-        "issue": "Source download is stale versus latest registered source.",
-        "suggested_action": "Refresh the sample or note why the older extract remains valid."
-      },
-      {
-        "issue_id": "SRC-EX-002",
-        "source_id": "SRC-003",
-        "dataset_name": "UKA auction results",
-        "control_id": "SC-008",
-        "severity": "High",
-        "field": "clearing_price",
-        "issue": "11 of 12 UKA auction prices deviate more than 10% from the official GOV.UK monthly average (max 34%).",
-        "suggested_action": "Re-curate the UKA auction CSV from ICE Report Centre; UKA price signals use GOV.UK monthly averages meanwhile."
-      }
-    ],
-    "summary_signal": "2 source-register warnings"
+    "issues": [],
+    "summary_signal": "0 source-register warnings"
   },
   "build_status": {
-    "started_at": "2026-11-13T17:51:07Z",
+    "started_at": "2026-11-13T17:58:47Z",
     "completed": false,
     "failed_steps": []
   },

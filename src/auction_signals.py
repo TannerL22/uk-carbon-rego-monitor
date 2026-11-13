@@ -37,7 +37,7 @@ def demand_signal(latest_cover: float | None, trailing_cover: float | None, mark
 def market_demand(auctions: pd.DataFrame, market: str) -> dict[str, object]:
     rows = auctions[auctions["market"] == market].dropna(subset=["auction_date"]).sort_values("auction_date")
     if rows.empty:
-        return {"available": False, "demand_signal": f"{market} auction demand data insufficient", "series": []}
+        return {"available": False, "demand_signal": f"{market} auction data not loaded", "source": "", "series": []}
 
     covers = rows["cover_ratio"].dropna()
     latest_cover = float(covers.iloc[-1]) if not covers.empty else None
@@ -74,8 +74,12 @@ def main() -> None:
     auctions = load_auction_data()
     eua = market_demand(auctions, "EUA")
     uka = market_demand(auctions, "UKA")
-    uka_illustrative = "illustrative" in str(uka.get("source", "")).lower()
-    uka["provenance"] = "Illustrative sample (not ICE-verified)" if uka_illustrative else "Manually curated ICE input"
+    if not uka["available"]:
+        uka["provenance"] = "Not loaded (pending ICE curation)"
+    elif "illustrative" in str(uka.get("source", "")).lower():
+        uka["provenance"] = "Illustrative sample (not ICE-verified)"
+    else:
+        uka["provenance"] = "Manually curated ICE input"
 
     output = {
         # Headline fields come from official EEX EUA auctions.

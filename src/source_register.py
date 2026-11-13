@@ -63,6 +63,15 @@ def upsert_source(source_row: dict[str, object], path: Path = SOURCE_REGISTER) -
     write_register(rows, path)
 
 
+def remove_source(source_id: str, path: Path = SOURCE_REGISTER) -> None:
+    """Drop the row with ``source_id`` (no-op when absent)."""
+
+    rows = read_register(path)
+    kept = [row for row in rows if row.get("source_id") != source_id]
+    if len(kept) != len(rows):
+        write_register(kept, path)
+
+
 def update_source_fields(source_id: str, updates: dict[str, object], path: Path = SOURCE_REGISTER) -> None:
     """Update selected fields on an existing row; no-op when the row is absent."""
 

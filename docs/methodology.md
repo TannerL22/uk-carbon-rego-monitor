@@ -16,7 +16,7 @@ The carbon module compares the official GOV.UK UK ETS Cost Containment Mechanism
 
 The GOV.UK CCM table also provides the trigger price and triggered status. Each CCM row is labelled with its assessment month, and its final average belongs to the previous calendar month; the pipeline stores that as `price_month` so prices are labelled with the month they cover.
 
-The UKA auction CSV in `data/raw/carbon/` is validated and cross-checked against the official monthly averages (source control SC-008). The committed file is an illustrative sample that fails the cross-check, so it is not used for price or spread signals.
+The UKA auction CSV in `data/raw/carbon/` is validated and cross-checked against the official monthly averages (source control SC-008). The file is currently header-only pending ICE curation, and it is never used for price or spread signals.
 
 The dashboard presents carbon data in three distinct layers: official monthly price signal, official UKA CCM policy context, and an optional third-party market reference. The optional Trading Economics reference is populated only during the Python/GitHub Actions build when an API secret is configured. It is labelled separately so the project does not imply that official auction data, policy-context tables, and third-party market references are equivalent.
 

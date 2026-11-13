@@ -6,7 +6,7 @@
 - EUA values are fetched from official EEX public primary-auction workbooks.
 - UK ETS CCM monthly average futures-price context is fetched from the official GOV.UK CCM table.
 - UKA prices for the spread and carbon-cost context come from the official GOV.UK CCM monthly average futures price.
-- The committed UKA auction CSV is an illustrative sample that deviates 10-34% from official GOV.UK monthly averages (source control SC-008). It feeds only the separately labelled UKA auction-demand fields until it is re-curated from ICE Report Centre.
+- The UKA auction CSV is header-only until real results are curated from ICE Report Centre (no public machine-readable ICE source is used). Curated rows feed only the separately labelled UKA auction-demand fields and are cross-checked against official GOV.UK monthly averages (source control SC-008).
 - The dashboard displays the carbon market comparison period.
 - Normal scheduled builds validate the UKA CSV, fetch EEX EUA data and GOV.UK CCM data, then read UKA CSVs as raw inputs; they do not regenerate representative demo data.
 - UKA prices are GBP and EUA prices are EUR.

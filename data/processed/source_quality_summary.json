@@ -1,35 +1,14 @@
 {
-  "sources_registered": 11,
-  "warning_count": 2,
-  "stale_source_count": 1,
+  "sources_registered": 10,
+  "warning_count": 0,
+  "stale_source_count": 0,
   "manual_sources_requiring_notes": 0,
   "failed_fetch_count": 0,
   "severity_counts": {
-    "High": 1,
+    "High": 0,
     "Medium": 0,
-    "Low": 1
+    "Low": 0
   },
-  "issues": [
-    {
-      "issue_id": "SRC-EX-001",
-      "source_id": "SRC-003",
-      "dataset_name": "UKA auction results (illustrative sample)",
-      "control_id": "SC-004",
-      "severity": "Low",
-      "field": "downloaded_at",
-      "issue": "Source download is stale versus latest registered source.",
-      "suggested_action": "Refresh the sample or note why the older extract remains valid."
-    },
-    {
-      "issue_id": "SRC-EX-002",
-      "source_id": "SRC-003",
-      "dataset_name": "UKA auction results",
-      "control_id": "SC-008",
-      "severity": "High",
-      "field": "clearing_price",
-      "issue": "11 of 12 UKA auction prices deviate more than 10% from the official GOV.UK monthly average (max 34%).",
-      "suggested_action": "Re-curate the UKA auction CSV from ICE Report Centre; UKA price signals use GOV.UK monthly averages meanwhile."
-    }
-  ],
-  "summary_signal": "2 source-register warnings"
+  "issues": [],
+  "summary_signal": "0 source-register warnings"
 }

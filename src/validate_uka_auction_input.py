@@ -4,10 +4,12 @@ The UKA auction CSV is intentionally manual for this MVP. ICE is the official
 auction platform, but the build does not scrape ICE. This validator makes the
 manual input explicit and fails fast if the file is missing, empty, or malformed.
 
-The committed file currently holds illustrative values (they diverge from the
-official GOV.UK monthly averages; see source control SC-008). The source-register
-label is derived from the CSV's own ``source``/``manual_update_note`` text, so it
-switches to "ICE UKA auction results" once real curated rows replace it.
+The committed file contains only the header row: the earlier illustrative values
+diverged from official GOV.UK monthly averages and were removed. A header-only file
+is valid; UKA price signals use the GOV.UK monthly averages either way. Once rows
+are added they are validated here and cross-checked by source control SC-008. Rows
+whose provenance text says "illustrative", "sample" or "not verified" are labelled
+as illustrative in the source register.
 """
 
 from __future__ import annotations
@@ -15,7 +17,7 @@ from __future__ import annotations
 import pandas as pd
 
 from project_paths import ROOT
-from source_register import upsert_source
+from source_register import remove_source, upsert_source
 
 
 INPUT = ROOT / "data" / "raw" / "carbon" / "uka_auction_results.csv"
@@ -45,12 +47,15 @@ def main() -> None:
         )
 
     data = pd.read_csv(INPUT, dtype=str).fillna("")
-    if data.empty:
-        raise ValueError("data/raw/carbon/uka_auction_results.csv is empty.")
-
     missing = REQUIRED_COLUMNS.difference(data.columns)
     if missing:
         raise ValueError(f"UKA auction CSV is missing required columns: {', '.join(sorted(missing))}")
+
+    if data.empty:
+        # No curated rows yet: UKA auction fields show "not loaded"; price signals use GOV.UK averages.
+        remove_source(SOURCE_ID)
+        print("No UKA auction rows loaded (header only); add curated ICE results to enable UKA auction-demand fields.")
+        return
 
     if set(data["market"].str.upper()) != {"UKA"}:
         raise ValueError("UKA auction CSV must contain only market=UKA rows.")
