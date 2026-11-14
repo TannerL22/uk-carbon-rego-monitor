@@ -41,7 +41,7 @@
     "next_trigger_price_gbp": 142.68,
     "monitoring_window_months": 6,
     "source_url": "https://www.gov.uk/government/publications/taking-part-in-the-uk-emissions-trading-scheme-markets/cost-containment-mechanism-ccm-trigger-prices-and-average-monthly-prices-full-table",
-    "downloaded_at": "2026-11-13T18:02Z",
+    "downloaded_at": "2026-11-14T13:54Z",
     "published_at": "2026-11-10",
     "note": "Official GOV.UK UK ETS CCM monthly average futures price. latest_month is the calendar month the average covers (the CCM row for the following assessment month); not an auction clearing price and not a live trading feed.",
     "series": [
