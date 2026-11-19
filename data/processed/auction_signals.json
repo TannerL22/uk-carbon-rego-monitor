@@ -1,15 +1,11 @@
 {
   "basis": "EEX EU ETS1 primary auctions (official)",
-  "latest_auction_date": "2026-11-17",
-  "latest_cover_ratio": 1.47,
-  "trailing_cover_ratio": 1.57,
-  "demand_signal": "Latest EUA auction demand: neutral",
+  "latest_auction_date": "2026-11-19",
+  "latest_cover_ratio": 1.33,
+  "trailing_cover_ratio": 1.55,
+  "demand_signal": "Latest EUA auction demand weaker than recent average",
   "volume_signal": "Auction supply above recent average",
   "series": [
-    {
-      "date": "2026-08-19",
-      "auction_volume": 1381000
-    },
     {
       "date": "2026-08-20",
       "auction_volume": 2246500
@@ -245,23 +241,23 @@
     {
       "date": "2026-11-17",
       "auction_volume": 2791500
+    },
+    {
+      "date": "2026-11-19",
+      "auction_volume": 2791500
     }
   ],
   "eua": {
     "available": true,
-    "latest_auction_date": "2026-11-17",
+    "latest_auction_date": "2026-11-19",
     "latest_volume": 2791500,
-    "latest_cover_ratio": 1.47,
-    "trailing_cover_ratio": 1.57,
-    "demand_signal": "Latest EUA auction demand: neutral",
+    "latest_cover_ratio": 1.33,
+    "trailing_cover_ratio": 1.55,
+    "demand_signal": "Latest EUA auction demand weaker than recent average",
     "volume_signal": "Auction supply above recent average",
     "input_file": "eua_auction_results.csv",
     "source": "EEX EUA Primary Market Auction Report",
     "series": [
-      {
-        "date": "2026-08-19",
-        "auction_volume": 1381000
-      },
       {
         "date": "2026-08-20",
         "auction_volume": 2246500
@@ -496,6 +492,10 @@
       },
       {
         "date": "2026-11-17",
+        "auction_volume": 2791500
+      },
+      {
+        "date": "2026-11-19",
         "auction_volume": 2791500
       }
     ]
